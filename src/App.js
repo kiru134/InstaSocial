@@ -1,7 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import RootLayout from "./pages/Root";
-import SignupModal from "./Components/SignupModal";
+import SignupModal from "./pages/SignupPage";
+import Homepage from "./pages/Homepage";
+import MainNavigation from "./pages/MainNavigation";
 
 const router = createBrowserRouter([
   {
@@ -11,6 +13,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignupModal />,
+  },
+  {
+    path: "/Homepage",
+    element: <Homepage></Homepage>,
   },
 ]);
 

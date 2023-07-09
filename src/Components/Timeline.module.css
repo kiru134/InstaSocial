@@ -1,0 +1,26 @@
+.timeline {
+  display: flex;
+  flex-direction: row;
+}
+
+.timeline__left {
+  flex: 0.7;
+}
+
+.timeline__right {
+  flex: 0.3;
+}
+.userandsuggestions {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 10px;
+}
+.userprofile {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: bolder;
+}
+/* .timeline__posts {
+} */
