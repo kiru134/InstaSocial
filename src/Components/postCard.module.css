@@ -44,6 +44,12 @@
 .post {
   width: 550px;
   margin: 30px 40px 50px 40px;
+  /* margin-bottom: 10px; */
+  border-color: gray;
+  grid-column: 4;
+  border-radius: 0.25rem;
+  background-color: white;
+  border: 0.8px solid rgba(128, 128, 128, 0.516);
 }
 
 .post_header {
@@ -51,7 +57,9 @@
   justify-content: space-between;
   flex-direction: row;
   align-items: center;
-  margin-bottom: 10px;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  background-color: white;
 }
 
 .post_header_avatar {
@@ -68,12 +76,11 @@
 
 .post_image > img {
   width: 100%;
-  border-radius: 6px;
-  border: 0.6px solid rgba(128, 128, 128, 0.516);
+  /* border-radius: 6px; */
 }
 .muibutton {
   border: 0px;
-  background-color: whitesmoke;
+  background-color: white;
   cursor: pointer;
 }
 .post_footer_icons {
@@ -84,15 +91,23 @@
 }
 
 .postIcon {
-  height: 30px;
+  height: 40px;
   margin-right: 10px;
   padding: 0px;
-  width: 30px;
-  /* cursor: pointer; */
+  width: 40px;
+  cursor: pointer;
+  fill: black;
 }
-
+.fillcomp {
+  height: 40px;
+  margin-right: 10px;
+  padding: 0px;
+  width: 40px;
+  fill: red;
+}
 .postIcon :hover {
   cursor: pointer;
+  fill: red;
 }
 /* .post {
   display: flex;

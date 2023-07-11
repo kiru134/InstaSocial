@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./navbar.module.css";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
@@ -8,9 +8,73 @@ import ChatIcon from "@mui/icons-material/Chat";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import LogoutIcon from "@mui/icons-material/Logout";
-import MenuIcon from "@mui/icons-material/Menu";
+import Snackbar from "@material-ui/core/Snackbar";
+import { Button, Modal, Typography, makeStyles } from "@material-ui/core";
+import Logout from "./Logout";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const [logoutClicked, setloggedOutclicked] = useState(false);
+  // const [snackbardisplay, setdisplaysnackbar] = useState(false);
+
+  // const navigate = useNavigate();
+
+  // const handleSnackbarClose = (event) => {
+  //   if (isLoggedOut) {
+  //     setisdisplayed(true);
+  //   }
+  // };
+
+  // const actiontodisplaymodal = () => {
+  //   setmodaldisplay(true);
+  // };
+
+  // useEffect(() => {
+  //   setloggedOutclicked(false);
+  // }, []);
+
+  // const calllogoutcomponent = () => {
+  //   setloggedOutclicked(!logoutClicked);
+  //   console.log("called logout component inisde navbar");
+  //   console.log("checkbuttonclick =" + logoutClicked);
+  // };
+
+  // const setlogoutclick = (modalclosed) => {
+  //   setlogoutclick(modalclosed);
+  // };
+  // useEffect(() => {
+  //   if (logoutClicked) {
+  //     setmodaldisplay(false);
+  //   }
+  // }, [logoutClicked]);
+
+  // const logoutclickcheck = () => {
+  //   setloggedOutclicked(true)
+  //   // window.localStorage.removeItem("authToken");
+  //   // setloggedOut(true);
+  // };
+
+  // useEffect(() => {
+  //   if (isLoggedOut) {
+  //     setdisplaysnackbar(true);
+  //   }
+  // });
+  // useEffect(() => {
+  //   // Checking if user is not loggedIn
+  //   if (snackbardisplayed) {
+  //     navigate("/");
+  //   }
+  // }, [navigate, snackbardisplayed]);
+
+  // useEffect(() => {
+  //   setauthToken(window.localStorage.getItem("authToken"));
+  // });
+
+  // await cometChat.logout();
+  // localStorage.removeItem('auth');
+  // setUser(null);
+  // history.push('/login');
+
   return (
     <React.Fragment>
       <div className={classes.sidenav}>
@@ -44,18 +108,26 @@ const Navbar = () => {
             <AddCircleOutlineIcon></AddCircleOutlineIcon>
             <span>Create</span>
           </button>
-          <button className={classes.sidenav_button}>
+          <button
+            className={classes.sidenav_button}
+            onClick={() => setloggedOutclicked(!logoutClicked)}
+          >
             <LogoutIcon></LogoutIcon>
             <span>Logout</span>
           </button>
+          {/* {logoutClicked && } */}
         </div>
-        {/* <div className={classes.sidenav_more}>
-          <button className={classes.sidenav_button}>
-            <MenuIcon></MenuIcon>
-            <span>More</span>
-          </button>
-        </div> */}
       </div>
+      <Logout
+        modal={logoutClicked}
+        modalclosed={() => setloggedOutclicked(!logoutClicked)}
+      ></Logout>
+      {/* <Snackbar
+        open={open}
+        // onClose={!snackbardisplay}
+        autoHideDuration={1500}
+        message={"logged Out Successfully!"}
+      /> */}
     </React.Fragment>
   );
 };

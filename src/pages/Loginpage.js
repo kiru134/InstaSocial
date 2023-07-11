@@ -4,9 +4,14 @@ import classes from "./loginModal.module.css";
 // import Snackbar from "@material-ui/core/Snackbar";
 import { useNavigate } from "react-router-dom";
 import { Snackbar } from "@mui/material";
+import Loading from "../Components/Loading";
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../features/UserSlice";
 
 const BASE_URL = "https://socialmedia-api-odx6.onrender.com/";
-function LoginModal(props) {
+
+function LoginModal() {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
   const [enteredNameTouched, setEnteredNameTouched] = useState(false);
@@ -17,7 +22,13 @@ function LoginModal(props) {
   const { isLoading, error, sendRequest: fetchUser } = useHttp();
   const [displaySnackbar, setsnackbar] = useState(false);
   const [snackbardisplayed, setisdisplayed] = useState(false);
+  const [usercreds, setusercreds] = useState({});
+  let user = useSelector((state) => state.data.user);
+
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
+  console.log(user);
 
   useEffect(() => {
     if (error || loogedIn) {
@@ -27,18 +38,39 @@ function LoginModal(props) {
 
   useEffect(() => {
     // Checking if user is not loggedIn
-    if (snackbardisplayed && loogedIn) {
+    if (loogedIn) {
       navigate("/Homepage");
+      // checklogIn(true);
     }
     // } else {
     //   navigate("/");
     // }
-  }, [navigate, snackbardisplayed]);
+  }, [navigate, loogedIn]);
 
   const handleSnackbarClose = (event) => {
     setsnackbar(false);
     setisdisplayed(true);
   };
+
+  useEffect(() => {
+    if (usercreds) {
+      dispatch(
+        loginUser({
+          authToken: usercreds.access_token,
+          authTokenType: usercreds.token_type,
+          username: usercreds.username,
+          userId: usercreds.user_id,
+        })
+        // authToken: null,
+        // authTokenType: "",
+        // username: "",
+        // userId: "",
+        // })
+      );
+      console.log("dispacthed action successfully");
+    }
+    console.log(usercreds);
+  }, [usercreds]);
 
   // const naviagtehandler = () => {
   //   navigate("/signup");
@@ -87,15 +119,16 @@ function LoginModal(props) {
 
   const Authorization = (data) => {
     console.log(data.access_token);
-    window.localStorage.setItem("authToken", data.access_token);
-    window.localStorage.setItem("authTokenType", data.token_type);
-    window.localStorage.setItem("username", data.username);
-    window.localStorage.setItem("userId", data.user_id);
+    console.log("userLoggedIn");
+    setusercreds(data);
+    // window.localStorage.setItem("authToken", data.access_token);
+    // window.localStorage.setItem("authTokenType", data.token_type);
+    // window.localStorage.setItem("username", data.username);
+    // window.localStorage.setItem("userId", data.user_id);
     setisloggedin(true);
   };
 
   console.log(error);
-  props.err(error);
 
   async function login(event) {
     event.preventDefault();
@@ -130,9 +163,11 @@ function LoginModal(props) {
     }
   }
 
+  console.log("isloading: " + isLoading);
   return (
     <React.Fragment>
       <div className={classes.login}>
+        {isLoading && <Loading></Loading>}
         {/* <img
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/900px-Instagram_icon.png?20200512141346"
         alt="SocialMedia"
@@ -188,7 +223,6 @@ function LoginModal(props) {
         </button> */}
         </form>
       </div>
-
       <Snackbar
         open={displaySnackbar}
         onClose={handleSnackbarClose}

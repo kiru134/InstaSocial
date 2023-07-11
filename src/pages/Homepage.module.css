@@ -5,7 +5,8 @@
 }
 
 .homepage__navWraper {
-  position: relative;
+  /* position: relative; */
+  align-items: start;
   flex: 0.2;
 }
 

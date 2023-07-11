@@ -6,8 +6,7 @@ import useHttp from "../Hooks/usehttphook";
 import PostCard from "../Components/postCard";
 // import Snackbar from "@material-ui/core/Snackbar";
 import { Snackbar } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import LogoutButton from "../Components/Logout";
+
 import Navbar from "../Components/Navbar";
 import Timeline from "../Components/Timeline";
 
@@ -36,47 +35,37 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Homepage = () => {
-  const [isLoggedOut, setloggedOut] = useState(false);
   const classes = useStyles();
   const [modalStyle, setModalStyle] = useState(getModalStyle);
-  const [authToken, setauthToken] = useState(null);
-  const [authTokenType, setauthTokenType] = useState(null);
+  // const [authToken, setauthToken] = useState(null);
+  // const [authTokenType, setauthTokenType] = useState(null);
   const [username, setusername] = useState("");
   const [userID, setUserID] = useState("");
   const [displaySnackbar, setsnackbar] = useState(false);
-  const [snackbardisplayed, setisdisplayed] = useState(false);
-  const navigate = useNavigate();
+  // const [snackbardisplayed, setisdisplayed] = useState(false);
 
   // const handleSnackbarClose = (event) => {
   //   setsnackbar(false);
   //   setisdisplayed(true);
   // };
   // useEffect(() => {
-  //   if (error || isLoggedOut) {
+  //   if (error) {
   //     setsnackbar(true);
   //   }
-  // }, [error, isLoggedOut]);
+  // }, [error]);
 
   // useEffect(() => {
-  //   // Checking if user is not loggedIn
-  //   if (snackbardisplayed) {
-  //     navigate("/");
-  //   }
-  // }, [navigate, snackbardisplayed]);
+  //   //     const loggedInUser = localStorage.getItem("userId");
+  //   setauthToken(localStorage.getItem("authToken"));
+  //   setauthTokenType(localStorage.getItem("authTokenType"));
+  //   setusername(localStorage.getItem("username"));
+  //   setUserID(localStorage.getItem("userId"));
+  // }, [authToken, authTokenType, username, userID]);
 
-  useEffect(() => {
-    //     const loggedInUser = localStorage.getItem("userId");
-    setauthToken(localStorage.getItem("authToken"));
-    setauthTokenType(localStorage.getItem("authTokenType"));
-    setusername(localStorage.getItem("username"));
-    setUserID(localStorage.getItem("userId"));
-  }, [authToken, authTokenType, username, userID]);
+  // const validatelogout = (setlogout) => {
+  //   setloggedOut(setlogout);
+  // };
 
-  const validatelogout = (setlogout) => {
-    setloggedOut(setlogout);
-  };
-
-  console.log(isLoggedOut);
   // const logOutHandler = () => {
   //   localStorage.removeItem("authToken");
   //   localStorage.removeItem("authTokenType");
@@ -87,35 +76,40 @@ const Homepage = () => {
 
   return (
     <React.Fragment>
-      {!authToken && (
+      {/* { && (
         <div>
           <Modal open={true}>
-            <div style={modalStyle} className={classes.paper}>
-              {/* <center>
+            <div style={modalStyle} className={classes.paper}> */}
+      {/* <center>
                 <img
                   className={cssclasses.socialmediaImage}
                   src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/900px-Instagram_icon.png?20200512141346"
                   alt="SocialMedia"
                 />
               </center> */}
-              <Typography> Please login to Continue </Typography>
+      {/* <Typography> Please login to Continue </Typography>
               <NavLink to="/">
                 <Button>Login</Button>
               </NavLink>
             </div>
           </Modal>
+        </div> )}*/}
+      <div className={cssclasses.homepage}>
+        <div className={cssclasses.homepage__navWraper}>
+          <Navbar></Navbar>
         </div>
-      )}
-      {authToken && (
-        <div className={cssclasses.homepage}>
-          <div className={cssclasses.homepage__navWraper}>
-            <Navbar></Navbar>
-          </div>
-          <div className={cssclasses.homepage__timeline}>
-            <Timeline currentuser={username}></Timeline>
-          </div>
+        <div className={cssclasses.homepage__timeline}>
+          <Timeline currentuser={username}></Timeline>
         </div>
-      )}
+      </div>
+      <div>
+        {/* <Snackbar
+          open={displaySnackbar}
+          // onClose={handleSnackbarClose}
+          autoHideDuration={1500}
+          message={ error?error:null}
+        /> */}
+      </div>
     </React.Fragment>
   );
 
@@ -148,44 +142,35 @@ const Homepage = () => {
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/900px-Instagram_icon.png?20200512141346"
             alt="SocialMedia"
           /> */
-  }
-  {
     /* {authToken && (
         <div>
           {/* <LogoutButton validate={validatelogout}></LogoutButton> */
-  }
-  {
     /* <Navbarmock></Navbarmock> */
-  }
-  //   </div>
-  // )}
-
-  {
+    //   </div>
+    // )}
     /*           
           {authToken && (
             <div>
               <button onClick={logOutHandler}> LOGOUT </button>
             </div>
           )} */
-  }
-  {
     /* </div> */
+    // {authToken && (
+    //   <div className="all_posts">
+    //     {posts.map((post) => (
+    //       <PostCard key={Math.random() * 100} post={post} />
+    //     ))}
+    //   </div>
+    // )}
+    // <div>
+    //   <Snackbar
+    //     open={displaySnackbar}
+    //     onClose={handleSnackbarClose}
+    //     autoHideDuration={1500}
+    //     message={isLoggedOut ? "Logged out successfully" : error}
+    //   />
+    // </div>
+    // </div>
   }
-  // {authToken && (
-  //   <div className="all_posts">
-  //     {posts.map((post) => (
-  //       <PostCard key={Math.random() * 100} post={post} />
-  //     ))}
-  //   </div>
-  // )}
-  // <div>
-  //   <Snackbar
-  //     open={displaySnackbar}
-  //     onClose={handleSnackbarClose}
-  //     autoHideDuration={1500}
-  //     message={isLoggedOut ? "Logged out successfully" : error}
-  //   />
-  // </div>
-  // </div>
 };
 export default Homepage;

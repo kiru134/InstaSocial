@@ -5,6 +5,7 @@ import classes from "./SignupPage.module.css";
 import { Snackbar } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
+import Loading from "../Components/Loading";
 
 const BASE_URL = "https://socialmedia-api-odx6.onrender.com/";
 function SignupModal() {
@@ -137,6 +138,7 @@ function SignupModal() {
   return (
     <React.Fragment>
       <div className={classes.authentication}>
+        {isLoading && <Loading></Loading>}
         <div className={classes.signup}>
           <form id="signinForm" method="post" onSubmit={signIn}>
             <h2>Sign up to see photos and videos from your friends.</h2>

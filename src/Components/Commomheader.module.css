@@ -1,0 +1,114 @@
+/* .header {
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+  position: fixed;
+  height: 4rem;
+  margin-bottom: 8px;
+  top: 0;
+  left: 0;
+  width: 100%; */
+/* display: flex
+  align-items: stretch;
+  height: 60px;
+  border-bottom: 1px solid black;
+  top: 0%;
+  z-index: 1; */
+
+/* .mui_container {
+  max-width: "lg";
+  margin-left: "auto";
+  margin-right: "auto";
+  height: 100%;
+} */
+header {
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+.header {
+  background: #fff;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  height: 4rem;
+  margin: 0 auto;
+  /* max-width: 60.9375rem; */
+  width: 100%;
+  align-items: center;
+}
+.header__user-avatar {
+  border-radius: 50%;
+  height: 2rem;
+  object-fit: cover;
+  width: 2rem;
+}
+
+/* .mui_container_root_ {
+  display: "flex";
+  justify-content: space-between;
+  height: 100%;
+  flex-direction: column;
+} */
+/* .mui_container_root_homeicon_left {
+  /* text-align: center; */
+/* display: "flex";
+  align-items: flex-start;
+  justify-content: center;
+  cursor: "pointer";
+} */
+
+.mui_container_root_homeicon_left {
+  align-items: center;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: max-content max-content;
+  padding-left: 40px;
+  margin-right: 40px;
+  cursor: "pointer";
+  margin-bottom: 50px;
+  justify-content: center;
+}
+
+/* .mui_cointainer > h1 {
+  display: "flex";
+  justify-content: center;
+  width: 100%;
+} */
+
+/* .header_container{
+    container:
+    margin-left:auto;
+    margin-right:auto;
+} */
+/* .mui_container_root_logout_right {
+  color: rgb(55 65 81);
+  text-align: center;
+  display: flex;
+  flex-direction: flex-start;
+  align-items: center;
+} */
+
+.mui_container_root_logout_right {
+  align-items: center;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(6, auto);
+  justify-content: center;
+  padding-right: 1rem;
+  margin-bottom: 60px;
+}
+.mui_container_root_logout_right span:hover {
+  cursor: pointer;
+}
+
+.header__user_avatar > button {
+  border-radius: 50%;
+  height: 2rem;
+  object-fit: cover;
+  width: 2rem;
+  margin-bottom: 12px;
+}
