@@ -16,10 +16,8 @@ const Timeline = (props) => {
   const userID = window.localStorage.getItem("userId");
 
   const naviagtehandler = () => {
-    // navigate("/Homepage/profile/" + userID);
-    // navigate("/profile/" + userID);
-    navigate(`/profile/${userID}`);
-    // navigate("/profile/:");
+    // navigate(`/profile/${userID}`);
+    navigate("/profile");
   };
 
   const allPosts = (data) => {
@@ -60,14 +58,17 @@ const Timeline = (props) => {
               <button
                 style={{
                   border: "0px",
-                  backgroundColor: "whitesmoke",
+                  backgroundColor: "white",
                   cursor: "pointer",
                 }}
                 onClick={naviagtehandler}
               >
                 <Avatar
                   alt="currentuser"
-                  style={{ width: "50px", height: "50px" }}
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                  }}
                 >
                   CU
                 </Avatar>

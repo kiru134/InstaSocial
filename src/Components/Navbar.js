@@ -8,6 +8,7 @@ import ChatIcon from "@mui/icons-material/Chat";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { Link } from "react-router-dom";
 import Snackbar from "@material-ui/core/Snackbar";
 import { Button, Modal, Typography, makeStyles } from "@material-ui/core";
 import Logout from "./Logout";
@@ -80,10 +81,13 @@ const Navbar = () => {
       <div className={classes.sidenav}>
         <img></img>
         <div className={classes.sidenav_buttons}>
-          <button className={classes.sidenav_button}>
-            <HomeIcon></HomeIcon>
-            <span>Home</span>
-          </button>
+          <Link to={"/Homepage"} style={{ textDecoration: "none" }}>
+            <button className={classes.sidenav_button}>
+              <HomeIcon></HomeIcon>
+              <span>Home</span>
+            </button>
+          </Link>
+
           <button className={classes.sidenav_button}>
             <SearchIcon></SearchIcon>
             <span>Search</span>

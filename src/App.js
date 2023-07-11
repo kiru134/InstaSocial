@@ -5,7 +5,7 @@ import Homepage from "./pages/Homepage";
 import MainNavigation from "./pages/MainNavigation";
 import Userprofile from "./pages/UserProfile";
 import PrivateRoute from "./utlis/PrivateRoute";
-import Dummy from "./pages/Dummy";
+import Dummy from "./pages/ignore.js/Dummy";
 
 function App() {
   return (

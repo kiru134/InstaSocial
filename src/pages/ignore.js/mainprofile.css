@@ -1,0 +1,81 @@
+.userprofile {
+  background-color: rgb(249 250 251);
+}
+
+.profileheader_container {
+  position: absolute;
+  /* top: 50px; */
+  top: 80px;
+  margin: auto;
+  max-width: 1024px;
+  left: 300px;
+  right: 300px;
+
+  /* max-w-screen-lg" */
+}
+
+.profileheader_container_ {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 3rem;
+  justify-content: space-between;
+  margin: 0, auto;
+  max-width: 1024px;
+  /* position: relative; */
+  align-items: center;
+}
+.profileheader_container__ {
+  display: flex;
+  justify-content: center;
+}
+
+.profileheader_container__avatar {
+  border-radius: 9999px;
+  height: 10rem;
+  width: 10rem;
+  display: flex;
+}
+
+.profilestats {
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  grid-column: "span 2 / span 2";
+  display: flex;
+  /* "justify-center items-center flex-col:col-span-2 display:flex items-center" */
+}
+.profilestats_ {
+  display: flex;
+  align-items: center;
+  /* "container flex items-center" */
+}
+.profilename {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  margin-right: 1rem;
+  margin-bottom: 10px;
+}
+/* 24px */
+.profileinteractioninfo {
+  display: flex;
+  /* margin-top: 1rem; */
+  margin-left: auto;
+  margin-top: 12px;
+}
+.profileinteractioninfo > p {
+  margin-right: 2.5rem;
+}
+
+.followbutton {
+  background-color: #0095f6;
+  /* width: auto; */
+  border: 0;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.25rem; /* 20px */
+  border-radius: 0.25rem;
+  color: white;
+  width: 4rem;
+  height: 2rem;
+  margin-top: 5px;
+}
