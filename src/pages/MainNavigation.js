@@ -1,10 +1,12 @@
-import LoginModal from "./Loginpage";
 import React, { useState } from "react";
 import "./MainNavigation.css";
 import { useNavigate } from "react-router-dom";
 import Homepage from "./Homepage";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { store } from "../appStore/Store";
+import backImg from "../MainPageImages/backImg.jpg";
+import frontImg from "../MainPageImages/frontImg.jpg";
+import LoginMock from "../pages/ignore.js/loginmock";
 
 function MainNavigation() {
   // const loggedInstate = (checklogIn) => {
@@ -28,6 +30,12 @@ function MainNavigation() {
     <React.Fragment>
       <>
         {user.userauth.authToken != null && <Homepage></Homepage>}
+        <div className="formcomponent">
+          {/* {user.userauth.authToken == null && <LoginModal />} */}
+          {user.userauth.authToken == null && <LoginMock />}
+        </div>
+
+        {/* {user.userauth.authToken != null && <Homepage></Homepage>}
         {user.userauth.authToken == null && (
           <div className="authentication">
             <div className="auth__left">
@@ -43,7 +51,7 @@ function MainNavigation() {
               </div>
             </div>
           </div>
-        )}
+        )} */}
         {/* <snackBar> */}
       </>
     </React.Fragment>

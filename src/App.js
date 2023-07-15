@@ -6,6 +6,7 @@ import MainNavigation from "./pages/MainNavigation";
 import Userprofile from "./pages/UserProfile";
 import PrivateRoute from "./utlis/PrivateRoute";
 import Dummy from "./pages/ignore.js/Dummy";
+import SignUpMock from "./pages/ignore.js/signupmock";
 
 function App() {
   return (
@@ -15,9 +16,10 @@ function App() {
           {/* <Route element={<Dummy />} path="/profile/:uid" /> */}
           <Route element={<Homepage />} path="/Homepage" exact />
         </Route>
-        <Route element={<SignupModal />} path="/signup" exact></Route>
+        {/* <Route element={<SignupModal />} path="/signup" exact></Route> */}
         <Route element={<MainNavigation />} path="/"></Route>
         <Route element={<Dummy />} path="/profile" />
+        <Route element={<SignUpMock />} path="/signup" exact></Route>
       </Routes>
     </Router>
   );

@@ -1,0 +1,259 @@
+/* object-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  $circleSize: 165px;
+  $radius: 100px;
+  $shadow: 0 0 10px 0 rgba(255,255,255,.35);
+  $fontColor: rgb(250,250,250); */
+/* .signupmodal {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+} */
+
+.container {
+  width: 100%;
+  height: 100vh;
+  background-image: url("../../MainPageImages/17261349.jpg");
+  /* linear-gradient(rgb(156, 225, 203, 0) rgba(221, 224, 223)), */
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+
+.form-box {
+  width: 90%;
+  max-width: 450px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: transparent;
+  padding: 50px 60px 70px;
+  /* text-align: center; */
+}
+
+#form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1em;
+  margin-top: 10px;
+}
+.input-field {
+  background: transparent;
+  margin: 15px 0;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 2px solid black; */
+  position: relative;
+}
+.input-field > input {
+  /* height: 5rem;
+  width: 40rem; */
+  width: 250px;
+  height: 60px;
+  border: 2px solid grey;
+  border-radius: 1rem;
+  font-family: 1.4rem;
+  padding: 0 1.2rem;
+  background-color: white;
+}
+.placeholder-text {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border: 3px solid transparent;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  font-family: 1.4rem;
+  padding: 0 1rem;
+}
+.text {
+  font-size: 1.4rem;
+  padding: 0 0.5rem;
+  background-color: transparent;
+  color: black;
+}
+.input-field > input:focus {
+  outline: none;
+  border-color: violet;
+}
+
+.input-field > input:focus + .placeholder-text .text,
+:not(.input-field > input[value=""]) + .placeholder-text .text {
+  background-color: white;
+  font-size: 1.1rem;
+  transform: translate(0, -145%);
+}
+.input-field > input:focus + .placeholder-text .text {
+  background: white;
+  font-size: 1.1rem;
+  color: black;
+  transform: translate(0, -145%);
+  border-color: violet;
+  color: violet;
+}
+.text {
+  transform: translate(0);
+  transition: transform 0.15s ease-out, font-size 0.15s ease-out,
+    background-color 0.2s ease-out, color 0.15s ease-out;
+}
+
+/* .input-field > input {
+  width: 250px;
+  height: 40px;
+  max-width: 300px;
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 2px;
+  outline: 0;
+
+} */
+
+/* .input-field > input:focus + .placeholder-text .text,
+:not(input[value=""]) + .placeholder-text .text {
+  background-color: none;
+  font-size: 1.1rem;
+  color: black;
+  transform: translate(0, -170%);
+} */
+
+/* .input-field > input:focus + .placeholder-text .text {
+  border-color: black;
+  color: black;
+} */
+
+.login_option {
+  /* border: 1px solid grey; */
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  border-radius: 2px;
+  position: relative;
+}
+
+.login_option > span {
+  font-weight: 500px;
+  font-size: 14px;
+}
+
+.login_option > span > button {
+  background: 0;
+  color: rgb(0, 149, 246);
+  font-weight: bolder;
+  border: 0;
+  cursor: pointer;
+}
+
+.formButton {
+  width: 100px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  align-content: center;
+  justify-content: center;
+}
+
+.formButton > button {
+  background: rgb(212, 214, 215);
+  padding: 10px;
+  margin-top: 5px;
+  cursor: pointer;
+  border-radius: 1rem;
+  border: 2px solid grey;
+  color: black;
+  font-size: 1.1rem;
+  font-family: 1.4rem;
+}
+/* .input-field > input:focus {
+  border: 1px solid black;
+} */
+.profile_pic {
+  color: "transparent";
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: all 0.3s ease;
+  margin-bottom: 5px;
+}
+
+#file {
+  display: none;
+}
+
+.profile_pic > .profileavatar {
+  position: absolute;
+  object-fit: cover;
+  width: 100px;
+  height: 100px;
+  box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+._label {
+  cursor: pointer;
+  height: 100px;
+  width: 100px;
+}
+
+.profile_pic:hover {
+  ._label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 10000;
+    color: white;
+    transition: background-color 0.2s ease-in-out;
+    border-radius: 100px;
+    margin-bottom: 0;
+  }
+  ._label > span {
+    opacity: 1;
+  }
+}
+
+._label > span {
+  display: inline-flex;
+  padding: 0.2em;
+  height: 2em;
+  opacity: 0;
+  font-size: 10px;
+  font-weight: lighter;
+}
+
+/* svg {
+  display: inline-flex;
+  padding: 1.2em;
+  height: 2em;
+} */
+
+/* 
+  body {
+    height: 100vh;
+    background-color: rgb(25, 24, 21);
+    @include object-center;
+    
+    a:hover {
+      text-decoration: none;
+    }
+  } */

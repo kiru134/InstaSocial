@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import useHttp from "../Hooks/usehttphook";
-import classes from "./loginModal.module.css";
+// import classes from "./loginModal.module.css";
+import "./SignupPage.css";
 // import Snackbar from "@material-ui/core/Snackbar";
 import { useNavigate } from "react-router-dom";
 import { Snackbar } from "@mui/material";
@@ -8,6 +9,7 @@ import Loading from "../Components/Loading";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../features/UserSlice";
+import backImg from "../MainPageImages/backImg.jpg";
 
 const BASE_URL = "https://socialmedia-api-odx6.onrender.com/";
 
@@ -35,6 +37,10 @@ function LoginModal() {
       setsnackbar(true);
     }
   }, [error, loogedIn]);
+
+  const naviagtehandler = () => {
+    navigate("/signup");
+  };
 
   useEffect(() => {
     // Checking if user is not loggedIn
@@ -166,13 +172,87 @@ function LoginModal() {
   console.log("isloading: " + isLoading);
   return (
     <React.Fragment>
-      <div className={classes.login}>
+      <>
         {isLoading && <Loading></Loading>}
-        {/* <img
+        <div className="register">
+          <div className="col-1">
+            <h2>Log In</h2>
+            <span>To See Photos and Videos of your Friends</span>
+            <form
+              id="form"
+              className="flex flex-col"
+              method="post"
+              onSubmit={login}
+            >
+              <div className="inputfields">
+                <input
+                  type="text"
+                  placeholder="username"
+                  ref={usernameInputRef}
+                  autoCapitalize="off"
+                  autoCorrect="off"
+                  maxLength="75"
+                  onBlur={nameInputBlurHandler}
+                  onChange={nameInputChangeHandler}
+                  value={username}
+                />
+                {/* {nameInputIsInvalid && (
+            <p className="error-text">UserName must not be empty.</p>
+          )} */}
+              </div>
+              <div className="inputfields">
+                <input
+                  id="password"
+                  ref={passwordInputRef}
+                  aria-label="Password"
+                  placeholder="password"
+                  aria-required="true"
+                  autoCapitalize="off"
+                  autoCorrect="off"
+                  type="password"
+                  value={password}
+                  onBlur={passwordInputBlurHandler}
+                  onChange={passwordInputChangeHandler}
+                />
+                <span class="showpassword">Show</span>
+                {/* {passwordInputIsInvalid &&
+                "Enter password of min-length-8 max-10 with alteast one UpperCase,one LowerCase,one specialcharacter"} */}
+              </div>
+              <button className="btn" disabled={!formisValid} type="submit">
+                Log in
+              </button>
+              <div className="auth__more">
+                <span>
+                  Dont have an account?
+                  <button onClick={naviagtehandler}>Sign up</button>
+                </span>
+              </div>
+            </form>
+          </div>
+          <div className="col-start">
+            <img src={backImg} alt="" />
+          </div>
+        </div>
+
+        {/* <Snackbar
+          open={displaySnackbar}
+          anchorOrigin={{
+            vertical: "center",
+            horizontal: "center",
+          }}
+          onClose={handleSnackbarClose}
+          autoHideDuration={1500}
+          message={signedIn ? "Signed In successfully" : error}
+        /> */}
+      </>
+
+      {/* <div className={classes.login}>
+        {isLoading && <Loading></Loading>} */}
+      {/* <img
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/900px-Instagram_icon.png?20200512141346"
         alt="SocialMedia"
       ></img> */}
-        <form
+      {/* <form
           // className={classes.formclass}
           id="loginForm"
           method="post"
@@ -217,18 +297,18 @@ function LoginModal() {
             <button disabled={!formisValid} type="submit">
               Log in
             </button>
-          </div>
-          {/* <button disabled={!formisValid} type="submit">
+          </div> */}
+      {/* <button disabled={!formisValid} type="submit">
           Log in
         </button> */}
-        </form>
+      {/* </form>
       </div>
       <Snackbar
         open={displaySnackbar}
         onClose={handleSnackbarClose}
         autoHideDuration={1500}
         message={loogedIn ? "Logged In successfully" : error}
-      />
+      /> */}
     </React.Fragment>
     // <div className={classes.modal}>
     //   <center>

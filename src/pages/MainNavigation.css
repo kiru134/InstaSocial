@@ -3,6 +3,7 @@
   flex-direction: row;
   align-items: center;
   margin: 0px 50px 0px 50px;
+  height: 100%;
 }
 
 .auth__left {
@@ -46,4 +47,11 @@
 
 .auth__more > span > button:hover {
   cursor: pointer;
+}
+.formcomponent {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
