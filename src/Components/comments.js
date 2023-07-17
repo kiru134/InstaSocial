@@ -17,16 +17,13 @@ export default function Comments({ pid, allComments, posted, commentInput }) {
   return (
     <>
       <div className="commentcontainer">
-        {/* {comments.length >= 2 && (
+        {comments.length >= 2 && (
           <p className="viewallcommentscontainer">
             View all {comments.length} comments
           </p>
-        )} */}
+        )}
         {comments.slice(0, commentsSlice).map((item) => (
-          <p
-            key={`${item.text}-${item.user.username}`}
-            style={{ marginBottom: "0.25rem" }}
-          >
+          <p key={`${item.text}-${item.user.username}`}>
             <Link
               to={`/profile/${item.user.username}`}
               className="commentedusername"
@@ -36,7 +33,7 @@ export default function Comments({ pid, allComments, posted, commentInput }) {
             <span>{item.text}</span>
           </p>
         ))}
-        {comments.length >= 2 && commentsSlice < comments.length && (
+        {/* {comments.length >= 2 && commentsSlice < comments.length && (
           <button
             type="button"
             onClick={showNextComments}
@@ -48,7 +45,7 @@ export default function Comments({ pid, allComments, posted, commentInput }) {
           >
             View more comments
           </button>
-        )}
+        )} */}
         <p className="posteddate">
           {distance.substring(distance.indexOf(distance.match(/\d+/g)))} ago
         </p>
