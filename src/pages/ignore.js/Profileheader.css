@@ -1,0 +1,53 @@
+.userprofilecontainer {
+  display: grid;
+  grid-column: span 3 / span 3;
+  gap: 1rem;
+  justify-content: space-between;
+  margin: auto;
+  max-width: 32rem;
+}
+.userprofilecontainer_container {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+}
+
+.userprofilestats {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  flex-direction: column;
+  grid-column: span 2 / span 2;
+}
+.userprofilestats_container {
+  margin: auto;
+  display: flex;
+  justify-items: center;
+}
+.profilename {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  margin-right: 1rem;
+}
+
+.profilefollowbutton {
+  background-color: (0, 149, 246);
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  border-radius: 0.25rem;
+  color: white;
+  height: 2rem;
+  width: 5rem;
+}
+
+.loadingstatefollowimngdisplay {
+  margin: auto;
+  display: flex;
+  margin-top: 1rem;
+}
+
+.profilestatscount {
+  margin-right: 2.5rem;
+}

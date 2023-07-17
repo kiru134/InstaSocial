@@ -46,3 +46,10 @@
   font-weight: 600;
   font-size: 14px;
 }
+
+@media screen and (max-width: 624px) {
+  .suggestions {
+    max-width: 350px;
+    max-height: 150px;
+  }
+}

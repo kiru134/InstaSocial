@@ -43,7 +43,7 @@
 
 .post {
   width: 550px;
-  margin: 30px 40px 50px 40px;
+  margin: 30px 0px 50px 70px;
   /* margin-bottom: 10px; */
   border-color: gray;
   grid-column: 4;
@@ -52,6 +52,12 @@
   border: 0.8px solid rgba(128, 128, 128, 0.516);
 }
 
+@media screen and (max-width: 624px) {
+  .post {
+    max-width: 390px;
+    /* max-height: 350px; */
+  }
+}
 .post_header {
   display: flex;
   justify-content: space-between;

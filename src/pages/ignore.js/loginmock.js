@@ -7,8 +7,10 @@ import Loading from "../../Components/Loading";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../features/UserSlice";
+import { Snackbar } from "@mui/material";
+import { Navigate } from "react-router-dom";
 
-const BASE_URL = "https://socialmedia-api-odx6.onrender.com/";
+const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
 
 const LoginMock = () => {
   const [username, setusername] = useState("");
@@ -18,6 +20,8 @@ const LoginMock = () => {
   const [usercreds, setusercreds] = useState({});
   const usernameInputRef = useRef();
   const passwordInputRef = useRef();
+  const [displaySnackbar, setsnackbar] = useState(false);
+  const [snackbardisplayed, setsnackbardisplaystatus] = useState(false);
 
   let user = useSelector((state) => state.data.user);
   const dispatch = useDispatch();
@@ -30,14 +34,26 @@ const LoginMock = () => {
   };
   useEffect(() => {
     // Checking if user is not loggedIn
-    if (loogedIn) {
-      navigate("/Homepage");
-      // checklogIn(true);
+    if (error || loogedIn) {
+      setsnackbar(true);
     }
-    // } else {
-    //   navigate("/");
-    // }
-  }, [navigate, loogedIn]);
+  }, [loogedIn, error]);
+
+  const handleSnackbarClose = (event) => {
+    setsnackbar(false);
+    setsnackbardisplaystatus(true);
+    console.log(snackbardisplayed);
+  };
+
+  useEffect(() => {
+    if (snackbardisplayed && loogedIn) {
+      navigate("/Homepage", { replace: true });
+      console.log("snackbarstatus" + snackbardisplayed);
+      console.log("loggedInstatus" + loogedIn);
+      console.log("inside snackbar status effect");
+    }
+  }, [snackbardisplayed, loogedIn]);
+
   useEffect(() => {
     if (usercreds) {
       dispatch(
@@ -187,16 +203,16 @@ const LoginMock = () => {
             </div>
           </div>
         </div>
-        {/* <Snackbar
-              open={displaySnackbar}
-              //   anchorOrigin={{
-              //     vertical: "center",
-              //     horizontal: "center",
-              //   }}
-              onClose={handleSnackbarClose}
-              autoHideDuration={1500}
-              message={signedIn ? "Signed In successfully" : error}
-            /> */}
+        <Snackbar
+          open={displaySnackbar}
+          //   anchorOrigin={{
+          //     vertical: "center",
+          //     horizontal: "center",
+          //   }}
+          onClose={handleSnackbarClose}
+          autoHideDuration={1500}
+          message={loogedIn ? "Logged In successfully" : error}
+        />
       </>
     </React.Fragment>
   );

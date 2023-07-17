@@ -18,7 +18,7 @@ function App() {
         </Route>
         {/* <Route element={<SignupModal />} path="/signup" exact></Route> */}
         <Route element={<MainNavigation />} path="/"></Route>
-        <Route element={<Dummy />} path="/profile" />
+        <Route element={<Dummy />} path="/profile/{username}" />
         <Route element={<SignUpMock />} path="/signup" exact></Route>
       </Routes>
     </Router>

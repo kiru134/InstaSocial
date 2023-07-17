@@ -2,34 +2,42 @@ import { useState } from "react";
 import { formatDistance } from "date-fns";
 import { Link } from "react-router-dom";
 import AddComment from "./add-comment";
+import "./comment.css";
 
-export default function Comments({
-  docId,
-  comments: allComments,
-  posted,
-  commentInput,
-}) {
+export default function Comments({ pid, allComments, posted, commentInput }) {
   const [comments, setComments] = useState(allComments);
-  const [commentsSlice, setCommentsSlice] = useState(3);
-
+  const [commentsSlice, setCommentsSlice] = useState(2);
+  let distance = formatDistance(Date.now(), new Date(posted));
   const showNextComments = () => {
-    setCommentsSlice(commentsSlice + 3);
+    setCommentsSlice(commentsSlice + 2);
   };
+  console.log(new Date(posted));
+  // console.log(comments[0].user.username);
 
   return (
     <>
-      <div className="p-4 pt-1 pb-4">
+      <div className="commentcontainer">
+        {/* {comments.length >= 2 && (
+          <p className="viewallcommentscontainer">
+            View all {comments.length} comments
+          </p>
+        )} */}
         {comments.slice(0, commentsSlice).map((item) => (
-          <p key={`${item.comment}-${item.displayName}`} className="mb-1">
-            <Link to={`/p/${item.displayName}`}>
-              <span className="mr-1 font-bold">{item.displayName}</span>
+          <p
+            key={`${item.text}-${item.user.username}`}
+            style={{ marginBottom: "0.25rem" }}
+          >
+            <Link
+              to={`/profile/${item.user.username}`}
+              className="commentedusername"
+            >
+              <span>{item.user.username}</span>
             </Link>
-            <span>{item.comment}</span>
+            <span>{item.text}</span>
           </p>
         ))}
-        {comments.length >= 3 && commentsSlice < comments.length && (
+        {comments.length >= 2 && commentsSlice < comments.length && (
           <button
-            className="text-sm text-gray-base mb-1 cursor-pointer focus:outline-none"
             type="button"
             onClick={showNextComments}
             onKeyDown={(event) => {
@@ -41,12 +49,15 @@ export default function Comments({
             View more comments
           </button>
         )}
-        <p className="text-gray-base uppercase text-xs mt-2">
-          {formatDistance(posted, new Date())} ago
+        <p className="posteddate">
+          {distance.substring(distance.indexOf(distance.match(/\d+/g)))} ago
         </p>
       </div>
+      {/* <div style={{ borderTop: 1px_solid_black }}>
+        <p>This</p>
+      </div> */}
       <AddComment
-        docId={docId}
+        docId={pid}
         comments={comments}
         setComments={setComments}
         commentInput={commentInput}

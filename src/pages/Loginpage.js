@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import { loginUser } from "../features/UserSlice";
 import backImg from "../MainPageImages/backImg.jpg";
 
-const BASE_URL = "https://socialmedia-api-odx6.onrender.com/";
+const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
 
 function LoginModal() {
   const [username, setusername] = useState("");

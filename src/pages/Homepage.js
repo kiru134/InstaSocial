@@ -6,11 +6,11 @@ import useHttp from "../Hooks/usehttphook";
 import PostCard from "../Components/postCard";
 // import Snackbar from "@material-ui/core/Snackbar";
 import { Snackbar } from "@mui/material";
-
+import { useSelector } from "react-redux/es/hooks/useSelector";
 import Navbar from "../Components/Navbar";
 import Timeline from "../Components/Timeline";
 
-const BASE_URL = "https://socialmedia-api-odx6.onrender.com/";
+const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
 function getModalStyle() {
   const top = 50;
   const left = 50;
@@ -74,6 +74,9 @@ const Homepage = () => {
   //   setloggedOut(true);
   // };
 
+  let user = useSelector((state) => state.data.user);
+  console.log(user);
+  console.log(user.userauth.username);
   return (
     <React.Fragment>
       {/* { && (
@@ -99,7 +102,7 @@ const Homepage = () => {
           <Navbar></Navbar>
         </div>
         <div className={cssclasses.homepage__timeline}>
-          <Timeline currentuser={username}></Timeline>
+          <Timeline currentuser={user.userauth.username}></Timeline>
         </div>
       </div>
       <div>

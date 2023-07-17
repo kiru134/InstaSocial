@@ -8,7 +8,7 @@ import Loading from "../../Components/Loading";
 import CameraEnhanceIcon from "@mui/icons-material/CameraEnhance";
 import { storage } from "../../FirebaseProfilepicture/Firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-const BASE_URL = "https://socialmedia-api-odx6.onrender.com/";
+const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
 
 const SignUpMock = () => {
   const [username, setusername] = useState("");
@@ -132,13 +132,16 @@ const SignUpMock = () => {
         username: usernameInputRef.current.value,
         email: emailInputRef.current.value,
         password: passwordInputRef.current.value,
+        dp: uploadedAvatar,
+        public: 0,
+
         // public: accountType,
         // dp: uploadedAvatar,
       });
 
       fetchUser(
         {
-          url: BASE_URL + "users",
+          url: BASE_URL + "users/add",
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: json_string,

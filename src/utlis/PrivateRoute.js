@@ -6,9 +6,9 @@ const PrivateRoute = () => {
   console.log(user);
   return user.userauth.authToken != null || undefined ? (
     <Outlet></Outlet>
-  ) : (
+  ) : user.userauth.authToken == null ? (
     <Navigate to="/"></Navigate>
-  );
+  ) : null;
 };
 
 export default PrivateRoute;

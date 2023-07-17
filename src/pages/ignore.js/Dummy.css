@@ -1,0 +1,8 @@
+.userprofile {
+  background-color: rgb(245 245 245);
+}
+.profileheader_container {
+  max-width: 32rem;
+  margin: auto;
+  /* "mx-auto max-w-screen-lg" */
+}

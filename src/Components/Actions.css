@@ -1,0 +1,47 @@
+.actioncontainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  padding-bottom: 0px;
+}
+.actionconatiner_container {
+  display: flex;
+}
+
+.likesvg {
+  width: 2rem;
+  margin-right: 1rem;
+  user-select: none;
+  cursor: pointer;
+  /* color: rgb(255, 255, 255);
+  fill: rgb(255, 255, 255); */
+}
+.likesvg:focus {
+  outline: none;
+}
+.likesvgclicked {
+  width: 2rem;
+  fill: #f80d0d;
+  color: rgb(239 68 68);
+}
+
+.likesvgnotclicked {
+  width: 2rem;
+  fill: rgb(255, 255, 255);
+}
+
+.commentssvg {
+  width: 2rem;
+  color: black;
+  user-select: none;
+  cursor: pointer;
+}
+.commentssvg:focus {
+  outline: none;
+}
+
+.likesdisplay {
+  padding: 1rem;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}

@@ -5,16 +5,10 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import Comments from "./comments";
 import Footer from "./postFooter";
 import LikedActions from "./likeActions";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux/es/hooks/useSelector";
 
-// import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-
-// In post we get likes field which has user ID's of users who has liked the post
-
-// if the current user userID is not in likes field then toggleLikes1
-
-const BASE_URL = "https://socialmedia-api-odx6.onrender.com/";
+const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
 const PostCard = ({ post }) => {
   // const [username, getusername] = useState(post.user.username)
   const [comments, setComments] = useState([]);
@@ -23,16 +17,23 @@ const PostCard = ({ post }) => {
   const [togglelikes, setToggledLikes] = useState();
   const commentInput = useRef(null);
   const handleFocus = () => commentInput.current.focus();
+  let user = useSelector((state) => state.data.user);
   // const posttime = post.timestamp;
   // const postLikes = post.likes;
-  let likedPhoto = false;
-  let postLikes = 3;
-  // useEffect(() => {
-  //   if (post.user.username === localStorage.getItem("username")) {
-  //     getusername(post.user.username);
-  //   }
-  // }, []);
-  // console.log(username);
+  const currentuserinphotolike = post.likes.find(
+    (o) => o.username === `${user.userauth.username}`
+  );
+
+  const validatecurrentuserlikedpost = () => {
+    if (currentuserinphotolike != undefined) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  console.log(post.likes);
+  console.log(post.comments);
+
   useEffect(() => {
     setComments(post.comments);
   }, []);
@@ -44,26 +45,20 @@ const PostCard = ({ post }) => {
       setImageUrl(BASE_URL + post.image_url);
     }
   }, []);
-  console.log(post.user.username);
-  // uncomment this part
-  // useEffect(() => {
-  //   if (post.likes.includes(localStorage.getItem("userId"))) {
-  //     likedPhoto = true;
-  //   }
-  // }, [likedPhoto]);
 
-  // const handleLikes = () => {
-  //   // http call put request in useeffect and function to update the likes
-  //   setLikes = postLikes + 1;
-  //   postLikes = postLikes + 1;
-  // };
+  console.log(post.user.username);
+  console.log(post.user);
+  console.log(post.id);
+  console.log(post);
 
   return (
     <div className={classes.post}>
       <div className={classes.post_header}>
         <div className={classes.post_header_avatar}>
           <button className={classes.muibutton}>
-            <Avatar alt="user"></Avatar>
+            <Link to={`/profile/${post.user.username}`}>
+              <Avatar alt="user" src={post.user.dp}></Avatar>
+            </Link>
           </button>
           <h3>{post.user.username}</h3>
         </div>
@@ -74,57 +69,21 @@ const PostCard = ({ post }) => {
       <div className={classes.post_image}>
         <img alt={post.caption} src={image_url}></img>
       </div>
-      <div className={classes.post_footer}>
-        {/* <LikedActions
-          uid={post.userID}
-          islikedPhoto={likedPhoto}
-          totalLikes={post.likes.length}
-          handleFocus={handleFocus}
-        ></LikedActions> */}
+      <LikedActions
+        pid={post.id}
+        islikedPhoto={validatecurrentuserlikedpost}
+        totalLikes={post.likes.length}
+        handleFocus={handleFocus}
+      ></LikedActions>
 
-        <Footer caption={post.caption} username={post.user.username}></Footer>
-        {/* <Comments
-          docId={post.postID}
-          comments={post.comments}
-          posted={post.dateCreated}
-          commentInput={commentInput}
-        /> */}
-        {/* <div className={classes.post_footer_icons}>
-          <div className={classes.post_iconsMain}>
-            <FavoriteIcon
-              className={likes ? classes.fillcomp : classes.postIcon}
-              onClick={handleLikes}
-            ></FavoriteIcon>
-
-            <ChatBubbleOutlineIcon
-              className={classes.postIcon}
-            ></ChatBubbleOutlineIcon>
-          </div>
-        </div> */}
-      </div>
+      <Footer caption={post.caption} username={post.user.username}></Footer>
+      <Comments
+        pid={post.id}
+        allComments={post.comments}
+        posted={post.timestamp}
+        commentInput={commentInput}
+      />
     </div>
-
-    // <div className={classes.post}>
-    //   <div className={classes.post_header}>
-    //     <Avatar alt="user" src="" />
-    //     <div className={classes.post_headerInfo}>
-    //       {<h3>{post.user.username}</h3>}
-    //       {username && <Button className={classes.post_delete}>Delete</Button>}
-    //     </div>
-    //   </div>
-    //   <div className={classes.post}>
-    //     <img className={classes.post_image} alt="postimage" src={image_url} />
-    //   </div>
-    //   <h4 className={classes.post_text}>{post.caption}</h4>
-    //   <div className={classes.post_comments}>
-    //     {comments.length > 1 &&
-    //       comments.map((comment) => (
-    //         <p>
-    //           <strong>{comment.username}:</strong> {comment.text}
-    //         </p>
-    //       ))}
-    //   </div>
-    // </div>
   );
 };
 

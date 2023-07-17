@@ -1,0 +1,43 @@
+.userprofilephotocontainer {
+  height: 4rem;
+  border-top-width: 1px;
+  border-color: gray;
+  margin-top: 3rem;
+  padding-top: 1rem;
+}
+.userprofilephotocontainer_grid {
+  display: grid;
+  grid-column: span 3 / span 3;
+  gap: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+}
+
+.profileactionscontainer {
+  position: absolute;
+  bottom: 0px;
+  background-color: #e5e7eb;
+  z-index: 10;
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+  background-color: black;
+  visibility: hidden;
+
+  /* left-0 bg-gray-200 z-10 w-full justify-evenly items-center h-full bg-black-faded group-hover:flex hidden */
+}
+.profileactionscontainer:hover {
+  display: flex;
+}
+.profileactionscontainer_contents {
+  display: flex;
+  align-items: center;
+  color: white;
+  font-weight: 700;
+}
+.nopostdisplay {
+  text-align: center;
+  font-size: 1.25rem; /* 20px */
+  line-height: 1.75rem;
+}

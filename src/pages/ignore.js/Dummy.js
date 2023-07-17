@@ -1,6 +1,7 @@
 import Header from "../../Components/CommonHeader";
-import Profilepic from "./profilephoto";
+import UserProfilePhotos from "./profilephoto";
 import Profileheader from "./Profileheader";
+import "./Dummy.css";
 import "./mainprofile.css";
 const Dummy = () => {
   return (
@@ -23,7 +24,7 @@ const Dummy = () => {
           // call the api post method to update the followings of currentuser & follower of profile viewd user using their username
         ></Profileheader>
       </div>
-      {/* <Profilepic photos={photosCollection}></Profilepic> */}
+      {/* <UserProfilePhotos photos={photosCollection}></UserProfilePhotos> */}
     </div>
   );
 };

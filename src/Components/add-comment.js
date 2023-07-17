@@ -1,63 +1,78 @@
-// import { useState } from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import useHttp from "../Hooks/usehttphook";
+import "./comment.css";
+const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
 
-// export default function AddComment({
-//   docId,
-//   comments,
-//   setComments,
-//   commentInput,
-// }) {
-//   const [comment, setComment] = useState("");
+export default function AddComment({
+  docId,
+  comments,
+  setComments,
+  commentInput,
+}) {
+  const [comment, setComment] = useState("");
+  const { isLoading, error, sendRequest: updatecomments } = useHttp();
+  let userr = useSelector((state) => state.data.user);
 
-//   const handleSubmitComment = (event) => {
-//     event.preventDefault();
+  const handleSubmitComment = (event) => {
+    event.preventDefault();
+    const commentsetter = (data) => {
+      let timestamp = data.timestamp;
+      let user = userr.userauth;
+      let text = data.text;
+      //   console.log(username);
+      console.log(text);
+      console.log(data);
+      setComments([{ text, user, timestamp }, ...comments]);
+      setComment("");
+    };
+    const json_string = JSON.stringify({
+      user_id: userr.userauth.userId,
+      text: comment,
+      post_id: docId,
+    });
+    updatecomments(
+      {
+        url: BASE_URL + "comment/add",
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: json_string,
+      },
+      commentsetter
+    );
+  };
 
-//     setComments([...comments, { displayName, comment }]);
-//     setComment("");
-
-//     // http call using the post id
-
-//     // return firebase
-//     //   .firestore()
-//     //   .collection('photos')
-//     //   .doc(docId)
-//     //   .update({
-//     //     comments: FieldValue.arrayUnion({ displayName, comment })
-//     //   });
-//   };
-
-//   return (
-//     <div className="border-t border-gray-primary">
-//       <form
-//         className="flex justify-between pl-0 pr-5"
-//         method="POST"
-//         onSubmit={(event) =>
-//           comment.length >= 1
-//             ? handleSubmitComment(event)
-//             : event.preventDefault()
-//         }
-//       >
-//         <input
-//           aria-label="Add a comment"
-//           autoComplete="off"
-//           className="text-sm text-gray-base w-full mr-3 py-5 px-4"
-//           type="text"
-//           name="add-comment"
-//           placeholder="Add a comment..."
-//           value={comment}
-//           onChange={({ target }) => setComment(target.value)}
-//           ref={commentInput}
-//         />
-//         <button
-//           className={`text-sm font-bold text-blue-medium ${
-//             !comment && "opacity-25"
-//           }`}
-//           type="button"
-//           disabled={comment.length < 1}
-//           onClick={handleSubmitComment}
-//         >
-//           Post
-//         </button>
-//       </form>
-//     </div>
-//   );
-// }
+  return (
+    <div className="addpostcontainer">
+      <form
+        className="addpostcontainer_container_form"
+        method="POST"
+        onSubmit={(event) =>
+          comment.length >= 1
+            ? handleSubmitComment(event)
+            : event.preventDefault()
+        }
+      >
+        <input
+          aria-label="Add a comment"
+          autoComplete="off"
+          type="text"
+          name="add-comment"
+          placeholder="Add a comment..."
+          value={comment}
+          onChange={({ target }) => setComment(target.value)}
+          ref={commentInput}
+        />
+        <button
+          className="addcommentbutton"
+          // {!comment && style={{opacity: 0.25}}}
+          type="button"
+          disabled={comment.length < 1}
+          onClick={handleSubmitComment}
+        >
+          Post
+        </button>
+      </form>
+    </div>
+  );
+}
