@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import Logout from "./Logout";
 import React, { useState } from "react";
 import { Avatar } from "@mui/material";
-const Header = () => {
+const Header = (props) => {
   const [logoutClicked, setloggedOutclicked] = useState(false);
 
   return (
@@ -18,7 +18,7 @@ const Header = () => {
           <Link to={"/Homepage"}>
             <HomeOutlinedIcon
               sx={{
-                width: "50%",
+                width: "70px",
                 height: "70px",
                 color: "black",
               }}
@@ -52,7 +52,7 @@ const Header = () => {
                 justifyContent: "center",
               }}
             >
-              <Avatar>KN</Avatar>
+              <Avatar src={props.profiledp}></Avatar>
             </button>
           </div>
         </div>

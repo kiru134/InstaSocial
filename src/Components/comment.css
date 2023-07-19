@@ -1,3 +1,35 @@
+.commentsModalconatiner {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  justify-content: center;
+}
+/* .commentsModalconatiner_section {
+  max-height: 620px;
+  max-width: 620px;
+  aspect-ratio: 1 / 1;
+  flex-basis: 620px;
+} */
+.modalcontainerpartitioner_left {
+  flex: 1;
+  /* height: fit-content; */
+}
+.modalcontainerpartitioner_left img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  /* display: block; */
+  /* aspect-ratio: 3/4; */
+}
+
+.modalcontainerpartitioner_right {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
 .commentedusername {
   margin-right: 0.25rem;
   font-weight: 700;

@@ -2,79 +2,82 @@ import Header from "../../Components/CommonHeader";
 import UserProfilePhotos from "./profilephoto";
 import Profileheader from "./Profileheader";
 import "./Dummy.css";
-import "./mainprofile.css";
-const Dummy = () => {
-  return (
-    <div className="userprofile">
-      <Header></Header>
-      <div className="profileheader_container">
-        <Profileheader
-          // currentuser={username}
-          currentuser="kiru"
-          // profile={userID:"1",fullname="kirankiru",following={},profiledescription="Hello Stranger",profilePicture=null}
-          /* //             // in the profile e should get the userId,fullName,following=[](list of following people),profile description,profilepicture */
+import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import useHttp from "../../Hooks/usehttphook";
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import Navbar from "../../Components/Navbar";
 
-          // photoscount={photos ? photosCollection.length : 0}
-          photoscount={5}
-          followerCount={12}
-          followingCount={13}
-          // followerCount={followerCount}
-          // followingCount={followingCount}
-          // setFollowerCount={dispatch}
-          // call the api post method to update the followings of currentuser & follower of profile viewd user using their username
-        ></Profileheader>
+const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
+const Dummy = () => {
+  let user = useSelector((state) => state.data.user);
+  const { isLoading, error, sendRequest: fetchUser } = useHttp();
+  const [userprofile, setuserprofile] = useState({});
+  let currentuser = useParams();
+
+  //  call the http request for the currentuser to get the profile details,
+  const populateuserprofile = (data) => {
+    console.log(data.followings);
+    console.log(data.posts.length);
+    setuserprofile(data);
+    console.log(data);
+  };
+
+  console.log(userprofile);
+
+  useEffect(() => {
+    console.log("inside fetch profileuser details");
+    const awaituserprofile = async () => {
+      await fetchUser(
+        {
+          url: BASE_URL + `users/user/${currentuser.username}`,
+          headers: { "Content-Type": "application/json" },
+        },
+        populateuserprofile
+      );
+    };
+    awaituserprofile();
+  }, []);
+
+  // const updatefollowercount = (data) => {};
+
+  return (
+    <>
+      {/* <Header profiledp={userprofile.dp}></Header> */}
+      <Navbar></Navbar>
+      <div className="userprofile">
+        {userprofile.username != null && (
+          <Profileheader
+            profileUsername={userprofile.username}
+            photoscount={userprofile.posts ? userprofile.posts.length : 0}
+            followerCount={
+              userprofile.followers != undefined
+                ? userprofile.followers.length
+                : 0
+            }
+            followingCount={
+              userprofile.followings != undefined
+                ? userprofile.followings.length
+                : 0
+            }
+            profileuserdp={userprofile.dp}
+            // setFollowerCount={updatefollowercount}
+            // profileUsername={profileuser}
+            // photoscount={Photoscount}
+            // followerCount={fc}
+            // followingCount={flc}
+            // profileuserdp={pdp}
+            // setFollowerCount={updatefollowercount}
+          ></Profileheader>
+        )}
       </div>
-      {/* <UserProfilePhotos photos={photosCollection}></UserProfilePhotos> */}
-    </div>
+    </>
   );
 };
 
+{
+  /* //   <div className="profileheader_container">
+    //     {profileuser && ( */
+}
+
 export default Dummy;
-
-// return (
-//   <>
-//     <Header></Header>
-//     <>
-//       <p
-//         style={{
-//           display: "grid",
-//           gridTemplateColumns: "30% 70%",
-//           padding: "4rem 0",
-//         }}
-//       >
-//         Build the profile here
-//       </p>
-//     </>
-//   </>
-// );
-// return (
-//     <div className="userprofile">
-//       <Header></Header>
-//       <div/>
-//       )
-
-//       }
-
-{
-  /* // add Common header component */
-}
-{
-  /* <div className="mx-auto max-w-screen-lg">
-          <div>
-            <Profileheader
-              currentuser={username}
-              profile={profile} */
-}
-{
-  /* //             // in the profile e should get the userId,fullName,following=[](list of following people),profile description,profilepicture */
-}
-/* photoscount={photos ? photosCollection.length : 0}
-              followerCount={followerCount}
-              followingCount={followingCount}
-              setFollowerCount={dispatch}
-            ></Profileheader>
-          </div>
-          <Profilepic photos={photosCollection}></Profilepic>
-        </div>
-
-        <p>Hi kiran</p>*/

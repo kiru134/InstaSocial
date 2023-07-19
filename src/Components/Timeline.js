@@ -6,7 +6,6 @@ import React, { useState, useEffect } from "react";
 import { Avatar, Button } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
 import Loading from "../Components/Loading";
-import { useSelector } from "react-redux/es/hooks/useSelector";
 
 const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
 const Timeline = (props) => {

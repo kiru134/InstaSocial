@@ -1,13 +1,15 @@
 .sidenav {
-  position: sticky;
+  position: fixed;
   display: flex;
   top: 0;
   flex-direction: column;
   justify-content: space-between;
   z-index: 1;
-  min-width: 200px;
+  width: 16%;
+  margin-right: 2%;
+  /* min-width: 200px;
   max-width: 250px;
-  max-height: 450px;
+  max-height: 450px; */
 }
 .sidenav_buttons {
   display: flex;
@@ -23,6 +25,7 @@
   margin: 5px 10px 5px 10px;
   padding: 10px 15px 10px 15px;
   border-radius: 15px;
+  /* justify-content: center; */
   width: 100%;
 }
 .sidenav_button:hover {
@@ -30,11 +33,22 @@
   background-color: rgba(10, 6, 6, 0.12);
 }
 .sidenav_button > span {
-  font-size: 18px;
-  font-weight: bolder;
+  font-size: 14px;
+  font-weight: 300;
   margin-left: 10px;
 }
-
+.linkComponent {
+  text-decoration: "none";
+}
+@media (max-width: 850px) {
+  .sidenav_button > span {
+    display: none;
+  }
+  .sidenav {
+    width: 50px;
+    margin-right: 10px;
+  }
+}
 /* :root {
   --bg: #242526;
   --bg-accent: #484a4d;

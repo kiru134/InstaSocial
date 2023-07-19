@@ -79,6 +79,9 @@ const PostCard = ({ post }) => {
       <Footer caption={post.caption} username={post.user.username}></Footer>
       <Comments
         pid={post.id}
+        image={image_url}
+        postuser={post.user.username}
+        postuserdp={post.user.dp}
         allComments={post.comments}
         posted={post.timestamp}
         commentInput={commentInput}

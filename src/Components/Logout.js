@@ -55,8 +55,6 @@ const Logout = ({ modal, modalclosed }) => {
 
   return (
     <React.Fragment>
-      <p>Logged out action called</p>
-
       {/* <ModalOverlay
          logOutClicked=
         > */}

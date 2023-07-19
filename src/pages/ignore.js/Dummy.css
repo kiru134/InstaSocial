@@ -1,8 +1,16 @@
 .userprofile {
-  background-color: rgb(245 245 245);
+  margin-left: 16%;
 }
 .profileheader_container {
-  max-width: 32rem;
-  margin: auto;
+  /* max-width: 32rem;
+  margin: auto; */
+  max-width: 93.5rem;
+  margin: 0 auto;
+  padding: 0 2rem;
   /* "mx-auto max-w-screen-lg" */
+}
+@media (max-width: 850px) {
+  .userprofile {
+    margin-left: 60px;
+  }
 }

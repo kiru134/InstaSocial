@@ -81,44 +81,56 @@ const Navbar = () => {
       <div className={classes.sidenav}>
         <img></img>
         <div className={classes.sidenav_buttons}>
-          <Link to={"/Homepage"} style={{ textDecoration: "none" }}>
+          <Link to={"/Homepage"} className={classes.linkComponent}>
             <button className={classes.sidenav_button}>
               <HomeIcon></HomeIcon>
               <span>Home</span>
             </button>
           </Link>
-
-          <button className={classes.sidenav_button}>
-            <SearchIcon></SearchIcon>
-            <span>Search</span>
-          </button>
-          <button className={classes.sidenav_button}>
-            <ExploreIcon></ExploreIcon>
-            <span>Explore</span>
-          </button>
+          <Link className={classes.linkComponent}>
+            <button className={classes.sidenav_button}>
+              <SearchIcon></SearchIcon>
+              <span>Search</span>
+            </button>
+          </Link>
+          <Link className={classes.linkComponent}>
+            <button className={classes.sidenav_button}>
+              <ExploreIcon></ExploreIcon>
+              <span>Explore</span>
+            </button>
+          </Link>
+          {/*
           <button className={classes.sidenav_button}>
             <SlideshowIcon></SlideshowIcon>
             <span>Reels</span>
-          </button>
-          <button className={classes.sidenav_button}>
-            <ChatIcon></ChatIcon>
-            <span>Messages</span>
-          </button>
-          <button className={classes.sidenav_button}>
-            <FavoriteBorderIcon></FavoriteBorderIcon>
-            <span>Notifications</span>
-          </button>
-          <button className={classes.sidenav_button}>
-            <AddCircleOutlineIcon></AddCircleOutlineIcon>
-            <span>Create</span>
-          </button>
-          <button
-            className={classes.sidenav_button}
-            onClick={() => setloggedOutclicked(!logoutClicked)}
-          >
-            <LogoutIcon></LogoutIcon>
-            <span>Logout</span>
-          </button>
+          </button> */}
+          <Link className={classes.linkComponent}>
+            <button className={classes.sidenav_button}>
+              <ChatIcon></ChatIcon>
+              <span>Messages</span>
+            </button>
+          </Link>
+          <Link className={classes.linkComponent}>
+            <button className={classes.sidenav_button}>
+              <FavoriteBorderIcon></FavoriteBorderIcon>
+              <span>Notifications</span>
+            </button>
+          </Link>
+          <Link className={classes.linkComponent}>
+            <button className={classes.sidenav_button}>
+              <AddCircleOutlineIcon></AddCircleOutlineIcon>
+              <span>Create</span>
+            </button>
+          </Link>
+          <Link className={classes.linkComponent}>
+            <button
+              className={classes.sidenav_button}
+              onClick={() => setloggedOutclicked(!logoutClicked)}
+            >
+              <LogoutIcon></LogoutIcon>
+              <span>Logout</span>
+            </button>
+          </Link>
           {/* {logoutClicked && } */}
         </div>
       </div>
