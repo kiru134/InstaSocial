@@ -7,6 +7,7 @@ import Footer from "./postFooter";
 import LikedActions from "./likeActions";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux/es/hooks/useSelector";
+import NewComment from "./Commentsection/newcomment";
 
 const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
 const PostCard = ({ post }) => {
@@ -16,6 +17,7 @@ const PostCard = ({ post }) => {
   const [likes, setLikes] = useState(0);
   const [togglelikes, setToggledLikes] = useState();
   const commentInput = useRef(null);
+
   const handleFocus = () => commentInput.current.focus();
   let user = useSelector((state) => state.data.user);
   // const posttime = post.timestamp;
@@ -57,7 +59,11 @@ const PostCard = ({ post }) => {
         <div className={classes.post_header_avatar}>
           <button className={classes.muibutton}>
             <Link to={`/profile/${post.user.username}`}>
-              <Avatar alt="user" src={post.user.dp}></Avatar>
+              <Avatar
+                alt="user"
+                src={post.user.dp}
+                style={{ width: "32px", height: "32px", marginRight: "12px" }}
+              ></Avatar>
             </Link>
           </button>
           <h3>{post.user.username}</h3>
@@ -74,10 +80,17 @@ const PostCard = ({ post }) => {
         islikedPhoto={validatecurrentuserlikedpost}
         totalLikes={post.likes.length}
         handleFocus={handleFocus}
+        // handlemodalpopup={handlecommentmodal}
       ></LikedActions>
-
       <Footer caption={post.caption} username={post.user.username}></Footer>
-      <Comments
+      {/* send the totallikes islikedPhoto to comment component as well */}
+      <NewComment
+        postdetails={post}
+        image={image_url}
+        islikedPhoto={validatecurrentuserlikedpost}
+        commentInput={commentInput}
+      />
+      {/* <Comments
         pid={post.id}
         image={image_url}
         postuser={post.user.username}
@@ -85,7 +98,7 @@ const PostCard = ({ post }) => {
         allComments={post.comments}
         posted={post.timestamp}
         commentInput={commentInput}
-      />
+      /> */}
     </div>
   );
 };

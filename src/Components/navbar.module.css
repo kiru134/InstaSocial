@@ -1,16 +1,21 @@
 .sidenav {
   position: fixed;
   display: flex;
-  top: 0;
+  /* top: 0; */
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   z-index: 1;
   width: 16%;
   margin-right: 2%;
+  border-right: 1px solid gray;
+  height: 100%;
+  background-color: white;
+  /* align-items: flex-start; */
   /* min-width: 200px;
   max-width: 250px;
   max-height: 450px; */
 }
+
 .sidenav_buttons {
   display: flex;
   flex-direction: column;
@@ -26,7 +31,6 @@
   padding: 10px 15px 10px 15px;
   border-radius: 15px;
   /* justify-content: center; */
-  width: 100%;
 }
 .sidenav_button:hover {
   cursor: pointer;
@@ -38,15 +42,33 @@
   margin-left: 10px;
 }
 .linkComponent {
-  text-decoration: "none";
+  text-decoration: none;
 }
-@media (max-width: 850px) {
+@media screen and (max-width: 850px) and (min-width: 600px) {
   .sidenav_button > span {
     display: none;
   }
   .sidenav {
-    width: 50px;
-    margin-right: 10px;
+    width: 70px;
+    margin-right: 0px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .sidenav {
+    flex-direction: row;
+    bottom: 0px;
+    justify-content: center;
+    width: 100%;
+    height: 66px;
+    border-top: 1px solid rgb(218, 219, 220);
+  }
+  .sidenav_button > span {
+    display: none;
+  }
+  .sidenav_buttons {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
   }
 }
 /* :root {

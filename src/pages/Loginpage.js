@@ -66,13 +66,16 @@ function LoginModal() {
           authTokenType: usercreds.token_type,
           username: usercreds.username,
           userId: usercreds.user_id,
+          dp: usercreds.dp,
         })
+
         // authToken: null,
         // authTokenType: "",
         // username: "",
         // userId: "",
         // })
       );
+      console.log(usercreds);
       console.log("dispacthed action successfully");
     }
     console.log(usercreds);

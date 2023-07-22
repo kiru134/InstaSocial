@@ -1,0 +1,17 @@
+.commentsandlikescontainer {
+  bottom: 0px;
+  display: flex;
+  flex-direction: column;
+  min-width: 384px;
+  position: absolute;
+}
+
+.commentsdisplaysection {
+  height: 45%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+/* .commentsdisplaysection {
+  overflow-y: scroll;
+} */

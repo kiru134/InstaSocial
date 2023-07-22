@@ -5,7 +5,10 @@ import "./Suggestion.css";
 function Suggestions() {
   return (
     <div className="suggestions">
-      <div className="suggestions__title">Suggestions for you</div>
+      <div className="suggestions__title">
+        <div>Suggested for you</div>
+        <div style={{ fontWeight: "700" }}>See All</div>
+      </div>
       <div className="suggestions__usernames">
         <div className="suggestions__username">
           <div className="username__left">

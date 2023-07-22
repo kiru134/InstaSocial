@@ -1,15 +1,13 @@
 import { useState } from "react";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import useHttp from "../Hooks/usehttphook";
-import "./comment.css";
+import useHttp from "../../Hooks/usehttphook";
+import "../comment.css";
 const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
 
-export default function AddComment({
+export default function AddCommentInput({
   docId,
-  comments,
-  setComments,
-  commentInput,
   setrecentcomment,
+  commentInput,
 }) {
   const [comment, setComment] = useState("");
   const { isLoading, error, sendRequest: updatecomments } = useHttp();
@@ -21,11 +19,9 @@ export default function AddComment({
       let timestamp = data.timestamp;
       let user = userr.userauth;
       let text = data.text;
-      //   console.log(username);
-      console.log(text);
-      console.log(data);
-      setComments([{ text, user, timestamp }, ...comments]);
-      setrecentcomment(true);
+      console.log(user);
+      //   setComments([{ text, user, timestamp }, ...comments]);
+      setrecentcomment({ text, user, timestamp });
       // setComments(
       //   comments.unshift({ text: text, user: user, timestamp: timestamp })
       // );
@@ -46,7 +42,6 @@ export default function AddComment({
       commentsetter
     );
   };
-
   return (
     <div className="addpostcontainer">
       <form
@@ -63,7 +58,7 @@ export default function AddComment({
           autoComplete="off"
           type="text"
           name="add-comment"
-          placeholder="Add a comment..."
+          placeholder="Add a comment...."
           value={comment}
           onChange={({ target }) => setComment(target.value)}
           ref={commentInput}

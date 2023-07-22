@@ -1,30 +1,28 @@
 import { useState, useEffect } from "react";
-// import PropTypes from "prop-types";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { Avatar, Button } from "@material-ui/core";
-import { Height, Margin } from "@mui/icons-material";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import useHttp from "../../Hooks/usehttphook";
 import SettingsIcon from "@mui/icons-material/Settings";
 import "./Profileheadernew.css";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
+import UserGallery from "./ProfileGallery";
 
 const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
+
 const ProfileHeader = ({
   profileUsername,
   photoscount,
+  gallery,
   followerCount,
   followingCount,
   profileuserdp,
+  profileuseraccount,
 }) => {
   let user = useSelector((state) => state.data.user);
   const [activatefollow, setfollowbutton] = useState("");
   //  const [requestsent,setrequestrequestsent] = useState("")
   const { isLoading, error, sendRequest: fetchprofileUser } = useHttp();
   const { Loading, iserror, sendRequest: updatefollowingstatus } = useHttp();
-
-  let profileuserdetails = {};
 
   const updatefollowing = (data) => {
     if (data.success == true && activatefollow == "Follow") {
@@ -50,7 +48,7 @@ const ProfileHeader = ({
         )}&follower=${encodeURIComponent(user.userauth.username)}`;
       sendmethod = "DELETE";
     } else {
-      if (profileuserdetails.user.public == true) {
+      if (profileuseraccount == true) {
         endpoint =
           BASE_URL +
           `users/add-follower?username=${encodeURIComponent(
@@ -66,11 +64,11 @@ const ProfileHeader = ({
 
     await updatefollowingstatus(
       {
-        url:
-          BASE_URL +
-          `users/user?username=${encodeURIComponent(
-            profileUsername
-          )}&current_user=${encodeURIComponent(user.userauth.username)}`,
+        url: endpoint,
+        // BASE_URL +
+        // `users/user?username=${encodeURIComponent(
+        //   profileUsername
+        // )}&current_user=${encodeURIComponent(user.userauth.username)}`,
         method: sendmethod,
         headers: { "Content-Type": "application/json" },
       },
@@ -85,8 +83,6 @@ const ProfileHeader = ({
     } else {
       setfollowbutton("Following");
     }
-    profileuserdetails = data;
-    console.log(profileuserdetails);
   };
 
   useEffect(() => {
@@ -111,149 +107,128 @@ const ProfileHeader = ({
 
   return (
     <>
-      <div>
-        <div className="maincongtainer">
-          <div className="profilecontainer">
-            <div className="profile">
-              <div className="profile-image">
-                {profileUsername ? (
-                  <Avatar
-                    className="profileimageavatar"
-                    src={profileuserdp}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
-                  ></Avatar>
-                ) : (
-                  // <img src={profileuserdp} />
+      <div className="maincongtainer">
+        <div className="profilecontainer">
+          <div className="profile">
+            <div className="profile-image">
+              {profileUsername ? (
+                <Avatar
+                  className="profileimageavatar"
+                  src={profileuserdp}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
+                ></Avatar>
+              ) : (
+                // <img src={profileuserdp} />
 
-                  <Skeleton circle height={150} width={150} count={1} />
+                <Skeleton circle height={150} width={150} count={1} />
+              )}
+            </div>
+
+            <div className="profile-user-settings">
+              <div className="profileheadingwrapper">
+                <p className="profile-user-name">{profileUsername}</p>
+                {profileUsername !== user.userauth.username && (
+                  <button
+                    className="user-followbtn"
+                    onClick={handlefollowbuttonclick}
+                    disabled={activatefollow == "Requested"}
+                    // style={{ alignContent: "center" }}
+                  >
+                    {activatefollow}
+                  </button>
+                )}
+                {profileUsername == user.userauth.username && (
+                  <>
+                    <button className="profile-edit-btn">Edit Profile</button>
+                    <button
+                      className="profile-settings-btn"
+                      aria-label="profile settings"
+                    >
+                      <SettingsIcon></SettingsIcon>
+                      {/* <i className="fas fa-cog" aria-hidden="true"></i> */}
+                    </button>
+                  </>
                 )}
               </div>
-
-              <div className="profile-user-settings">
-                <div className="profileheadingwrapper">
-                  <p className="profile-user-name">{profileUsername}</p>
-                  {profileUsername !== user.userauth.username && (
-                    <button
-                      className="user-followbtn"
-                      onClick={handlefollowbuttonclick}
-                      disabled={activatefollow == "Requested"}
-                      // style={{ alignContent: "center" }}
-                    >
-                      {/* {activatefollow} */}
-                      {"Requested"}
-                    </button>
-                  )}
-                  {profileUsername == user.userauth.username && (
-                    <>
-                      <button className="profile-edit-btn">Edit Profile</button>
-                      <button
-                        className="profile-settings-btn"
-                        aria-label="profile settings"
-                      >
-                        <SettingsIcon></SettingsIcon>
-                        {/* <i className="fas fa-cog" aria-hidden="true"></i> */}
-                      </button>
-                    </>
-                  )}
-                </div>
-                <div className="profile-stats">
-                  {followerCount < 0 || followingCount < 0 ? (
-                    <Skeleton count={1} width={677} height={24} />
-                  ) : (
-                    <>
-                      <div>
-                        <span className="profile-stat-count">
-                          {photoscount}
-                        </span>
-                        {photoscount == 1 ? ` post` : ` posts`}
-                      </div>
-                      <div>
-                        <span className="profile-stat-count">
-                          {followerCount}
-                        </span>
-                        {followerCount === 1 ? ` follower` : ` followers`}
-                      </div>
-                      <div>
-                        <span className="profile-stat-count">
-                          {followingCount}
-                        </span>
-                        {followingCount === 1 ? ` following` : ` follower`}
-                      </div>
-                    </>
-                  )}
-                </div>
-                <div className="profile-bio">
-                  <p>
-                    <span className="profile-real-name">{profileUsername}</span>{" "}
+              <div className="profile-stats">
+                {followerCount < 0 || followingCount < 0 ? (
+                  <Skeleton count={1} width={677} height={24} />
+                ) : (
+                  <>
                     <div>
-                      Lorem ipsum dolor sit, amet consectetur adipisicing elit
-                      📷✈️🏕️
+                      <span className="profile-stat-count">{photoscount}</span>
+                      {photoscount == 1 ? ` post` : ` posts`}
                     </div>
-                  </p>
-                </div>
+                    <div>
+                      <span className="profile-stat-count">
+                        {followerCount}
+                      </span>
+                      {followerCount === 1 ? ` follower` : ` followers`}
+                    </div>
+                    <div>
+                      <span className="profile-stat-count">
+                        {followingCount}
+                      </span>
+                      {followingCount === 1 ? ` following` : ` follower`}
+                    </div>
+                  </>
+                )}
               </div>
-              {/* <!-- End of profile section --> */}
+              <div className="profile-bio">
+                <p>
+                  <span className="profile-real-name">{profileUsername}</span>{" "}
+                  {/* <div>
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit
+                    📷✈️🏕️
+                  </div> */}
+                </p>
+              </div>
             </div>
-            {/* <!-- End of container --> */}
+            {/* <!-- End of profile section --> */}
           </div>
+          {/* <!-- End of container --> */}
+        </div>
+        <div className="gallerycontainer">
+          {activatefollow !== "" &&
+            profileuseraccount === false &&
+            activatefollow == "Following" &&
+            photoscount <= 0 && (
+              <>
+                <p>No Posts Yet</p>
+              </>
+            )}
 
           {activatefollow !== "" &&
-            {
-              /* {profileuserdetails.user.public === false &&
-        activatefollow == "Following" &&
-        photoscount <= 0 && (
-          <>
-            <p>No Posts Yet</p>
-          </>
-        )}
-      {profileuserdetails.user.public === false &&
-        activatefollow == "Follow" && (
-          <>
-            <p>Private Account</p>
-          </>
-        )}
-      {profileuserdetails.user.public === true && photoscount < 0 && (
-        <>
-          <p>No Posts Yet</p>
-        </>
-      )}
-      {profileuserdetails.user.public === true && photoscount > 0 && (
-        <>
-          <div className="profilecontainer">
-            <div className="gallery">
-              <div className="gallery-item" tabindex="0">
-                <img
-                  src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?w=500&h=500&fit=crop"
-                  className="gallery-image"
-                  alt=""
-                />
+            profileuseraccount === false &&
+            activatefollow == "Follow" && <p>Private Account</p>}
+          {activatefollow !== "" &&
+            profileuseraccount === true &&
+            photoscount < 0 && <p>No Posts Yet</p>}
+          {activatefollow !== "" &&
+            profileuseraccount === true &&
+            photoscount > 0 && (
+              <>
+                {gallery.length >= 1 &&
+                  gallery.map((item) => (
+                    <div className="gallery" key={`${item.id}`}>
+                      <UserGallery key={`${item.id}`} galleryitem={item} />
+                    </div>
+                  ))}
+              </>
+            )}
 
-                <div className="gallery-item-info">
-                  <ul>
-                    <li className="gallery-item-likes">
-                      <span className="visually-hidden">Likes:</span>
-                      <i className="fas fa-heart" aria-hidden="true"></i> 56
-                    </li>
-                    <li className="gallery-item-comments">
-                      <span className="visually-hidden">Comments:</span>
-                      <i className="fas fa-comment" aria-hidden="true"></i> 2
-                    </li>
-                  </ul>
-                </div>
+          {activatefollow === "" &&
+            gallery.length >= 1 &&
+            gallery.map((item) => (
+              <div className="gallery" key={`${item.id}`}>
+                <UserGallery galleryitem={item} />
               </div>
-            </div>
-            <div className="loader"></div>
-          </div>
-        </>
-      )} */
-            }}
-          {activatefollow === "" && (
-            <div className="gallerycontainer">
-              <div className="gallery">
+            ))}
+          {/* <div className="gallery">
                 <div className="gallery-item">
                   <img
                     src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?w=500&h=500&fit=crop"
@@ -269,14 +244,14 @@ const ProfileHeader = ({
                       }}
                     >
                       <div className="gallery-item-likes">
-                        <FavoriteIcon style={{ marginRight: "5px" }} />
-                        {/* <span className="visually-hidden">Likes:</span> */}
-                        56
+                        <FavoriteIcon style={{ marginRight: "5px" }} /> */}
+          {/* <span className="visually-hidden">Likes:</span> */}
+          {/* 56
                       </div>
                       <div className="gallery-item-comments">
-                        <ChatBubbleIcon style={{ marginRight: "5px" }} />2
-                        {/* <span className="visually-hidden">Comments:</span>2 */}
-                      </div>
+                        <ChatBubbleIcon style={{ marginRight: "5px" }} />2 */}
+          {/* <span className="visually-hidden">Comments:</span>2 */}
+          {/* </div>
                     </div>
                   </div>
                 </div>
@@ -333,11 +308,9 @@ const ProfileHeader = ({
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              {/* <div className="loader"></div> */}
-            </div>
-          )}
+                </div> 
+              </div> */}
+          {/* <div className="loader"></div> */}
         </div>
       </div>
     </>

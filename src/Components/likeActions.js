@@ -110,7 +110,7 @@ const LikedActions = ({ pid, islikedPhoto, totalLikes, handleFocus }) => {
         </div>
       </div>
       <div className="likesdisplay">
-        <p style={{ fontWeight: "700" }}>
+        <p style={{ fontWeight: "700", margin: "0px" }}>
           {likes === 1 ? `${likes} like` : `${likes} likes`}
         </p>
       </div>

@@ -124,11 +124,13 @@ const SignUpMock = () => {
       setisSignedIn(false);
       return;
     } else {
+      console.log(uploadedAvatar);
       const json_string = JSON.stringify({
         // profileimage: uploadedAvatar,
         // username: usernameInputRef.current.value,
         // email: emailInputRef.current.value,
         // password: passwordInputRef.current.value
+
         username: usernameInputRef.current.value,
         email: emailInputRef.current.value,
         password: passwordInputRef.current.value,

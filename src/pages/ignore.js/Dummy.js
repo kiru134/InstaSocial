@@ -50,6 +50,7 @@ const Dummy = () => {
           <Profileheader
             profileUsername={userprofile.username}
             photoscount={userprofile.posts ? userprofile.posts.length : 0}
+            gallery={userprofile.posts}
             followerCount={
               userprofile.followers != undefined
                 ? userprofile.followers.length
@@ -61,6 +62,7 @@ const Dummy = () => {
                 : 0
             }
             profileuserdp={userprofile.dp}
+            profileuseraccount={userprofile.public}
             // setFollowerCount={updatefollowercount}
             // profileUsername={profileuser}
             // photoscount={Photoscount}

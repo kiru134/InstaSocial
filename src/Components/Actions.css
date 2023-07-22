@@ -1,15 +1,14 @@
 .actioncontainer {
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
-  padding-bottom: 0px;
+  padding: 10px 10px 0px 0px;
 }
 .actionconatiner_container {
   display: flex;
 }
 
 .likesvg {
-  width: 2rem;
+  width: 30px;
   margin-right: 1rem;
   user-select: none;
   cursor: pointer;
@@ -20,18 +19,18 @@
   outline: none;
 }
 .likesvgclicked {
-  width: 2rem;
+  width: 30px;
   fill: #f80d0d;
   color: rgb(239 68 68);
 }
 
 .likesvgnotclicked {
-  width: 2rem;
+  width: 30px;
   fill: rgb(255, 255, 255);
 }
 
 .commentssvg {
-  width: 2rem;
+  width: 30px;
   color: black;
   user-select: none;
   cursor: pointer;
@@ -41,7 +40,8 @@
 }
 
 .likesdisplay {
-  padding: 1rem;
+  /* padding: 1rem; */
   padding-top: 0px;
   padding-bottom: 0px;
+  margin: 0px;
 }

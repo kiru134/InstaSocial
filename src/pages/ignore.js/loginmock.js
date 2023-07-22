@@ -62,6 +62,7 @@ const LoginMock = () => {
           authTokenType: usercreds.token_type,
           username: usercreds.username,
           userId: usercreds.user_id,
+          dp: usercreds.dp,
         })
         // authToken: null,
         // authTokenType: "",

@@ -6,6 +6,7 @@ const initialState = {
     authTokenType: "",
     username: "",
     userId: "",
+    dp: "",
   },
 };
 

@@ -45,7 +45,9 @@ const CommentModal = ({ postimage, posteduser, dp, modalclosed }) => {
             <div className="modalcontainerpartitioner_left">
               <img src={postimage}></img>
             </div>
-            <div className="modalcontainerpartitioner_right"></div>
+            <div className="modalcontainerpartitioner_right">
+              {/* call the addcomment class,from addcomment take the comments and display in this modal and also increment the count of the comment in the parent */}
+            </div>
           </div>
         </div>
       </Modal>
