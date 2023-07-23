@@ -133,6 +133,19 @@ button {
   display: flex;
   align-items: center;
 }
+
+.nopostsyet {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+.nopostcontent {
+  font-size: 18px;
+  font-weight: 700;
+}
+
 /* .visually-hidden {
   visibility: visible;
 } */

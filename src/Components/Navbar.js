@@ -13,9 +13,18 @@ import Snackbar from "@material-ui/core/Snackbar";
 import { Button, Modal, Typography, makeStyles } from "@material-ui/core";
 import Logout from "./Logout";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import CreatePost from "./Createpostsmodal";
+import { Avatar } from "@material-ui/core";
+import { useSelector } from "react-redux/es/hooks/useSelector";
 
 const Navbar = () => {
   const [logoutClicked, setloggedOutclicked] = useState(false);
+  const [createpostclick, setcreatepostclick] = useState(false);
+  let user = useSelector((state) => state.data.user);
+
+  let currentpage = useLocation();
+  console.log(currentpage.pathname);
   // const [snackbardisplay, setdisplaysnackbar] = useState(false);
 
   // const navigate = useNavigate();
@@ -82,7 +91,7 @@ const Navbar = () => {
         <img></img>
         <div className={classes.sidenav_buttons}>
           <Link to={"/Homepage"} className={classes.linkComponent}>
-            <button className={classes.sidenav_button}>
+            <button type="button" className={classes.sidenav_button}>
               <HomeIcon></HomeIcon>
               <span>Home</span>
             </button>
@@ -90,7 +99,7 @@ const Navbar = () => {
           <Link className={classes.linkComponent}>
             <button className={classes.sidenav_button}>
               <SearchIcon></SearchIcon>
-              <span>Search</span>
+              <span className="sidenav_buttonspan">Search</span>
             </button>
           </Link>
           <Link className={classes.linkComponent}>
@@ -117,9 +126,21 @@ const Navbar = () => {
             </button>
           </Link>
           <Link className={classes.linkComponent}>
-            <button className={classes.sidenav_button}>
+            <button
+              className={classes.sidenav_button}
+              onClick={() => setcreatepostclick(!createpostclick)}
+            >
               <AddCircleOutlineIcon></AddCircleOutlineIcon>
               <span>Create</span>
+            </button>
+          </Link>
+          <Link
+            to={`/profile/${user.userauth.username}`}
+            className={classes.linkComponent}
+          >
+            <button className={classes.sidenav_button}>
+              <Avatar src={user.userauth.dp}></Avatar>
+              <span>My Profile</span>
             </button>
           </Link>
           <Link className={classes.linkComponent}>
@@ -128,16 +149,20 @@ const Navbar = () => {
               onClick={() => setloggedOutclicked(!logoutClicked)}
             >
               <LogoutIcon></LogoutIcon>
-              <span>Logout</span>
+              <span className={"sidenav_button_span"}>Logout</span>
             </button>
           </Link>
           {/* {logoutClicked && } */}
         </div>
       </div>
-      <Logout
-        modal={logoutClicked}
-        modalclosed={() => setloggedOutclicked(!logoutClicked)}
-      ></Logout>
+      {createpostclick && (
+        <CreatePost modalclosed={() => setcreatepostclick(!createpostclick)} />
+      )}
+      {logoutClicked && (
+        <Logout
+          modalclosed={() => setloggedOutclicked(!logoutClicked)}
+        ></Logout>
+      )}
       {/* <Snackbar
         open={open}
         // onClose={!snackbardisplay}

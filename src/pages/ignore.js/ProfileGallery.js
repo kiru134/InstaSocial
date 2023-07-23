@@ -68,6 +68,7 @@ const UserGallery = ({ galleryitem }) => {
           </div>
         </div>
       </div>
+
       {/* <div className="gallery-item">
           <img
             src="https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014_640.jpg"

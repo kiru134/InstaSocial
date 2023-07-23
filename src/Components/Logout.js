@@ -26,10 +26,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Logout = ({ modal, modalclosed }) => {
+const Logout = ({ modalclosed }) => {
   const modalclasses = useStyles();
   const [modalStyle, setModalStyle] = useState(getModalStyle);
-  const [openModal, setOpenModal] = useState(modal);
+  const [openModal, setOpenModal] = useState(true);
   const dispatch = useDispatch();
   console.log("openModal" + openModal);
 
@@ -52,14 +52,17 @@ const Logout = ({ modal, modalclosed }) => {
     setOpenModal(false);
     modalclosed(true);
   };
-
+  const handleonclose = () => {
+    setOpenModal(!openModal);
+    modalclosed(true);
+  };
   return (
     <React.Fragment>
       {/* <ModalOverlay
          logOutClicked=
         > */}
       <div>
-        <Modal open={modal}>
+        <Modal open={openModal} onClose={handleonclose}>
           <div style={modalStyle} className={modalclasses.paper}>
             <Typography> Do you want to log out ? </Typography>
             <Button

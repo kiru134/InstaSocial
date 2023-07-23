@@ -6,6 +6,8 @@ import useHttp from "../../Hooks/usehttphook";
 import SettingsIcon from "@mui/icons-material/Settings";
 import "./Profileheadernew.css";
 import UserGallery from "./ProfileGallery";
+import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
 
@@ -23,15 +25,16 @@ const ProfileHeader = ({
   //  const [requestsent,setrequestrequestsent] = useState("")
   const { isLoading, error, sendRequest: fetchprofileUser } = useHttp();
   const { Loading, iserror, sendRequest: updatefollowingstatus } = useHttp();
+  const [fc, setfollowercount] = useState(followerCount);
 
   const updatefollowing = (data) => {
     if (data.success == true && activatefollow == "Follow") {
-      followerCount = followerCount - 1;
-      setfollowbutton("Follow");
+      setfollowercount(fc + 1);
+      setfollowbutton("Following");
     } else {
       if (data.success == true && activatefollow == "Following") {
-        followerCount = followerCount + 1;
-        setfollowbutton("Following");
+        setfollowercount(fc - 1);
+        setfollowbutton("Follow");
       }
     }
   };
@@ -164,9 +167,7 @@ const ProfileHeader = ({
                       {photoscount == 1 ? ` post` : ` posts`}
                     </div>
                     <div>
-                      <span className="profile-stat-count">
-                        {followerCount}
-                      </span>
+                      <span className="profile-stat-count">{fc}</span>
                       {followerCount === 1 ? ` follower` : ` followers`}
                     </div>
                     <div>
@@ -197,37 +198,64 @@ const ProfileHeader = ({
             profileuseraccount === false &&
             activatefollow == "Following" &&
             photoscount <= 0 && (
-              <>
-                <p>No Posts Yet</p>
-              </>
+              <div className="nopostsyet">
+                <AddAPhotoOutlinedIcon
+                  style={{ width: "60px", height: "60px" }}
+                />
+                <p className="nopostcontent">No Posts Yet</p>
+              </div>
             )}
 
           {activatefollow !== "" &&
             profileuseraccount === false &&
-            activatefollow == "Follow" && <p>Private Account</p>}
-          {activatefollow !== "" &&
-            profileuseraccount === true &&
-            photoscount < 0 && <p>No Posts Yet</p>}
-          {activatefollow !== "" &&
-            profileuseraccount === true &&
-            photoscount > 0 && (
-              <>
-                {gallery.length >= 1 &&
-                  gallery.map((item) => (
-                    <div className="gallery" key={`${item.id}`}>
-                      <UserGallery key={`${item.id}`} galleryitem={item} />
-                    </div>
-                  ))}
-              </>
+            activatefollow == "Follow" && (
+              <div className="nopostsyet">
+                <LockOutlinedIcon style={{ width: "60px", height: "60px" }} />
+                <span className="nopostcontent">
+                  This is an Private Account
+                </span>
+                <p>Follow this account ton see their posts</p>
+              </div>
             )}
 
-          {activatefollow === "" &&
-            gallery.length >= 1 &&
-            gallery.map((item) => (
-              <div className="gallery" key={`${item.id}`}>
-                <UserGallery galleryitem={item} />
+          {activatefollow !== "" &&
+            profileuseraccount === true &&
+            photoscount < 0 && (
+              <div className="nopostsyet">
+                <AddAPhotoOutlinedIcon
+                  style={{ width: "60px", height: "60px" }}
+                />
+                <p className="nopostcontent">No Posts Yet</p>
               </div>
-            ))}
+            )}
+          <div className="gallery">
+            {activatefollow !== "" &&
+              profileuseraccount === true &&
+              photoscount > 0 && (
+                <>
+                  {gallery.length >= 1 &&
+                    gallery.map((item) => (
+                      <div>
+                        <UserGallery key={`${item.id}`} galleryitem={item} />
+                      </div>
+                    ))}
+                </>
+              )}
+            {activatefollow === "" &&
+              gallery.length >= 1 &&
+              gallery.map((item) => (
+                <UserGallery key={`${item.id}`} galleryitem={item} />
+              ))}
+          </div>
+          {activatefollow === "" && gallery.length == 0 && (
+            <div className="nopostsyet">
+              <AddAPhotoOutlinedIcon
+                style={{ width: "60px", height: "60px" }}
+              />
+              <span className="nopostcontent">No Posts Yet</span>
+            </div>
+          )}
+
           {/* <div className="gallery">
                 <div className="gallery-item">
                   <img

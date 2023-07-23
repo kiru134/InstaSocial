@@ -1,0 +1,51 @@
+.create-post__image-picker {
+  text-align: center;
+  padding: 2rem;
+}
+
+.create-post__image-picker:hover {
+  cursor: pointer;
+}
+
+.create-post__image-picker p {
+  padding: 1rem 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+.create-post__upload {
+  bottom: 0;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  display: flex;
+  left: 40%;
+  margin-bottom: 15px;
+  border: 0;
+  background-color: rgb(18, 218, 158);
+  border-radius: 5px;
+  color: white;
+}
+
+#captionbox {
+  width: 70%;
+  position: relative;
+  height: 24px;
+  left: 15%;
+  border: 1px solid rgb(225, 222, 222);
+  border-radius: 2px;
+  margin-top: 10px;
+  margin-bottom: 8px;
+}
+
+.create-post__image {
+  height: 100%;
+}
+.create-post__image > div {
+  height: 100%;
+}
+
+.create-post__image > div > img {
+  height: 100%;
+  position: relative;
+  /* left: 10%; */
+}

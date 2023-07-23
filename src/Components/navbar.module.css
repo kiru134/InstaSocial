@@ -32,17 +32,28 @@
   border-radius: 15px;
   /* justify-content: center; */
 }
+
 .sidenav_button:hover {
   cursor: pointer;
   background-color: rgba(10, 6, 6, 0.12);
 }
 .sidenav_button > span {
   font-size: 14px;
-  font-weight: 300;
+  font-weight: 600;
   margin-left: 10px;
 }
+
+/*
+
+.active {
+  font-weight: 900;
+  font-size: 14px;
+  margin-left: 10px;
+  /* background-color: orange; */
+
 .linkComponent {
   text-decoration: none;
+  font-weight: bold;
 }
 @media screen and (max-width: 850px) and (min-width: 600px) {
   .sidenav_button > span {
