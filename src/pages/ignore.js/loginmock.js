@@ -36,12 +36,13 @@ const LoginMock = () => {
     // Checking if user is not loggedIn
     if (error || loogedIn) {
       setsnackbar(true);
+      setsnackbardisplaystatus(true);
     }
   }, [loogedIn, error]);
 
   const handleSnackbarClose = (event) => {
     setsnackbar(false);
-    setsnackbardisplaystatus(true);
+    // setsnackbardisplaystatus(true);
     console.log(snackbardisplayed);
   };
 
@@ -206,14 +207,15 @@ const LoginMock = () => {
         </div>
         <Snackbar
           open={displaySnackbar}
-          //   anchorOrigin={{
-          //     vertical: "center",
-          //     horizontal: "center",
-          //   }}
+          anchorOrigin={{
+            vertical: "center",
+            horizontal: "center",
+          }}
+          sx={{ position: "absolute" }}
           onClose={handleSnackbarClose}
           autoHideDuration={1500}
           message={loogedIn ? "Logged In successfully" : error}
-        />
+        />=
       </>
     </React.Fragment>
   );

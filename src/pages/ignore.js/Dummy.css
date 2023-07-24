@@ -14,3 +14,8 @@
     margin-left: 80px;
   }
 }
+@media screen and (max-width: 600px) {
+  .userprofile {
+    margin: 10px;
+  }
+}

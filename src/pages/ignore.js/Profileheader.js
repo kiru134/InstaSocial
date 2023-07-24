@@ -182,10 +182,10 @@ const ProfileHeader = ({
               <div className="profile-bio">
                 <p>
                   <span className="profile-real-name">{profileUsername}</span>{" "}
-                  {/* <div>
+                  <div>
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit
                     📷✈️🏕️
-                  </div> */}
+                  </div>
                 </p>
               </div>
             </div>
@@ -194,20 +194,31 @@ const ProfileHeader = ({
           {/* <!-- End of container --> */}
         </div>
         <div className="gallerycontainer">
-          {activatefollow !== "" &&
+          {(user.userauth.username !== profileUsername &&
             profileuseraccount === false &&
-            activatefollow == "Following" &&
-            photoscount <= 0 && (
+            activatefollow == "Following") ||
+            (activatefollow == "Follow" && photoscount <= 0 && (
               <div className="nopostsyet">
                 <AddAPhotoOutlinedIcon
                   style={{ width: "60px", height: "60px" }}
                 />
                 <p className="nopostcontent">No Posts Yet</p>
               </div>
-            )}
+            ))}
 
-          {activatefollow !== "" &&
+          {/* {user.userauth.username !== profileUsername &&
             profileuseraccount === false &&
+            photoscount <= 0 && (
+              <div className="nopostsyet">
+                <LockOutlinedIcon style={{ width: "60px", height: "60px" }} />
+                <span className="nopostcontent">
+                  This is an Private Account
+                </span>
+                <p>Follow this account ton see their posts</p>
+              </div>
+            )}  */}
+          {user.userauth.username !== profileUsername &&
+            profileuseraccount === true &&
             activatefollow == "Follow" && (
               <div className="nopostsyet">
                 <LockOutlinedIcon style={{ width: "60px", height: "60px" }} />
@@ -217,44 +228,33 @@ const ProfileHeader = ({
                 <p>Follow this account ton see their posts</p>
               </div>
             )}
-
-          {activatefollow !== "" &&
-            profileuseraccount === true &&
-            photoscount < 0 && (
-              <div className="nopostsyet">
-                <AddAPhotoOutlinedIcon
-                  style={{ width: "60px", height: "60px" }}
-                />
-                <p className="nopostcontent">No Posts Yet</p>
-              </div>
-            )}
           <div className="gallery">
-            {activatefollow !== "" &&
+            {user.userauth.username !== profileUsername &&
               profileuseraccount === true &&
+              activatefollow == "Following" &&
               photoscount > 0 && (
                 <>
                   {gallery.length >= 1 &&
                     gallery.map((item) => (
-                      <div>
-                        <UserGallery key={`${item.id}`} galleryitem={item} />
-                      </div>
+                      <UserGallery key={`${item.id}`} galleryitem={item} />
                     ))}
                 </>
               )}
-            {activatefollow === "" &&
+            {user.userauth.username === profileUsername &&
               gallery.length >= 1 &&
               gallery.map((item) => (
                 <UserGallery key={`${item.id}`} galleryitem={item} />
               ))}
           </div>
-          {activatefollow === "" && gallery.length == 0 && (
-            <div className="nopostsyet">
-              <AddAPhotoOutlinedIcon
-                style={{ width: "60px", height: "60px" }}
-              />
-              <span className="nopostcontent">No Posts Yet</span>
-            </div>
-          )}
+          {user.userauth.username === profileUsername &&
+            gallery.length == 0 && (
+              <div className="nopostsyet">
+                <AddAPhotoOutlinedIcon
+                  style={{ width: "60px", height: "60px" }}
+                />
+                <span className="nopostcontent">No Posts Yet</span>
+              </div>
+            )}
 
           {/* <div className="gallery">
                 <div className="gallery-item">

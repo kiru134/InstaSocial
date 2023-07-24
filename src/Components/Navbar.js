@@ -96,36 +96,40 @@ const Navbar = () => {
               <span>Home</span>
             </button>
           </Link>
-          <Link className={classes.linkComponent}>
+
+          <div className={classes.linkComponent}>
             <button className={classes.sidenav_button}>
               <SearchIcon></SearchIcon>
               <span className="sidenav_buttonspan">Search</span>
             </button>
-          </Link>
-          <Link className={classes.linkComponent}>
+          </div>
+          {/* <Link className={classes.linkComponent}>
             <button className={classes.sidenav_button}>
               <ExploreIcon></ExploreIcon>
               <span>Explore</span>
             </button>
-          </Link>
+          </Link> */}
           {/*
           <button className={classes.sidenav_button}>
             <SlideshowIcon></SlideshowIcon>
             <span>Reels</span>
           </button> */}
-          <Link className={classes.linkComponent}>
+
+          <div className={classes.linkComponent}>
             <button className={classes.sidenav_button}>
               <ChatIcon></ChatIcon>
               <span>Messages</span>
             </button>
-          </Link>
-          <Link className={classes.linkComponent}>
+          </div>
+
+          <div className={classes.linkComponent}>
             <button className={classes.sidenav_button}>
               <FavoriteBorderIcon></FavoriteBorderIcon>
               <span>Notifications</span>
             </button>
-          </Link>
-          <Link className={classes.linkComponent}>
+          </div>
+
+          <div className={classes.linkComponent}>
             <button
               className={classes.sidenav_button}
               onClick={() => setcreatepostclick(!createpostclick)}
@@ -133,17 +137,23 @@ const Navbar = () => {
               <AddCircleOutlineIcon></AddCircleOutlineIcon>
               <span>Create</span>
             </button>
-          </Link>
+          </div>
+
           <Link
+            // onClick={window.location.reload(true)}
             to={`/profile/${user.userauth.username}`}
             className={classes.linkComponent}
           >
             <button className={classes.sidenav_button}>
-              <Avatar src={user.userauth.dp}></Avatar>
+              <Avatar
+                src={user.userauth.dp}
+                style={{ width: "20px", height: "20px" }}
+              ></Avatar>
               <span>My Profile</span>
             </button>
           </Link>
-          <Link className={classes.linkComponent}>
+
+          <div className={classes.linkComponent}>
             <button
               className={classes.sidenav_button}
               onClick={() => setloggedOutclicked(!logoutClicked)}
@@ -151,7 +161,7 @@ const Navbar = () => {
               <LogoutIcon></LogoutIcon>
               <span className={"sidenav_button_span"}>Logout</span>
             </button>
-          </Link>
+          </div>
           {/* {logoutClicked && } */}
         </div>
       </div>

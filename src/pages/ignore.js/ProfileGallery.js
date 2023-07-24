@@ -25,7 +25,7 @@ const UserGallery = ({ galleryitem }) => {
 
   return (
     <>
-      <div className="gallery-item" onFocus={() => imageClick()}>
+      <div className="gallery-item">
         <img
           src={galleryitem.image_url}
           alt={galleryitem.caption}
@@ -46,14 +46,16 @@ const UserGallery = ({ galleryitem }) => {
             // totalLikes={postdetails.likes.length}
           ></NewCommentModal>
         )}
-        <div className="gallery-item-info">
+        <div
+          className="gallery-item-info"
+          onClick={() => setCommentModal(true)}
+        >
           <div
             style={{
               display: "flex",
               justifyContent: "space-around",
               // alignContent: "",
             }}
-            onClick={() => imageClick()}
           >
             <div className="gallery-item-likes">
               <FavoriteIcon style={{ marginRight: "5px" }} />

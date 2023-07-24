@@ -13,14 +13,15 @@ function App() {
     <Router>
       <Routes>
         <Route element={<PrivateRoute />}>
-          {/* <Route element={<Dummy />} path="/profile/:uid" /> */}
+          <Route element={<Dummy />} path="/profile/:username" />
+          <Route element={<Homepage />} path="/Homepage" exact />
+
           {/* <Route element={<Homepage />} path="/Homepage" exact /> */}
         </Route>
         {/* <Route element={<SignupModal />} path="/signup" exact></Route> */}
         <Route element={<MainNavigation />} path="/"></Route>
-        <Route element={<Dummy />} path="/profile/:username" />
+
         <Route element={<SignUpMock />} path="/signup" exact></Route>
-        <Route element={<Homepage />} path="/Homepage" exact />
       </Routes>
     </Router>
   );

@@ -37,7 +37,7 @@ const Dummy = () => {
       );
     };
     awaituserprofile();
-  }, []);
+  }, [currentuser]);
 
   // const updatefollowercount = (data) => {};
 

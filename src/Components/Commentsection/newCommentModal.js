@@ -25,6 +25,7 @@ import AddCommentInput from "./addCommentInput";
 import { Link } from "react-router-dom";
 import LikedActions from "../likeActions";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { FullscreenExit } from "@mui/icons-material";
 
 // import "./newcomment.css";
 
@@ -46,9 +47,15 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     height: "87%",
     width: "60%",
-    border: "1px solid #000",
+    // minWidth: "600px",
+    minHeight: "450px",
+    // border: "1px solid #000",
     boxShadow: theme.shadows[5],
     // padding: theme.spacing(2, 4, 3),
+    "@media (max-width: 600px)": {
+      width: "90%",
+      height: "87%",
+    },
   },
 }));
 const PAGE_SIZE = 12;

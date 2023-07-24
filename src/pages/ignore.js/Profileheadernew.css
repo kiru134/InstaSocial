@@ -82,7 +82,7 @@ button {
 .gallery {
   margin-top: 20px;
   display: grid;
-  grid-template-columns: repeat(3, minmax(250px, 1fr));
+  grid-template-columns: repeat(3, minmax(250px, 33%));
   grid-gap: 4px;
   grid-auto-rows: 200px;
   height: 100%;
@@ -149,8 +149,28 @@ button {
 /* .visually-hidden {
   visibility: visible;
 } */
-@media (max-width: 850px) {
+@media screen and (max-width: 1000px) {
+  .gallery {
+    grid-template-columns: repeat(2, minmax(250px, 66%));
+  }
+}
+@media screen and (max-width: 850px) {
   .maincongtainer {
     margin: 0% 10px;
+  }
+}
+@media screen and (max-width: 650px) {
+  .gallery {
+    grid-template-columns: repeat(1, minmax(250px, 100%));
+  }
+}
+@media screen and (max-width: 450px) {
+  .profile-image {
+    height: 150px;
+    width: 150px;
+  }
+  .profile-bio {
+    position: absolute;
+    left: 20px;
   }
 }

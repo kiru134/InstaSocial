@@ -8,6 +8,7 @@ import Loading from "../../Components/Loading";
 import CameraEnhanceIcon from "@mui/icons-material/CameraEnhance";
 import { storage } from "../../FirebaseProfilepicture/Firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
 const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
 
 const SignUpMock = () => {
