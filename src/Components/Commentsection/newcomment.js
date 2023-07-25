@@ -17,6 +17,11 @@ export default function NewComment({
   const [openCommentModal, setCommentModal] = useState(false);
   const [recentcomment, setrecentcomment] = useState({});
 
+  const handleonClick = () => {
+    setCommentModal(true);
+    setrecentcomment({});
+  };
+
   if (!(Object.keys(recentcomment).length === 0)) {
     postdetails.comments.length = postdetails.comments.length + 1;
   }
@@ -25,7 +30,7 @@ export default function NewComment({
       <div className="commentcontainer">
         {/* {(Object.keys(recentcomment).length != 0) } */}
         {postdetails.comments.length > 1 && (
-          <button onClick={() => setCommentModal(true)}>
+          <button onClick={handleonClick}>
             <p className="viewallcommentscontainer">
               View all {postdetails.comments.length} comments
             </p>

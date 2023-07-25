@@ -8,6 +8,8 @@ const UserGallery = ({ galleryitem }) => {
   console.log(galleryitem);
   let user = useSelector((state) => state.data.user);
   const [openCommentModal, setCommentModal] = useState(false);
+  const [commentcount, setcommentcount] = useState(galleryitem.comments.length);
+  const [likescount, setlikescount] = useState(galleryitem.likes.length);
   const currentuserinphotolike = galleryitem.likes.find(
     (o) => o.username === `${user.userauth.username}`
   );
@@ -43,6 +45,9 @@ const UserGallery = ({ galleryitem }) => {
             modalclosed={() => setCommentModal(!openCommentModal)}
             // postid={pid}
             islikedPhoto={validatecurrentuserlikedpost}
+            commentscount={setcommentcount}
+            likescount={setlikescount}
+
             // totalLikes={postdetails.likes.length}
           ></NewCommentModal>
         )}
@@ -60,11 +65,11 @@ const UserGallery = ({ galleryitem }) => {
             <div className="gallery-item-likes">
               <FavoriteIcon style={{ marginRight: "5px" }} />
               {/* <span className="visually-hidden">Likes:</span> */}
-              {galleryitem.likes.length}
+              {likescount}
             </div>
             <div className="gallery-item-comments">
               <ChatBubbleIcon style={{ marginRight: "5px" }} />
-              {galleryitem.comments.length}
+              {commentcount}
               {/* <span className="visually-hidden">Comments:</span>2 */}
             </div>
           </div>

@@ -14,8 +14,9 @@ const PostCard = ({ post }) => {
   // const [username, getusername] = useState(post.user.username)
   const [comments, setComments] = useState([]);
   const [image_url, setImageUrl] = useState("");
-  const [likes, setLikes] = useState(0);
-  const [togglelikes, setToggledLikes] = useState();
+  // const [likes, setLikes] = useState(0);
+  // const [togglelikes, setToggledLikes] = useState();
+
   const commentInput = useRef(null);
 
   const handleFocus = () => commentInput.current.focus();
@@ -35,6 +36,7 @@ const PostCard = ({ post }) => {
   };
   console.log(post.likes);
   console.log(post.comments);
+  const [liked, setlikedphoto] = useState(validatecurrentuserlikedpost);
 
   useEffect(() => {
     setComments(post.comments);
@@ -52,7 +54,7 @@ const PostCard = ({ post }) => {
   console.log(post.user);
   console.log(post.id);
   console.log(post);
-
+  console.log("post card" + liked);
   return (
     <div className={classes.post}>
       <div className={classes.post_header}>
@@ -80,14 +82,14 @@ const PostCard = ({ post }) => {
         islikedPhoto={validatecurrentuserlikedpost}
         totalLikes={post.likes.length}
         handleFocus={handleFocus}
-        // handlemodalpopup={handlecommentmodal}
+        likescount={setlikedphoto}
       ></LikedActions>
       <Footer caption={post.caption} username={post.user.username}></Footer>
       {/* send the totallikes islikedPhoto to comment component as well */}
       <NewComment
         postdetails={post}
         image={image_url}
-        islikedPhoto={validatecurrentuserlikedpost}
+        islikedPhoto={liked}
         commentInput={commentInput}
       />
       {/* <Comments

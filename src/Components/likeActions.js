@@ -1,11 +1,17 @@
 import { useState } from "react";
 import useHttp from "../Hooks/usehttphook";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import FavoriteTwoToneIcon from "@mui/icons-material/FavoriteTwoTone";
+
 import "./Actions.css";
 const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
 
-const LikedActions = ({ pid, islikedPhoto, totalLikes, handleFocus }) => {
+const LikedActions = ({
+  pid,
+  islikedPhoto,
+  totalLikes,
+  handleFocus,
+  likescount,
+}) => {
   const [toggleLiked, setToggleLiked] = useState(islikedPhoto);
   const [likes, setLikes] = useState(totalLikes);
   const { isLoading, error, sendRequest: updateLikes } = useHttp();
@@ -13,6 +19,8 @@ const LikedActions = ({ pid, islikedPhoto, totalLikes, handleFocus }) => {
 
   const likesetter = (data) => {
     setLikes((likes) => (toggleLiked ? likes - 1 : likes + 1));
+    likescount(toggleLiked ? false : true);
+    // islikedPhoto(toggleLiked ? false:false)
   };
   console.log(error);
   console.log(likes);
@@ -75,9 +83,6 @@ const LikedActions = ({ pid, islikedPhoto, totalLikes, handleFocus }) => {
             className={`likesvg + ${
               toggleLiked ? "likesvgclicked" : "likesvgnotclicked"
             }`}
-            // className={`w-8 mr-4 select-none cursor-pointer focus:outline-none ${
-            //   toggleLiked ? "fill-red text-red-primary" : "text-black-light"
-            // }`}
           >
             <path
               strokeLinecap="round"

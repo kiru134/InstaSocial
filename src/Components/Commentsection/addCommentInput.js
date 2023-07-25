@@ -8,6 +8,7 @@ export default function AddCommentInput({
   docId,
   setrecentcomment,
   commentInput,
+  addcommentcount,
 }) {
   const [comment, setComment] = useState("");
   const { isLoading, error, sendRequest: updatecomments } = useHttp();
@@ -19,13 +20,16 @@ export default function AddCommentInput({
       let timestamp = data.timestamp;
       let user = userr.userauth;
       let text = data.text;
+      let likes = [];
+      let id = data.id;
       console.log(user);
       //   setComments([{ text, user, timestamp }, ...comments]);
-      setrecentcomment({ text, user, timestamp });
+      setrecentcomment({ text, user, timestamp, likes, id });
+      setComment("");
+      addcommentcount(true);
       // setComments(
       //   comments.unshift({ text: text, user: user, timestamp: timestamp })
       // );
-      setComment("");
     };
     const json_string = JSON.stringify({
       user_id: userr.userauth.userId,

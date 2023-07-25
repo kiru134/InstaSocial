@@ -1,16 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
-import { RotatingLines } from "react-loader-spinner";
 import { MetroSpinner } from "react-spinners-kit";
-//   PushSpinner,
-//   TraceSpinner,
-//   RainbowSpinner,
-//   RingSpinner,
-//   SwishSpinner,
-//   PongSpinner,
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-//   JellyfishSpinner,
-// }
 import {
   Avatar,
   Button,
@@ -25,7 +17,7 @@ import AddCommentInput from "./addCommentInput";
 import { Link } from "react-router-dom";
 import LikedActions from "../likeActions";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { FullscreenExit } from "@mui/icons-material";
+import Createcomment from "./commentcreation";
 
 // import "./newcomment.css";
 
@@ -51,6 +43,8 @@ const useStyles = makeStyles((theme) => ({
     minHeight: "450px",
     // border: "1px solid #000",
     boxShadow: theme.shadows[5],
+    border: "0px",
+    borderRadius: "6px",
     // padding: theme.spacing(2, 4, 3),
     "@media (max-width: 600px)": {
       width: "90%",
@@ -67,6 +61,8 @@ const NewCommentModal = ({
   // posteduser,
   // dp,
   modalclosed,
+  commentscount,
+  likescount,
   // pid,
   islikedPhoto,
 
@@ -102,6 +98,20 @@ const NewCommentModal = ({
     modalclosed(true);
   };
 
+  const removecomment = (id) => {
+    setComments((current) => current.filter((item) => item.id !== id));
+    commentscount((prevcount) => prevcount - 1);
+    // likescount,updatelikescount and commentcountafteradding comment
+  };
+
+  const addcomment = (status) => {
+    if (status === true) commentscount((prevcount) => prevcount + 1);
+  };
+  const setlikescount = (status) => {
+    if (status === true) {
+      likescount((prevcount) => prevcount + 1);
+    } else likescount((prevcount) => prevcount - 1);
+  };
   const newcomments = (data) => {
     if (data.length > 0) {
       setComments([...comments, ...data]);
@@ -140,10 +150,6 @@ const NewCommentModal = ({
               <img src={postimage}></img>
             </div>
             <div className="modalcontainerpartitioner_right">
-              {
-                /* call the addcomment class,from addcomment take the comments and display in this modal and also increment the count of the comment in the parent */
-                //   here make the infinite scroll,use the axios to call the comment pagination api
-              }
               <div className="posteduserdetails">
                 <Link
                   to={`/profile/${post.user.username}`}
@@ -185,116 +191,74 @@ const NewCommentModal = ({
                     username={post.user.username}
                   ></Footer>
                 </div>
-                <InfiniteScroll
-                  dataLength={comments.length}
-                  next={fetchComments}
-                  hasMore={hasMore}
-                  //   <span class="loader"></span>
-                  // <RotatingLines
-                  //   className="loadingspinner"
-                  //   strokeColor="grey"
-                  //   strokeWidth="3"
-                  //   animationDuration="0.75"
-                  //   height="30"
-                  //   width="30"
-                  // />
+                {post.comments.length === 0 && (
+                  <h2 className="nocommentscontent">No Comments yet...</h2>
+                )}
+                {post.comments.length > 0 && (
+                  <InfiniteScroll
+                    dataLength={comments.length}
+                    next={fetchComments}
+                    hasMore={hasMore}
+                    // endMessage={<p>No more comments</p>}
+                    // height={300}
+                    scrollableTarget="scrollableDiv"
+                  >
+                    {comments.map((item) => {
+                      return (
+                        <Createcomment
+                          key={item.id}
+                          item={item}
+                          deletecomment={removecomment}
+                        ></Createcomment>
+                        // <div
+                        //   className="commentitem"
+                        //   key={`${item.timestamp}-${item.user.username}`}
+                        // >
+                        //   <Link
+                        //     to={`/profile/${item.user.username}`}
+                        //     style={{ marginRight: "18px" }}
+                        //   >
+                        //     <Avatar
+                        //       alt={item.user.username}
+                        //       style={{
+                        //         width: "30px",
+                        //         height: "30px",
+                        //       }}
+                        //       src={item.user.dp}
+                        //     ></Avatar>
+                        //   </Link>
+                        //   <Link
+                        //     to={`/profile/${item.user.username}`}
+                        //     className="commentedusername"
+                        //   >
+                        //     <span
+                        //       style={{
+                        //         fontWeight: 600,
+                        //         fontSize: "12px",
+                        //         marginRight: "3px",
+                        //       }}
+                        //     >
+                        //       {item.user.username}
+                        //     </span>
+                        //   </Link>
+                        //   <span>{item.text}</span>
+                        // </div>
+                      );
+                    })}
+                    {!(Object.keys(recentcomment).length === 0) && (
+                      //   <p key={`${recentcomment[0].timestamp}-${recentcomment[0].user.username}`}>
 
-                  // loader={<h4>Loading...</h4>}
-                  // <div loadingspinner>
-                  //
-                  //   </div>
-
-                  /* 
-                      />  */
-
-                  // endMessage={<p>No more comments</p>}
-                  // height={300}
-                  scrollableTarget="scrollableDiv"
-                >
-                  {comments.map((item) => {
-                    return (
-                      <div
-                        className="commentitem"
-                        key={`${item.timestamp}-${item.user.username}`}
-                      >
-                        <Link
-                          to={`/profile/${item.user.username}`}
-                          style={{ marginRight: "18px" }}
-                        >
-                          <Avatar
-                            alt={item.user.username}
-                            style={{
-                              width: "30px",
-                              height: "30px",
-                            }}
-                            src={item.user.dp}
-                          ></Avatar>
-                        </Link>
-                        <Link
-                          to={`/profile/${item.user.username}`}
-                          className="commentedusername"
-                        >
-                          <span
-                            style={{
-                              fontWeight: 600,
-                              fontSize: "12px",
-                              marginRight: "3px",
-                            }}
-                          >
-                            {item.user.username}
-                          </span>
-                        </Link>
-                        <span>{item.text}</span>
-                      </div>
-                    );
-                  })}
-                  {!(Object.keys(recentcomment).length === 0) && (
-                    //   <p key={`${recentcomment[0].timestamp}-${recentcomment[0].user.username}`}>
-                    <div className="commentitem">
-                      <Link
-                        to={`/profile/${recentcomment.user.username}`}
-                        style={{ marginRight: "18px" }}
-                      >
-                        <Avatar
-                          alt={recentcomment.user.username}
-                          style={{
-                            width: "30px",
-                            height: "30px",
-                          }}
-                          src={recentcomment.user.dp}
-                        ></Avatar>
-                      </Link>
-                      <Link
-                        to={`/profile/${recentcomment.user.username}`}
-                        className="commentedusername"
-                      >
-                        <span
-                          style={{
-                            fontWeight: 600,
-                            fontSize: "12px",
-                            marginRight: "3px",
-                          }}
-                        >
-                          {recentcomment.user.username}
-                        </span>
-                      </Link>
-                      <span>{recentcomment.text}</span>
-                    </div>
-                    // <p>
-                    //   <Link
-                    //     to={`/profile/${recentcomment.user.username}`}
-                    //     className="commentedusername"
-                    //   >
-                    //     <span>{recentcomment.user.username}</span>
-                    //   </Link>
-                    //   <span>{recentcomment.text}</span>
-                    // </p>
-                  )}
-                </InfiniteScroll>
-                {/* )} */}
+                      <Createcomment
+                        key={recentcomment.id}
+                        item={recentcomment}
+                        deletecomment={removecomment}
+                      ></Createcomment>
+                    )}
+                  </InfiniteScroll>
+                )}
               </div>
               <div className="loadercontainer">
-                {isLoading && (
+                {post.comments.length > 0 && isLoading && (
                   <div className="loadingspinner">
                     <MetroSpinner size={30} color="#808080" />
                   </div>
@@ -308,6 +272,7 @@ const NewCommentModal = ({
                     islikedPhoto={islikedPhoto}
                     totalLikes={post.likes.length}
                     handleFocus={handlecommentFocus}
+                    // likescount={setlikescount}
                     // handlemodalpopup={handlecommentmodal}
                   ></LikedActions>
                 </div>
@@ -322,6 +287,7 @@ const NewCommentModal = ({
                   //    setComments={setComments}
                   setrecentcomment={setrecentcomment}
                   commentInput={commentInput}
+                  addcommentcount={addcomment}
                 ></AddCommentInput>
               </div>
             </div>
