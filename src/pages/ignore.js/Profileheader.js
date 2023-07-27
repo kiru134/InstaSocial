@@ -27,6 +27,8 @@ const ProfileHeader = ({
   const { Loading, iserror, sendRequest: updatefollowingstatus } = useHttp();
   const [fc, setfollowercount] = useState(followerCount);
 
+  console.log(profileuseraccount);
+
   const updatefollowing = (data) => {
     if (data.success == true && activatefollow == "Follow") {
       setfollowercount(fc + 1);
@@ -194,31 +196,32 @@ const ProfileHeader = ({
           {/* <!-- End of container --> */}
         </div>
         <div className="gallerycontainer">
-          {(user.userauth.username !== profileUsername &&
-            profileuseraccount === false &&
-            activatefollow == "Following") ||
-            (activatefollow == "Follow" && photoscount <= 0 && (
+          {user.userauth.username !== profileUsername &&
+            profileuseraccount === true &&
+            photoscount <= 0 && (
               <div className="nopostsyet">
                 <AddAPhotoOutlinedIcon
                   style={{ width: "60px", height: "60px" }}
                 />
                 <p className="nopostcontent">No Posts Yet</p>
               </div>
-            ))}
+            )}
 
-          {/* {user.userauth.username !== profileUsername &&
+          {/* (activatefollow == "Follow" && photoscount <= 0 && ( */}
+          {user.userauth.username !== profileUsername &&
             profileuseraccount === false &&
+            activatefollow == "Following" &&
             photoscount <= 0 && (
               <div className="nopostsyet">
-                <LockOutlinedIcon style={{ width: "60px", height: "60px" }} />
-                <span className="nopostcontent">
-                  This is an Private Account
-                </span>
-                <p>Follow this account ton see their posts</p>
+                <AddAPhotoOutlinedIcon
+                  style={{ width: "60px", height: "60px" }}
+                />
+                <p className="nopostcontent">No Posts Yet</p>
               </div>
-            )}  */}
+            )}
+
           {user.userauth.username !== profileUsername &&
-            profileuseraccount === true &&
+            profileuseraccount === false &&
             activatefollow == "Follow" && (
               <div className="nopostsyet">
                 <LockOutlinedIcon style={{ width: "60px", height: "60px" }} />
@@ -228,9 +231,23 @@ const ProfileHeader = ({
                 <p>Follow this account ton see their posts</p>
               </div>
             )}
+
           <div className="gallery">
+            {!photoscount &&
+              new Array(12)
+                .fill(0)
+                .map((_, i) => <Skeleton key={i} width={320} height={400} />)}
             {user.userauth.username !== profileUsername &&
               profileuseraccount === true &&
+              photoscount >= 1 && (
+                <>
+                  {gallery.map((item) => (
+                    <UserGallery key={`${item.id}`} galleryitem={item} />
+                  ))}
+                </>
+              )}
+            {user.userauth.username !== profileUsername &&
+              profileuseraccount === false &&
               activatefollow == "Following" &&
               photoscount > 0 && (
                 <>
@@ -245,16 +262,16 @@ const ProfileHeader = ({
               gallery.map((item) => (
                 <UserGallery key={`${item.id}`} galleryitem={item} />
               ))}
-          </div>
-          {user.userauth.username === profileUsername &&
-            gallery.length == 0 && (
+
+            {user.userauth.username === profileUsername && photoscount <= 0 && (
               <div className="nopostsyet">
                 <AddAPhotoOutlinedIcon
                   style={{ width: "60px", height: "60px" }}
                 />
-                <span className="nopostcontent">No Posts Yet</span>
+                <p className="nopostcontent">No Posts Yet</p>
               </div>
             )}
+          </div>
 
           {/* <div className="gallery">
                 <div className="gallery-item">

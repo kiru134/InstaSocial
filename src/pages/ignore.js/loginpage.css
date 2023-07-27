@@ -1,0 +1,152 @@
+.logincomponentconatiner {
+  /* width: 100vw;
+  height: 100vh; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: #eee;
+  overflow: hidden;
+}
+.logincomponentsubconatiner {
+  display: flex;
+  flex-direction: row;
+  height: 80%;
+  width: 80%;
+  align-items: center;
+}
+.animationconatiner {
+  width: 100%;
+}
+.logincontainer {
+  width: 100%;
+  border-color: rgb(229, 228, 228);
+  padding: 20px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #dbdbdb;
+}
+.loginfullcontainer {
+  display: flex;
+  height: 100%;
+  width: 75%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.bottomsignupcontainer {
+  width: 100%;
+  border-color: rgb(229, 228, 228);
+  padding: 20px;
+  background-color: white;
+  margin-top: 20px;
+  text-align: center;
+  border: 1px solid #dbdbdb;
+}
+.bottomsignupcontainer > button {
+  margin-left: 4px;
+  color: rgb(0, 149, 246);
+  border: 0;
+  background-color: white;
+  font-weight: 600;
+}
+#form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+  align-items: center;
+}
+
+.input1 {
+  width: 100%;
+  margin: 40px 0px 12px 0px;
+  padding: 8px 12px;
+  border: 1px solid #dbdbdb;
+  box-sizing: border-box;
+  border-radius: 3px;
+  text-overflow: ellipsis;
+}
+.input2 {
+  width: 100%;
+  margin: 12px 0px 24px 0px;
+  margin-top: 12px;
+  padding: 8px 12px;
+  border: 1px solid #dbdbdb;
+  box-sizing: border-box;
+  border-radius: 3px;
+  outline: none;
+}
+.overlaptext {
+  width: 100%;
+  position: relative;
+}
+.overlaptext > button {
+  position: absolute;
+  padding: 0 !important;
+  background-color: white;
+  border: 0;
+  left: 81%;
+  top: 30%;
+  font-weight: 600;
+}
+
+.applicationname {
+  /* letter-spacing: 0.1em; */
+  font-size: 48px;
+  line-height: 1;
+  margin-top: 50px;
+}
+.loginsubmitbutton {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background-color: rgb(0, 149, 246);
+  padding: 8px 24px 8px 24px;
+  color: white;
+  border: 0;
+  border-radius: 6px;
+}
+.loginsubmitbutton:disabled {
+  background-color: rgb(157, 208, 243);
+  transition: transform scale(0);
+}
+
+.loginsubmitbutton:active {
+  transition: transform scale(0.95);
+}
+.divider {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0px 20px 8px;
+}
+.orcontainer1 {
+  height: 0.8px;
+  width: 100%;
+  background-color: #e7e6e6;
+}
+.orcontainer {
+  text-align: center;
+  padding: 0px 8px 0px 8px;
+}
+.orcontainer2 {
+  height: 0.8px;
+  width: 100%;
+  background-color: #e7e6e6;
+}
+.forgetpasswordlink,
+.forgetpasswordlink:active,
+.forgetpasswordlink:hover,
+.forgetpasswordlink:visited {
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  color: rgb(0, 55, 107);
+  cursor: pointer;
+  font-size: 12px;
+}

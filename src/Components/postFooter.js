@@ -1,6 +1,6 @@
 export default function Footer({ caption, username }) {
   return (
-    <div style={{ paddingTop: "10px", paddingLeft: "2px" }}>
+    <div style={{ paddingTop: "2px", paddingLeft: "2px" }}>
       {/* "p-4 pt-2 pb-1" */}
       <span style={{ marginRight: "1px", fontWeight: "700" }}>{username}</span>
       {/* "mr-1 font-bold" */}

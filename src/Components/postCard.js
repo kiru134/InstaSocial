@@ -11,18 +11,13 @@ import NewComment from "./Commentsection/newcomment";
 
 const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
 const PostCard = ({ post }) => {
-  // const [username, getusername] = useState(post.user.username)
   const [comments, setComments] = useState([]);
   const [image_url, setImageUrl] = useState("");
-  // const [likes, setLikes] = useState(0);
-  // const [togglelikes, setToggledLikes] = useState();
-
   const commentInput = useRef(null);
 
   const handleFocus = () => commentInput.current.focus();
   let user = useSelector((state) => state.data.user);
-  // const posttime = post.timestamp;
-  // const postLikes = post.likes;
+
   const currentuserinphotolike = post.likes.find(
     (o) => o.username === `${user.userauth.username}`
   );
@@ -34,6 +29,7 @@ const PostCard = ({ post }) => {
       return false;
     }
   };
+
   console.log(post.likes);
   console.log(post.comments);
   const [liked, setlikedphoto] = useState(validatecurrentuserlikedpost);
@@ -41,7 +37,9 @@ const PostCard = ({ post }) => {
   useEffect(() => {
     setComments(post.comments);
   }, []);
-
+  useEffect(() => {
+    setlikedphoto(!liked);
+  }, []);
   useEffect(() => {
     if (post.image_url_type === "absolute") {
       setImageUrl(post.image_url);
@@ -54,7 +52,7 @@ const PostCard = ({ post }) => {
   console.log(post.user);
   console.log(post.id);
   console.log(post);
-  console.log("post card" + liked);
+  console.log("post card liked status" + liked);
   return (
     <div className={classes.post}>
       <div className={classes.post_header}>
@@ -82,14 +80,17 @@ const PostCard = ({ post }) => {
         islikedPhoto={validatecurrentuserlikedpost}
         totalLikes={post.likes.length}
         handleFocus={handleFocus}
-        likescount={setlikedphoto}
+
+        // here likestatus we get if the user has liked the photo the status=true
+        // if the user has unlinked the photo then status false.
       ></LikedActions>
+
       <Footer caption={post.caption} username={post.user.username}></Footer>
       {/* send the totallikes islikedPhoto to comment component as well */}
       <NewComment
         postdetails={post}
         image={image_url}
-        islikedPhoto={liked}
+        islikedPhoto={validatecurrentuserlikedpost}
         commentInput={commentInput}
       />
       {/* <Comments

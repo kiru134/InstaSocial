@@ -8,23 +8,33 @@ import Loading from "../../Components/Loading";
 import CameraEnhanceIcon from "@mui/icons-material/CameraEnhance";
 import { storage } from "../../FirebaseProfilepicture/Firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import Snackbarcomp from "../../Components/snackbar";
 
 const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
 
 const SignUpMock = () => {
-  const [username, setusername] = useState("");
-  const [password, setpassword] = useState("");
-  const [email, setemail] = useState("");
   const usernameInputRef = useRef();
   const passwordInputRef = useRef();
   const emailInputRef = useRef();
+  const userfullnameInputRef = useRef();
+  const [usernameblur, setusernametouched] = useState(false);
+  const [passwordblur, setpasswordtouched] = useState(false);
+  const [emailblur, setEnteredemailtouched] = useState(false);
+  const [fullnameblur, setfullnametouched] = useState(false);
   const { isLoading, error, sendRequest: fetchUser } = useHttp();
   const [displaySnackbar, setsnackbar] = useState(false);
   const [signedIn, setisSignedIn] = useState(false);
   const [uploadedAvatar, setUploadedAvatar] = useState(null);
-  //   const [userAvatar, setUserAvatar] = useState(null);
+  const [updatedpassword, setUpdated] = useState("");
+  const [updatedemail, setUpdatedemail] = useState("");
+  const [updatedusername, setUpdatedusername] = useState("");
+  const [updatedfullname, setUpatedfullname] = useState("");
+  const [passwordType, setpasswordtype] = useState("password");
   const navigate = useNavigate();
-
+  let errormessage = "";
+  let emailerrormessage = "";
+  let usernameerrormsg = "";
+  let userfullnameerrormsg = "";
   let formisValid = false;
 
   useEffect(() => {
@@ -41,43 +51,99 @@ const SignUpMock = () => {
     setsnackbar(false);
   };
   const emailValidate = (emailentered) => {
-    if (emailentered) {
+    // if (emailentered.length < 0) {
+    //   emailerrormessage = "Email must not be Empty";
+    //   return false;
+    // }
+    if (emailblur) {
+      if (emailentered === "") {
+        emailerrormessage = "Email field required!";
+        return false;
+      }
       if (/[a-z0-9]+@[a-z]+\.[a-z]{2,3}/.test(emailentered)) {
         return true;
+      } else {
+        emailerrormessage = "Please Enter a Valid Email!";
+        return false;
       }
     }
+  };
 
-    return false;
-  };
   const passwordValidate = (passwordentered) => {
-    if (passwordentered) {
-      if (
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$/.test(
-          passwordentered
-        )
-      ) {
-        return true;
+    if (passwordblur) {
+      if (passwordentered.length < 8) {
+        errormessage = "Password must contain at least 8 characters!";
+        return false;
       }
+      if (passwordentered.length > 10) {
+        errormessage = "Password must be 10 characters long!";
+        return false;
+      }
+      const num = /[0-9]/;
+      if (!num.test(passwordentered)) {
+        errormessage = "password must contain at least one number (0-9)!";
+        return false;
+      }
+      const alp = /[a-z]/;
+      if (!alp.test(passwordentered)) {
+        errormessage =
+          "password must contain at least one lowercase letter (a-z)!";
+
+        return false;
+      }
+      const specialchar = /[@$!%*?&]/;
+      if (!specialchar.test(passwordentered)) {
+        errormessage = "password must contain at least one special character";
+
+        return false;
+      }
+      const cap = /[A-Z]/;
+      if (!cap.test(passwordentered)) {
+        errormessage =
+          "password must contain at least one uppercase letter (A-Z)!";
+
+        return false;
+      } else {
+        if (passwordentered == "") {
+          errormessage = "";
+          return false;
+        }
+      }
+      return true;
     }
-    return false;
   };
-  const enteredNameisValid = username.trim() !== "";
-  //   const passwordlengthcheck = passwordInputRef.current.value < 8;
-  const enteredPasswordisValid = passwordValidate(password.trim());
-  const enteredemailisvalid = emailValidate(email.trim());
+
+  const validateusername = (name) => {
+    if (usernameblur && name === "") {
+      usernameerrormsg = "Username must not be empty!";
+      return false;
+    } else {
+      usernameerrormsg = "";
+      return true;
+    }
+  };
+  const validatefullname = (fullname) => {
+    if (fullnameblur && fullname === "") {
+      userfullnameerrormsg = "FullName must not be empty!";
+      return false;
+    } else {
+      userfullnameerrormsg = "";
+      return true;
+    }
+  };
+  console.log(usernameblur);
+  console.log(updatedusername);
+  const enteredNameisValid = validateusername(updatedusername.trim());
+  const enteredemailisvalid = emailValidate(updatedemail.trim());
+  const enteredPasswordisValid = passwordValidate(updatedpassword);
+  const enteredfullnameisValid = validatefullname(updatedfullname);
+
   if (enteredNameisValid && enteredPasswordisValid && enteredemailisvalid) {
     formisValid = true;
   }
-  const nameInputChangeHandler = (event) => {
-    setusername(event.target.value);
-  };
-  const emailInputChangeHandler = (event) => {
-    setemail(event.target.value);
-  };
+  console.log("passwordvalid" + enteredPasswordisValid);
+  console.log("formvalidation" + formisValid);
 
-  const passwordInputChangeHandler = (event) => {
-    setpassword(event.target.value);
-  };
   const addUserAvatar = (e) => {
     if (e.target.files[0]) {
       addImagetofirebase(e.target.files[0]);
@@ -153,15 +219,40 @@ const SignUpMock = () => {
       );
       console.log("Signed in successfully");
 
-      setusername("");
-      setpassword("");
-      setemail("");
-      //   setEnteredNameTouched(false);
-      //   setEnteredpasswordtouched(false);
-      //   setEnteredemailtouched(false);
+      setUpdated("");
+      setUpdatedemail("");
+      setUpdatedusername("");
+      setEnteredemailtouched(false);
+      setusernametouched(false);
+      setpasswordtouched(false);
+      setfullnametouched(false);
     }
   }
+  const handlepasswordKeyDown = (event) => {
+    setUpdated(passwordInputRef.current.value);
+  };
+  const handleemailKeyDown = (event) => {
+    setUpdatedemail(emailInputRef.current.value);
+  };
 
+  const handleusernamekeydown = (event) => {
+    setUpdatedusername(usernameInputRef.current.value);
+  };
+
+  const handleuserfullnamekeydown = () => {
+    setUpatedfullname(userfullnameInputRef.current.value);
+  };
+
+  const togglepasswordhandle = (e) => {
+    e.preventDefault();
+    if (passwordType === "password") {
+      setpasswordtype("text");
+    } else {
+      setpasswordtype("password");
+    }
+  };
+
+  console.log(updatedpassword);
   return (
     <React.Fragment>
       <>
@@ -174,7 +265,9 @@ const SignUpMock = () => {
                   <CameraEnhanceIcon style={{ height: "18px" }} />
                 </span>
 
-                <span>Change Image</span>
+                <span>
+                  {uploadedAvatar !== null ? "Change Image" : "Add Image"}
+                </span>
               </label>
               <input id="file" type="file" onChange={addUserAvatar} />
               <Avatar
@@ -183,8 +276,33 @@ const SignUpMock = () => {
                 //   src="https://cdn.pixabay.com/photo/2017/08/06/21/01/louvre-2596278_960_720.jpg"
               />
             </div>
+            <span className="profilepictureheading">Profile Picture</span>
             <form id="form" method="post" onSubmit={signIn}>
               <div className="input-group">
+                <div className="input-field">
+                  <input
+                    ref={userfullnameInputRef}
+                    id="FullName"
+                    type="text"
+                    autoCapitalize="off"
+                    autoCorrect="off"
+                    maxLength="75"
+                    onKeyDown={handleuserfullnamekeydown}
+                    onBlur={() => setfullnametouched(true)}
+                    aria-labelledby="placeholder-userfullname"
+                  />
+                  <label
+                    className="placeholder-text"
+                    htmlFor="FullName"
+                    id="placeholder-userfullname"
+                  >
+                    <div className="text">FullName</div>
+                  </label>
+                </div>
+                {!enteredfullnameisValid && (
+                  <p className="errortext">{userfullnameerrormsg}</p>
+                )}
+
                 <div className="input-field">
                   <input
                     ref={usernameInputRef}
@@ -193,8 +311,8 @@ const SignUpMock = () => {
                     autoCapitalize="off"
                     autoCorrect="off"
                     maxLength="75"
-                    value={username}
-                    onChange={nameInputChangeHandler}
+                    onKeyDown={handleusernamekeydown}
+                    onBlur={() => setusernametouched(true)}
                     aria-labelledby="placeholder-username"
                   />
                   <label
@@ -205,15 +323,19 @@ const SignUpMock = () => {
                     <div className="text">Username</div>
                   </label>
                 </div>
+                {!enteredNameisValid && (
+                  <p className="errortext">{usernameerrormsg}</p>
+                )}
 
                 <div className="input-field">
                   <input
                     ref={emailInputRef}
                     id="email"
                     type="email"
-                    value={email}
+                    onKeyDown={handleemailKeyDown}
+                    onBlur={() => setEnteredemailtouched(true)}
                     aria-labelledby="placeholder-Email"
-                    onChange={emailInputChangeHandler}
+                    // onChange={emailInputChangeHandler}
                   />
                   <label
                     className="placeholder-text"
@@ -223,15 +345,21 @@ const SignUpMock = () => {
                     <div className="text">Email</div>
                   </label>
                 </div>
+                {!enteredemailisvalid && (
+                  <p className="errortext">{emailerrormessage}</p>
+                )}
 
+                {/* <div className="input-field"> */}
                 <div className="input-field">
                   <input
                     ref={passwordInputRef}
                     id="password"
                     type="password"
-                    value={password}
+                    // value={password}
+                    onKeyDown={handlepasswordKeyDown}
+                    onBlur={() => setpasswordtouched(true)}
                     aria-labelledby="placeholder-Password"
-                    onChange={passwordInputChangeHandler}
+                    // onChange={passwordInputChangeHandler}
                   />
                   <label
                     className="placeholder-text"
@@ -240,7 +368,17 @@ const SignUpMock = () => {
                   >
                     <div className="text">Password</div>
                   </label>
+                  {/* <button type="button" onClick={togglepasswordhandle}>
+                    {passwordblur && updatedpassword != ""
+                      ? passwordType === "password"
+                        ? "Show"
+                        : "Hide"
+                      : ""}
+                  </button> */}
                 </div>
+                {!enteredPasswordisValid && (
+                  <p className="errortext">{errormessage}</p>
+                )}
               </div>
               <div className="formButton">
                 <button type="submit" disabled={!formisValid}>
@@ -256,7 +394,14 @@ const SignUpMock = () => {
             </div>
           </div>
         </div>
-        <Snackbar
+        {signedIn ||
+          (error && (
+            <Snackbarcomp
+              openmodal={true}
+              message={signedIn ? "Signed In successfully" : error}
+            />
+          ))}
+        {/* <Snackbar
           open={displaySnackbar}
           //   anchorOrigin={{
           //     vertical: "center",
@@ -265,7 +410,7 @@ const SignUpMock = () => {
           onClose={handleSnackbarClose}
           autoHideDuration={1500}
           message={signedIn ? "Signed In successfully" : error}
-        />
+        /> */}
       </>
     </React.Fragment>
   );

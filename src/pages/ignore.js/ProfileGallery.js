@@ -2,8 +2,10 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import NewCommentModal from "../../Components/Commentsection/newCommentModal";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 const UserGallery = ({ galleryitem }) => {
   console.log(galleryitem);
   let user = useSelector((state) => state.data.user);
@@ -13,9 +15,6 @@ const UserGallery = ({ galleryitem }) => {
   const currentuserinphotolike = galleryitem.likes.find(
     (o) => o.username === `${user.userauth.username}`
   );
-  function imageClick() {
-    console.log("imageclicked");
-  }
 
   const validatecurrentuserlikedpost = () => {
     if (currentuserinphotolike != undefined) {
@@ -25,10 +24,15 @@ const UserGallery = ({ galleryitem }) => {
     }
   };
 
+  console.log("likes inside gallery" + likescount);
+
+  const setlikescountpreview = (li) => {
+    console.log(li);
+  };
   return (
     <>
       <div className="gallery-item">
-        <img
+        <LazyLoadImage
           src={galleryitem.image_url}
           alt={galleryitem.caption}
           className="gallery-image"

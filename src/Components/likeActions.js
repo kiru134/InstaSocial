@@ -10,7 +10,7 @@ const LikedActions = ({
   islikedPhoto,
   totalLikes,
   handleFocus,
-  likescount,
+  likestatus,
 }) => {
   const [toggleLiked, setToggleLiked] = useState(islikedPhoto);
   const [likes, setLikes] = useState(totalLikes);
@@ -19,9 +19,10 @@ const LikedActions = ({
 
   const likesetter = (data) => {
     setLikes((likes) => (toggleLiked ? likes - 1 : likes + 1));
-    likescount(toggleLiked ? false : true);
-    // islikedPhoto(toggleLiked ? false:false)
+
+    likestatus(toggleLiked ? false : true);
   };
+
   console.log(error);
   console.log(likes);
   console.log(pid);

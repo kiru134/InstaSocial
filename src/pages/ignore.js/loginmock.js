@@ -2,13 +2,16 @@ import { Avatar } from "@material-ui/core";
 import React, { useState, useEffect, useRef } from "react";
 import useHttp from "../../Hooks/usehttphook";
 import "./signup.css";
-import { useNavigate } from "react-router-dom";
+import "./loginpage.css";
+
 import Loading from "../../Components/Loading";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../features/UserSlice";
-import { Snackbar } from "@mui/material";
-import { Navigate } from "react-router-dom";
+import Snackbarcomp from "../../Components/snackbar";
+import Lottie from "react-lottie-player";
+import loginpagejson from "../../assests/animations/auth-page-animation.json";
+import { Link, useNavigate } from "react-router-dom";
 
 const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
 
@@ -20,40 +23,53 @@ const LoginMock = () => {
   const [usercreds, setusercreds] = useState({});
   const usernameInputRef = useRef();
   const passwordInputRef = useRef();
-  const [displaySnackbar, setsnackbar] = useState(false);
-  const [snackbardisplayed, setsnackbardisplaystatus] = useState(false);
+  const [passwordType, setpasswordtype] = useState("password");
+  // const [displaySnackbar, setsnackbar] = useState(false);
+  // const [snackbardisplayed, setsnackbardisplaystatus] = useState(false);
 
   let user = useSelector((state) => state.data.user);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
-  console.log(user);
 
   const naviagtehandler = () => {
     navigate("/signup");
   };
-  useEffect(() => {
-    // Checking if user is not loggedIn
-    if (error || loogedIn) {
-      setsnackbar(true);
-      setsnackbardisplaystatus(true);
+  const togglepasswordhandle = (e) => {
+    e.preventDefault();
+    if (passwordType === "password") {
+      setpasswordtype("text");
+    } else {
+      setpasswordtype("password");
     }
-  }, [loogedIn, error]);
-
-  const handleSnackbarClose = (event) => {
-    setsnackbar(false);
-    // setsnackbardisplaystatus(true);
-    console.log(snackbardisplayed);
   };
+  // const navigatohomepage = () => {
+  //   navigate("/Homepage", { replace: true });
+  // };
+  // useEffect(() => {
+  //   // Checking if user is not loggedIn
+  //   if (error || loogedIn) {
+  //     setsnackbar(true);
+  //     setsnackbardisplaystatus(true);
+  //   }
+  // }, [loogedIn, error]);
+
+  // const handleSnackbarClose = (event) => {
+  //   setsnackbar(false);
+  //   // setsnackbardisplaystatus(true);
+  //   console.log(snackbardisplayed);
+  // };
 
   useEffect(() => {
-    if (snackbardisplayed && loogedIn) {
+    if (loogedIn) {
       navigate("/Homepage", { replace: true });
-      console.log("snackbarstatus" + snackbardisplayed);
-      console.log("loggedInstatus" + loogedIn);
-      console.log("inside snackbar status effect");
     }
-  }, [snackbardisplayed, loogedIn]);
+  });
+  //     // console.log("snackbarstatus" + snackbardisplayed);
+  //     console.log("loggedInstatus" + loogedIn);
+  //     console.log("inside snackbar status effect");
+  //   }
+  // }, [loogedIn]);
 
   useEffect(() => {
     if (usercreds) {
@@ -101,11 +117,11 @@ const LoginMock = () => {
     console.log(data.access_token);
     console.log("userLoggedIn");
     setusercreds(data);
+    setisloggedin(true);
     // window.localStorage.setItem("authToken", data.access_token);
     // window.localStorage.setItem("authTokenType", data.token_type);
     // window.localStorage.setItem("username", data.username);
     // window.localStorage.setItem("userId", data.user_id);
-    setisloggedin(true);
   };
   async function login(event) {
     event.preventDefault();
@@ -140,6 +156,88 @@ const LoginMock = () => {
     <React.Fragment>
       <>
         {isLoading && <Loading></Loading>}
+        <div className="logincomponentconatiner">
+          <div className="logincomponentsubconatiner">
+            <div className="animationconatiner">
+              <Lottie
+                loop
+                animationData={loginpagejson}
+                play
+                style={{ width: "100%", height: "100%" }}
+              />
+            </div>
+            <div className="loginfullcontainer">
+              <div className="logincontainer">
+                <form id="form" method="post" onSubmit={login}>
+                  <div className="applicationname">InstaSphere</div>
+
+                  <input
+                    ref={usernameInputRef}
+                    id="Username"
+                    type="text"
+                    autoCapitalize="off"
+                    autoCorrect="off"
+                    maxLength="75"
+                    value={username}
+                    onChange={nameInputChangeHandler}
+                    placeholder="Username"
+                    className="input1"
+                  />
+                  <div className="overlaptext">
+                    <input
+                      ref={passwordInputRef}
+                      id="password"
+                      type={passwordType}
+                      value={password}
+                      placeholder="Password"
+                      onChange={passwordInputChangeHandler}
+                      className="input2"
+                    />
+                    <button type="button" onClick={togglepasswordhandle}>
+                      {password != ""
+                        ? passwordType === "password"
+                          ? "Show"
+                          : "Hide"
+                        : ""}
+                    </button>
+                  </div>
+
+                  <button
+                    className="loginsubmitbutton"
+                    type="submit"
+                    disabled={!formisValid}
+                  >
+                    Log In
+                  </button>
+                </form>
+                <div className="divider">
+                  <div className="orcontainer1" />
+                  <div className="orcontainer">OR</div>
+                  <div className="orcontainer2" />
+                </div>
+                <Link
+                  to="/account/password/reset"
+                  className="forgetpasswordlink"
+                >
+                  Forgotten your password?
+                </Link>
+              </div>
+              <div className="bottomsignupcontainer">
+                Don&apos;t have an account?
+                <button onClick={naviagtehandler}>Sign Up</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {loogedIn ||
+          (error && (
+            <Snackbarcomp
+              openmodal={true}
+              message={loogedIn ? "Logged In successfully" : error}
+            />
+          ))}
+
+        {/* {isLoading && <Loading></Loading>}
         <div className="container">
           <div className="form-box">
             <div className="profile_pic">
@@ -215,7 +313,7 @@ const LoginMock = () => {
           onClose={handleSnackbarClose}
           autoHideDuration={1500}
           message={loogedIn ? "Logged In successfully" : error}
-        />=
+        />= */}
       </>
     </React.Fragment>
   );

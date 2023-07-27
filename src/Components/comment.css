@@ -14,7 +14,7 @@
 } */
 .modalcontainerpartitioner_left {
   flex: 1;
-  width: 0;
+  width: 50%;
   /* height: fit-content; */
 }
 .modalcontainerpartitioner_left img {
@@ -29,7 +29,7 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  width: 0;
+  width: 50%;
 }
 
 .commentedusername {
@@ -130,17 +130,12 @@
   flex-direction: column;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none;
+  width: 100%;
 }
 .commentsdisplaysection::-webkit-scrollbar {
   display: none;
 }
-.commentitem {
-  display: flex;
-  flex-direction: row;
-  padding: 10px 4px 12px 20px;
-  align-items: center;
-  justify-content: flex-start;
-}
+
 .posteduserdetails {
   display: flex;
   flex-direction: row;
@@ -216,6 +211,103 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.commentitem {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 4px 12px 20px;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+}
+.commenteddate {
+  margin: 0 10px 0 0;
+}
+.commentedcontainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.comment {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 90%;
+  /* max-width: 80px; */
+}
+.commentsactionsection {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  color: rgb(163, 162, 162);
+}
+.avatarcommentitem {
+  display: flex;
+  align-items: center;
+  width: 80%;
+}
+.commentedcontainer > span {
+  width: 92%;
+
+  overflow-wrap: break-word;
+}
+.deletemodalcontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.deleteconfirmationtitle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 32px 32px 16px 32px;
+}
+.deletepostheading {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 25px;
+  max-width: 100%;
+}
+.deletepostcontent {
+  line-height: 18px;
+  font-weight: 400;
+  font-size: 14px;
+  overflow-x: visible;
+  overflow-y: visible;
+  padding-top: 16px;
+  pointer-events: all;
+  position: relative;
+  text-align: center;
+  text-size-adjust: 100%;
+}
+.deleteconfirmationbutton {
+  background-color: white;
+  font-weight: 700;
+  border-bottom: 1px solid rgb(215, 213, 213);
+  border-top: 1px solid rgb(215, 213, 213);
+  color: red;
+  width: 100%;
+  height: 50px;
+  font-size: 14px;
+  /* border-radius: 12px; */
+  border-left: 0px;
+  border-right: 0px;
+}
+.deleteconfirmationcancelbutton {
+  background-color: white;
+  border-bottom: 1px solid rgb(215, 213, 213);
+  width: 100%;
+  height: 50px;
+  font-size: 14px;
+  border-left: 0px;
+  border-right: 0px;
+  border: 0px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
 }
 @media screen and (max-width: 600px) {
   .commentsModalconatiner {

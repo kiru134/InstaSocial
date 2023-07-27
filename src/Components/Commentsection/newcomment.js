@@ -46,6 +46,7 @@ export default function NewComment({
             modalclosed={() => setCommentModal(!openCommentModal)}
             // postid={pid}
             islikedPhoto={islikedPhoto}
+
             // totalLikes={postdetails.likes.length}
           ></NewCommentModal>
         )}

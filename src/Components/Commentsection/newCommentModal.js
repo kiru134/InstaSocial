@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import { MetroSpinner } from "react-spinners-kit";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { useSelector } from "react-redux/es/hooks/useSelector";
 
 import {
   Avatar,
@@ -18,6 +19,7 @@ import { Link } from "react-router-dom";
 import LikedActions from "../likeActions";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Createcomment from "./commentcreation";
+import Postdeletemodal from "../deletePostmodal";
 
 // import "./newcomment.css";
 
@@ -62,9 +64,10 @@ const NewCommentModal = ({
   // dp,
   modalclosed,
   commentscount,
-  likescount,
   // pid,
   islikedPhoto,
+
+  likescount,
 
   // totalLikes,
 }) => {
@@ -80,10 +83,13 @@ const NewCommentModal = ({
   const [hasMore, setHasMore] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [recentcomment, setrecentcomment] = useState({});
+  const [deletepostmodal, setpostdeleteModal] = useState(false);
+  const [checkpostdeleted, setpostdelete] = useState(false);
 
   let distance = formatDistance(Date.now(), new Date(post.timestamp));
   const commentInput = useRef(null);
   const handlecommentFocus = () => commentInput.current.focus();
+  let user = useSelector((state) => state.data.user);
 
   useEffect(() => {
     setComments([]);
@@ -103,6 +109,18 @@ const NewCommentModal = ({
     commentscount((prevcount) => prevcount - 1);
     // likescount,updatelikescount and commentcountafteradding comment
   };
+
+  // const getpostdeletedstatus = (status) => {
+  //   if (status == true) {
+  //     validatepostdelete((prev) => !prev);
+  //     setOpenModal(!openModal);
+  //     modalclosed(true);
+  //   }
+  // };
+
+  if (checkpostdeleted === true) {
+    window.location.reload(true);
+  }
 
   const addcomment = (status) => {
     if (status === true) commentscount((prevcount) => prevcount + 1);
@@ -168,6 +186,23 @@ const NewCommentModal = ({
                 <h3 style={{ fontWeight: 600, fontSize: "12px" }}>
                   {post.user.username}
                 </h3>
+                {/* if the post.id and logged in user userid is same then delete post option can be seen */}
+                {post.user.id === user.userauth.userId && (
+                  <button
+                    style={{ background: "none", border: 0 }}
+                    onClick={() => setpostdeleteModal(true)}
+                  >
+                    <MoreVertIcon />
+                  </button>
+                )}
+                {deletepostmodal && (
+                  <Postdeletemodal
+                    post={post}
+                    currentuser={user.userauth}
+                    modalclosed={() => setpostdeleteModal(!deletepostmodal)}
+                    postdeletedstatus={setpostdelete}
+                  />
+                )}
               </div>
               <div id="scrollableDiv" className="commentsdisplaysection">
                 {/* {post.comments.length === 0 && <p>No Comments yet</p>} */}
@@ -200,8 +235,9 @@ const NewCommentModal = ({
                     next={fetchComments}
                     hasMore={hasMore}
                     // endMessage={<p>No more comments</p>}
-                    // height={300}
+
                     scrollableTarget="scrollableDiv"
+                    style={{ width: "100%" }}
                   >
                     {comments.map((item) => {
                       return (
@@ -209,6 +245,7 @@ const NewCommentModal = ({
                           key={item.id}
                           item={item}
                           deletecomment={removecomment}
+                          postuser={post.user.username}
                         ></Createcomment>
                         // <div
                         //   className="commentitem"
@@ -272,7 +309,8 @@ const NewCommentModal = ({
                     islikedPhoto={islikedPhoto}
                     totalLikes={post.likes.length}
                     handleFocus={handlecommentFocus}
-                    // likescount={setlikescount}
+                    likestatus={setlikescount}
+
                     // handlemodalpopup={handlecommentmodal}
                   ></LikedActions>
                 </div>

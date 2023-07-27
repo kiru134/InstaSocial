@@ -22,7 +22,7 @@ const useHttp = () => {
       } else if (response.status === 403) {
         throw new Error(`Forbidden access:${data.detail}`);
       } else if (!response.ok) {
-        throw new Error("There is some problem please try again later");
+        throw new Error(`${data.detail}`);
       } else {
         applyData(data);
       }
