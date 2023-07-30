@@ -1,0 +1,257 @@
+.editprofilecontainer {
+  margin-left: 16%;
+  display: flex;
+  flex-direction: column;
+  width: 81%;
+  /* background-color: #eee; */
+}
+
+.settingheader {
+  width: 100%;
+  margin: 24px 16px 0;
+}
+h1 {
+  font-weight: 600;
+  font-size: 24px;
+}
+.settingsectioncontainer {
+  margin: 30px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: stretch;
+  overflow: hidden;
+  width: 90%;
+  height: fit-content;
+  border: 1px solid #e7e6e6;
+}
+.settingsubcontainerheading {
+  padding: 32px 45px 0;
+}
+h2 {
+  font-size: 24px;
+  margin-bottom: 50px;
+}
+.usernameditcontainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.bioeditfield {
+  display: flex;
+  align-items: center;
+  margin: 20px 0px 20px 0px;
+}
+.bioeditfield > span {
+  width: 120px;
+}
+.inputfields {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+}
+.inputfields > input {
+  width: 25%;
+}
+.passwordspan {
+  width: 120px;
+}
+.emailspan {
+  width: 120px;
+}
+.fullnamespan {
+  width: 120px;
+}
+
+/* .inputfields > span {
+  margin-right: 40px;
+} */
+.inputfields > input {
+  margin-bottom: 20px;
+}
+
+.userinfocontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.userinfocontainer > span {
+  font-size: 18px;
+}
+.userinfocontainer > button {
+  border: 0;
+  background-color: white;
+  font-size: 16px;
+  color: rgb(0, 149, 246);
+}
+.modaltitle {
+  width: 100%;
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.modaltitle > span {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 25px;
+  height: 60px;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid rgb(215, 213, 213);
+}
+.modaleoptionbutton {
+  background-color: white;
+  border-bottom: 1px solid rgb(215, 213, 213);
+  width: 100%;
+  height: 60px;
+  font-size: 16px;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+}
+.accountfield {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.accountype {
+  width: 120px;
+}
+
+.accountinput {
+  width: 27.5%;
+  border: 0.8px solid #e9ecef;
+  background: white;
+  margin-bottom: 20px;
+  height: 40px;
+  cursor: text;
+}
+.accountyperadiocontainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+}
+.Donebutton {
+  width: 100%;
+}
+.fieldsetaccountype {
+  margin-top: 16px;
+  border: 0;
+}
+.accountypeinputfields {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  line-height: 18px;
+}
+.accountypeinputfields > input {
+  height: 18px;
+  border: 2px solid rgb(219, 219, 219);
+  margin-right: 5px;
+}
+
+.accountypeinputfields > label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 4px;
+  margin-bottom: 2px;
+}
+.donebuttoncontainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.Donebutton {
+  background-color: rgb(0, 149, 246);
+  color: white;
+  font-size: 14px;
+  border: 0;
+  margin: 2px;
+  width: 90%;
+  border-radius: 8px;
+}
+.accountmodaltitle {
+  width: 100%;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.accountmodaltitle > span {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 25px;
+  height: 40px;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid rgb(215, 213, 213);
+}
+.usereditedsubmit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.usereditedsubmit > button {
+  border: 0;
+  border-radius: 4px;
+  color: white;
+  background-color: rgb(0, 149, 246);
+  height: 30px;
+  width: fit-content;
+}
+.usereditedsubmit > button:disabled {
+  background-color: rgb(157, 208, 243);
+  transition: transform scale(0);
+}
+.biotextfieldcontainer {
+  display: flex;
+  flex-direction: column;
+  align-self: auto;
+  justify-content: flex-start;
+}
+.wordcountcontainer {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  margin-top: 8px;
+}
+.wordcountfield {
+  word-break: break-word;
+  max-width: 100%;
+  margin-bottom: 0 !important;
+  --base-line-clamp-line-height: 16px;
+  cursor: text;
+}
+#bio {
+  cursor: text;
+}
+#public {
+  cursor: pointer;
+}
+#private {
+  cursor: pointer;
+}
+@media screen and (max-width: 600px) {
+  .editprofilecontainer {
+    margin: 0;
+    width: 100%;
+  }
+  .settingheader {
+    margin: 0;
+  }
+  .settingsectioncontainer {
+    margin-top: 0px;
+    margin-bottom: 80px;
+    max-height: 900px;
+  }
+}

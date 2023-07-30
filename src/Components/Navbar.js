@@ -141,7 +141,7 @@ const Navbar = () => {
 
           <Link
             // onClick={window.location.reload(true)}
-            to={`/profile/${user.userauth.username}`}
+            to={`/profile/${user.userauth.username}/`}
             className={classes.linkComponent}
           >
             <button className={classes.sidenav_button}>

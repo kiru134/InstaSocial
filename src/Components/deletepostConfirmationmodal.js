@@ -1,9 +1,9 @@
 import { Modal, Snackbar } from "@material-ui/core";
-import { BorderBottom, BorderTop } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import useHttp from "../Hooks/usehttphook";
 
 const DeleteConfirmation = ({
+  openconfmodal,
   modalstyles,
   modalclasses,
   modalclosed,
@@ -12,21 +12,22 @@ const DeleteConfirmation = ({
   currentuser,
   postdeletedstatus,
 }) => {
-  const [openModal, setOpenModal] = useState(true);
   const { isLoading, error, sendRequest: deletepost } = useHttp();
   const [displaySnackbar, setsnackbar] = useState(false);
   const [snackbarstatus, checksnackbardisplayed] = useState(false);
   const [postdeletestatus, setdeletestatus] = useState(false);
 
   const handleonclose = () => {
-    setOpenModal(!openModal);
-    modalclosed(true);
+    modalclosed(false);
+    postdeletedstatus(false, postid);
   };
+
   const deletestatus = (data) => {
     if (data === "ok") {
       console.log("inside function");
       setsnackbar(true);
       setdeletestatus(true);
+      postdeletedstatus(true, postid);
     }
     console.log(data);
   };
@@ -42,9 +43,7 @@ const DeleteConfirmation = ({
   };
   useEffect(() => {
     if (snackbarstatus === true && postdeletestatus === true) {
-      setOpenModal(!openModal);
-      modalclosed(true);
-      postdeletedstatus(true);
+      modalclosed(false);
     }
   }, []);
 
@@ -67,7 +66,7 @@ const DeleteConfirmation = ({
 
   return (
     <>
-      <Modal open={openModal} onClose={handleonclose}>
+      <Modal open={openconfmodal} onClose={handleonclose}>
         <div style={modalstyles} className={modalclasses.paper}>
           <div className="deletemodalcontainer">
             <div className="deleteconfirmationtitle">

@@ -13,6 +13,8 @@ const Dummy = () => {
   let user = useSelector((state) => state.data.user);
   const { isLoading, error, sendRequest: fetchUser } = useHttp();
   const [userprofile, setuserprofile] = useState({});
+  const [usergallery, setusergallery] = useState({});
+
   let currentuser = useParams();
 
   //  call the http request for the currentuser to get the profile details,
@@ -20,6 +22,7 @@ const Dummy = () => {
     console.log(data.followings);
     console.log(data.posts.length);
     setuserprofile(data);
+    setusergallery(data.posts);
     console.log(data);
   };
 
@@ -40,7 +43,12 @@ const Dummy = () => {
   }, [currentuser]);
 
   // const updatefollowercount = (data) => {};
-
+  const deletepostwithid = (id) => {
+    if (id != null) {
+      console.log(id);
+      setusergallery(usergallery.filter((item) => item.id !== id));
+    }
+  };
   return (
     <>
       {/* <Header profiledp={userprofile.dp}></Header> */}
@@ -49,8 +57,7 @@ const Dummy = () => {
         {userprofile.username != null && (
           <Profileheader
             profileUsername={userprofile.username}
-            photoscount={userprofile.posts ? userprofile.posts.length : 0}
-            gallery={userprofile.posts}
+            gallery={usergallery}
             followerCount={
               userprofile.followers != undefined
                 ? userprofile.followers.length
@@ -63,6 +70,7 @@ const Dummy = () => {
             }
             profileuserdp={userprofile.dp}
             profileuseraccount={userprofile.public}
+            removepost={deletepostwithid}
             // setFollowerCount={updatefollowercount}
             // profileUsername={profileuser}
             // photoscount={Photoscount}

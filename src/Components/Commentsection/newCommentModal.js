@@ -4,13 +4,7 @@ import { MetroSpinner } from "react-spinners-kit";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 
-import {
-  Avatar,
-  Button,
-  Modal,
-  Typography,
-  makeStyles,
-} from "@material-ui/core";
+import { Avatar, Modal, makeStyles } from "@material-ui/core";
 import useHttp from "../../Hooks/usehttphook";
 import Footer from "../postFooter";
 import { formatDistance } from "date-fns";
@@ -20,6 +14,7 @@ import LikedActions from "../likeActions";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Createcomment from "./commentcreation";
 import Postdeletemodal from "../deletePostmodal";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 // import "./newcomment.css";
 
@@ -68,6 +63,7 @@ const NewCommentModal = ({
   islikedPhoto,
 
   likescount,
+  deletedpid,
 
   // totalLikes,
 }) => {
@@ -84,7 +80,6 @@ const NewCommentModal = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [recentcomment, setrecentcomment] = useState({});
   const [deletepostmodal, setpostdeleteModal] = useState(false);
-  const [checkpostdeleted, setpostdelete] = useState(false);
 
   let distance = formatDistance(Date.now(), new Date(post.timestamp));
   const commentInput = useRef(null);
@@ -98,6 +93,15 @@ const NewCommentModal = ({
   }, [openModal]);
 
   console.log("inside modal");
+
+  const postdeletedid = (status, pid) => {
+    if (status === true) {
+      console.log(pid);
+      deletedpid(pid);
+    } else {
+      deletedpid(null);
+    }
+  };
 
   const handleonclose = () => {
     setOpenModal(!openModal);
@@ -118,9 +122,9 @@ const NewCommentModal = ({
   //   }
   // };
 
-  if (checkpostdeleted === true) {
-    window.location.reload(true);
-  }
+  // if (checkpostdeleted === true) {
+  //   window.location.reload(true);
+  // }
 
   const addcomment = (status) => {
     if (status === true) commentscount((prevcount) => prevcount + 1);
@@ -158,6 +162,16 @@ const NewCommentModal = ({
     console.log("inside fetch function");
   };
 
+  const handledeletemodalclosed = (status) => {
+    setpostdeleteModal(status);
+  };
+
+  const handlehorizontalbuttonclick = () => {
+    setpostdeleteModal(true);
+  };
+
+  console.log(deletepostmodal);
+
   return ReactDOM.createPortal(
     <>
       <Modal open={openModal} onClose={handleonclose}>
@@ -165,7 +179,7 @@ const NewCommentModal = ({
           <div className="commentsModalconatiner">
             {/* <div className="commentsModalconatiner_section"> */}
             <div className="modalcontainerpartitioner_left">
-              <img src={postimage}></img>
+              <LazyLoadImage src={postimage} />
             </div>
             <div className="modalcontainerpartitioner_right">
               <div className="posteduserdetails">
@@ -190,19 +204,19 @@ const NewCommentModal = ({
                 {post.user.id === user.userauth.userId && (
                   <button
                     style={{ background: "none", border: 0 }}
-                    onClick={() => setpostdeleteModal(true)}
+                    onClick={handlehorizontalbuttonclick}
                   >
                     <MoreVertIcon />
                   </button>
                 )}
-                {deletepostmodal && (
-                  <Postdeletemodal
-                    post={post}
-                    currentuser={user.userauth}
-                    modalclosed={() => setpostdeleteModal(!deletepostmodal)}
-                    postdeletedstatus={setpostdelete}
-                  />
-                )}
+
+                <Postdeletemodal
+                  deletemodalopen={deletepostmodal}
+                  post={post}
+                  currentuser={user.userauth}
+                  modalclosed={handledeletemodalclosed}
+                  deletestatus={postdeletedid}
+                />
               </div>
               <div id="scrollableDiv" className="commentsdisplaysection">
                 {/* {post.comments.length === 0 && <p>No Comments yet</p>} */}

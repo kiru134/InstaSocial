@@ -44,6 +44,8 @@ button {
   padding: 5px 15px 5px 15px;
   background-color: rgb(18, 218, 158);
   color: white;
+  min-width: 70px;
+  min-height: 30px;
 }
 .profile-user-name {
   font-size: 18px;

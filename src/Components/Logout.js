@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     variant: "outlined",
     backgroundColor: theme.palette.background.paper,
     position: "absolute",
-    width: 300,
+    width: 200,
     border: "1px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
@@ -79,6 +79,8 @@ const Logout = ({ modalclosed }) => {
                 paddingLeft: "10px",
                 backgroundColor: "#0095f6",
                 height: "30px",
+                color: "white",
+                marginTop: "5px",
               }}
               onClick={handleCancelClick}
             >

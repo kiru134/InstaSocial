@@ -111,7 +111,7 @@ const Homepage = () => {
           <div className={classes.userandsuggestions}>
             <div className={classes.userprofile}>
               <Link
-                to={`/profile/${user.userauth.username}`}
+                to={`/profile/${user.userauth.username}/`}
                 style={{ marginRight: "7px" }}
               >
                 <Avatar

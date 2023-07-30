@@ -6,7 +6,8 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-const UserGallery = ({ galleryitem }) => {
+import Skeleton from "react-loading-skeleton";
+const UserGallery = ({ galleryitem, deleteitemid }) => {
   console.log(galleryitem);
   let user = useSelector((state) => state.data.user);
   const [openCommentModal, setCommentModal] = useState(false);
@@ -28,6 +29,14 @@ const UserGallery = ({ galleryitem }) => {
 
   const setlikescountpreview = (li) => {
     console.log(li);
+  };
+  //  display: grid;
+  //  grid-template-columns: repeat(3, minmax(250px, 33%));
+  //  grid-gap: 4px;
+  //  grid-auto-rows: 200px;
+  const getdeletedpostid = (id) => {
+    console.log(id);
+    deleteitemid(id);
   };
   return (
     <>
@@ -51,6 +60,7 @@ const UserGallery = ({ galleryitem }) => {
             islikedPhoto={validatecurrentuserlikedpost}
             commentscount={setcommentcount}
             likescount={setlikescount}
+            deletedpid={getdeletedpostid}
 
             // totalLikes={postdetails.likes.length}
           ></NewCommentModal>

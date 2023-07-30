@@ -213,6 +213,7 @@ const CreatePost = ({ modalclosed }) => {
             <button
               className="create-post__upload"
               type="submit"
+              disabled={photoaftercrop === ""}
               onClick={handlefinalimagesubmit}
             >
               {/* onClick={uploadPost} */}

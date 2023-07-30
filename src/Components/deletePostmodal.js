@@ -27,24 +27,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
-const Postdeletemodal = ({ modalclosed, post, currentuser }) => {
+const Postdeletemodal = (props) => {
   const modalclasses = useStyles();
   const [modalStyle, setModalStyle] = useState(getModalStyle);
-  const [openModal, setOpenModal] = useState(true);
   const [deletebuttonclicked, setdeleteconformModal] = useState(false);
   const handleonclose = () => {
-    setOpenModal(!openModal);
-    modalclosed(true);
+    props.modalclosed(false);
+    props.deletestatus(false, null);
   };
-
+  console.log(props.deletemodalopen);
   const handledeletepost = () => {
     setdeleteconformModal(true);
-    // setOpenModal(!openModal);
-    // modalclosed(true);
+  };
+
+  const getpostdeletedstatus = (status, pid) => {
+    if (status === true) {
+      props.modalclosed(false);
+      props.deletestatus(true, pid);
+    }
+  };
+  const handleconfmodalclose = (event) => {
+    setdeleteconformModal(event);
   };
   return (
     <>
-      <Modal open={openModal} onClose={handleonclose}>
+      <Modal open={props.deletemodalopen} onClose={handleonclose}>
         <div style={modalStyle} className={modalclasses.paper}>
           <div className="deletemodaloptions">
             <button
@@ -54,16 +61,17 @@ const Postdeletemodal = ({ modalclosed, post, currentuser }) => {
             >
               Delete
             </button>
-            {deletebuttonclicked && (
-              <DeleteConfirmation
-                modalstyles={modalStyle}
-                modalclasses={modalclasses}
-                modalclosed={() => setdeleteconformModal(!deletebuttonclicked)}
-                BASE_URL={BASE_URL}
-                postid={post.id}
-                currentuser={currentuser}
-              />
-            )}
+            <DeleteConfirmation
+              openconfmodal={deletebuttonclicked}
+              modalstyles={modalStyle}
+              modalclasses={modalclasses}
+              modalclosed={handleconfmodalclose}
+              BASE_URL={BASE_URL}
+              postid={props.post.id}
+              currentuser={props.currentuser}
+              postdeletedstatus={getpostdeletedstatus}
+            />
+
             <button className="deletecommentbuttons" onClick={handleonclose}>
               Hide Likes on Post?
             </button>

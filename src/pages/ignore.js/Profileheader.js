@@ -8,24 +8,28 @@ import "./Profileheadernew.css";
 import UserGallery from "./ProfileGallery";
 import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { useNavigate } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
 
 const ProfileHeader = ({
   profileUsername,
-  photoscount,
   gallery,
   followerCount,
   followingCount,
   profileuserdp,
   profileuseraccount,
+  removepost,
 }) => {
   let user = useSelector((state) => state.data.user);
   const [activatefollow, setfollowbutton] = useState("");
+  const location = useLocation();
   //  const [requestsent,setrequestrequestsent] = useState("")
   const { isLoading, error, sendRequest: fetchprofileUser } = useHttp();
   const { Loading, iserror, sendRequest: updatefollowingstatus } = useHttp();
   const [fc, setfollowercount] = useState(followerCount);
+  const navigate = useNavigate();
 
   console.log(profileuseraccount);
 
@@ -110,6 +114,23 @@ const ProfileHeader = ({
   }, []);
   console.log(profileuserdp);
 
+  const handleclick = () => {
+    {
+      navigate(`/profile/${profileUsername}/edit`);
+    }
+  };
+  const removedeltedpost = (id) => {
+    console.log(id);
+    removepost(id);
+    // if (id != null) {
+    //   gallery = gallery.filter((item) => item.id !== id);
+    //   photoscount = photoscount - 1;
+    // }
+  };
+
+  const handlefollowersonclick = () => {
+    navigate(`/profile/${profileUsername}/followers`);
+  };
   return (
     <>
       <div className="maincongtainer">
@@ -136,6 +157,10 @@ const ProfileHeader = ({
             <div className="profile-user-settings">
               <div className="profileheadingwrapper">
                 <p className="profile-user-name">{profileUsername}</p>
+                {!profileuseraccount &&
+                  profileUsername !== user.userauth.username && (
+                    <Skeleton count={1} width={90} height={30}></Skeleton>
+                  )}
                 {profileUsername !== user.userauth.username && (
                   <button
                     className="user-followbtn"
@@ -148,7 +173,9 @@ const ProfileHeader = ({
                 )}
                 {profileUsername == user.userauth.username && (
                   <>
-                    <button className="profile-edit-btn">Edit Profile</button>
+                    <button onClick={handleclick} className="profile-edit-btn">
+                      Edit Profile
+                    </button>
                     <button
                       className="profile-settings-btn"
                       aria-label="profile settings"
@@ -165,18 +192,23 @@ const ProfileHeader = ({
                 ) : (
                   <>
                     <div>
-                      <span className="profile-stat-count">{photoscount}</span>
-                      {photoscount == 1 ? ` post` : ` posts`}
+                      <span className="profile-stat-count">
+                        {gallery.length}
+                      </span>
+                      {gallery.length == 1 ? ` post` : ` posts`}
                     </div>
-                    <div>
+                    <Link
+                      to={`/profile/${profileUsername}/followers`}
+                      state={{ previousLocation: location }}
+                    >
                       <span className="profile-stat-count">{fc}</span>
-                      {followerCount === 1 ? ` follower` : ` followers`}
-                    </div>
+                      {fc === 1 ? ` follower` : ` followers`}
+                    </Link>
                     <div>
                       <span className="profile-stat-count">
                         {followingCount}
                       </span>
-                      {followingCount === 1 ? ` following` : ` follower`}
+                      {` following`}
                     </div>
                   </>
                 )}
@@ -195,10 +227,20 @@ const ProfileHeader = ({
           </div>
           {/* <!-- End of container --> */}
         </div>
+
         <div className="gallerycontainer">
+          {!gallery.length && (
+            <Skeleton
+              count={2}
+              className="gallery"
+              // display="grid"
+              // grid-template-columns="repeat(3, minmax(250px, 33%))"
+              // gridgap="4px"
+            ></Skeleton>
+          )}
           {user.userauth.username !== profileUsername &&
             profileuseraccount === true &&
-            photoscount <= 0 && (
+            gallery.length <= 0 && (
               <div className="nopostsyet">
                 <AddAPhotoOutlinedIcon
                   style={{ width: "60px", height: "60px" }}
@@ -211,7 +253,7 @@ const ProfileHeader = ({
           {user.userauth.username !== profileUsername &&
             profileuseraccount === false &&
             activatefollow == "Following" &&
-            photoscount <= 0 && (
+            gallery.length <= 0 && (
               <div className="nopostsyet">
                 <AddAPhotoOutlinedIcon
                   style={{ width: "60px", height: "60px" }}
@@ -231,39 +273,8 @@ const ProfileHeader = ({
                 <p>Follow this account ton see their posts</p>
               </div>
             )}
-
-          <div className="gallery">
-            {!photoscount &&
-              new Array(12)
-                .fill(0)
-                .map((_, i) => <Skeleton key={i} width={320} height={400} />)}
-            {user.userauth.username !== profileUsername &&
-              profileuseraccount === true &&
-              photoscount >= 1 && (
-                <>
-                  {gallery.map((item) => (
-                    <UserGallery key={`${item.id}`} galleryitem={item} />
-                  ))}
-                </>
-              )}
-            {user.userauth.username !== profileUsername &&
-              profileuseraccount === false &&
-              activatefollow == "Following" &&
-              photoscount > 0 && (
-                <>
-                  {gallery.length >= 1 &&
-                    gallery.map((item) => (
-                      <UserGallery key={`${item.id}`} galleryitem={item} />
-                    ))}
-                </>
-              )}
-            {user.userauth.username === profileUsername &&
-              gallery.length >= 1 &&
-              gallery.map((item) => (
-                <UserGallery key={`${item.id}`} galleryitem={item} />
-              ))}
-
-            {user.userauth.username === profileUsername && photoscount <= 0 && (
+          {user.userauth.username === profileUsername &&
+            gallery.length <= 0 && (
               <div className="nopostsyet">
                 <AddAPhotoOutlinedIcon
                   style={{ width: "60px", height: "60px" }}
@@ -271,7 +282,51 @@ const ProfileHeader = ({
                 <p className="nopostcontent">No Posts Yet</p>
               </div>
             )}
-          </div>
+          {!gallery &&
+            new Array(2)
+              .fill(0)
+              .map((_, i) => <Skeleton key={i} width={320} height={320} />)}
+          {gallery && (
+            <div className="gallery">
+              {user.userauth.username !== profileUsername &&
+                profileuseraccount === true &&
+                gallery.length >= 1 && (
+                  <>
+                    {gallery.map((item) => (
+                      <UserGallery
+                        key={`${item.id}`}
+                        galleryitem={item}
+                        deleteitemid={removedeltedpost}
+                      />
+                    ))}
+                  </>
+                )}
+              {user.userauth.username !== profileUsername &&
+                profileuseraccount === false &&
+                activatefollow == "Following" &&
+                gallery.length > 0 && (
+                  <>
+                    {gallery.length >= 1 &&
+                      gallery.map((item) => (
+                        <UserGallery
+                          key={`${item.id}`}
+                          galleryitem={item}
+                          deleteitemid={removepost}
+                        />
+                      ))}
+                  </>
+                )}
+              {user.userauth.username === profileUsername &&
+                gallery.length >= 1 &&
+                gallery.map((item) => (
+                  <UserGallery
+                    key={`${item.id}`}
+                    galleryitem={item}
+                    deleteitemid={removepost}
+                  />
+                ))}
+            </div>
+          )}
 
           {/* <div className="gallery">
                 <div className="gallery-item">

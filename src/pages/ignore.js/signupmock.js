@@ -138,7 +138,12 @@ const SignUpMock = () => {
   const enteredPasswordisValid = passwordValidate(updatedpassword);
   const enteredfullnameisValid = validatefullname(updatedfullname);
 
-  if (enteredNameisValid && enteredPasswordisValid && enteredemailisvalid) {
+  if (
+    enteredNameisValid &&
+    enteredPasswordisValid &&
+    enteredemailisvalid &&
+    enteredfullnameisValid
+  ) {
     formisValid = true;
   }
   console.log("passwordvalid" + enteredPasswordisValid);
