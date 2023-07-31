@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import useHttp from "../Hooks/usehttphook";
 import "./comment.css";
-const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export default function AddComment({
   docId,

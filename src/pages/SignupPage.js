@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../Components/Loading";
 import frontImg from "../MainPageImages/frontImg.jpg";
 
-const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 function SignupModal() {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");

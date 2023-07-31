@@ -11,6 +11,8 @@ import PasswordReset from "./pages/passwordreset";
 import UserprofileEdit from "./pages/userprofileedit";
 import Userfollowers from "./Components/followersmodal";
 import { useLocation } from "react-router-dom";
+import Forgetpassword from "./pages/forgetpasswordpage";
+import NotFound from "./pages/Errorpages/404notfoundpage";
 
 function App() {
   const location = useLocation();
@@ -35,6 +37,11 @@ function App() {
           exact
         ></Route>
         <Route element={<SignUpMock />} path="/signup" exact></Route>
+        <Route
+          element={<Forgetpassword />}
+          path="/account/:username/resetpassword/"
+        ></Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
       {previousLocation && (
         <Routes>

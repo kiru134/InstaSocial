@@ -25,7 +25,7 @@
   border-radius: 5px;
   color: white;
 }
-.create-post__upload {
+.create-post__upload:disabled {
   background-color: rgb(188, 240, 224);
 }
 #captionbox {

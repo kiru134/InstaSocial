@@ -8,7 +8,7 @@ import { formatDistance } from "date-fns";
 import Commentdeletemodal from "./deletecommentmodal";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
-const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 const Createcomment = ({ item, deletecomment, postuser }) => {
   let user = useSelector((state) => state.data.user);
   const currentuserinphotolike = item.likes.find(
@@ -23,6 +23,9 @@ const Createcomment = ({ item, deletecomment, postuser }) => {
   };
 
   let distance = formatDistance(Date.now(), new Date(item.timestamp));
+  console.log(new Date(item.timestamp));
+  console.log(item.timestamp);
+  console.log(distance);
   const [toggleLiked, setToggleLiked] = useState(islikedPhoto);
   const [likes, setLikes] = useState(item.likes.length);
   const { isLoading, error, sendRequest: updateLikes } = useHttp();

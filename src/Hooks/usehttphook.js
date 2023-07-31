@@ -21,6 +21,8 @@ const useHttp = () => {
         throw new Error(`Unauthorized access:${data.detail}`);
       } else if (response.status === 403) {
         throw new Error(`Forbidden access:${data.detail}`);
+      } else if (response.status === 500) {
+        throw new Error(`Internal Server Error:${response.status}`);
       } else if (!response.ok) {
         throw new Error(`${data.detail}`);
       } else {

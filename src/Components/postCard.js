@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import NewComment from "./Commentsection/newcomment";
 
-const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 const PostCard = ({ post }) => {
   const [comments, setComments] = useState([]);
   const [image_url, setImageUrl] = useState("");

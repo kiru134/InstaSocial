@@ -15,7 +15,15 @@
   max-width: 250px;
   max-height: 450px; */
 }
-
+.appnameinsidenavbar {
+  font-size: 30px;
+  font-weight: 600;
+  margin-left: 30px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  font-style: italic;
+}
 .sidenav_buttons {
   display: flex;
   flex-direction: column;
@@ -63,6 +71,9 @@
     width: 70px;
     margin-right: 0px;
   }
+  .appnameinsidenavbar {
+    display: none;
+  }
 }
 @media screen and (max-width: 600px) {
   .sidenav {
@@ -76,10 +87,20 @@
   .sidenav_button > span {
     display: none;
   }
+  .appnameinsidenavbar {
+    display: none;
+  }
   .sidenav_buttons {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  .appnameinsidenavbar {
+    margin-left: 0px;
+    font-size: 24px;
   }
 }
 /* :root {

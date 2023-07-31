@@ -3,13 +3,17 @@ import Navbar from "../Components/Navbar";
 import { Avatar, Modal, makeStyles } from "@material-ui/core";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import useHttp from "../Hooks/usehttphook";
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import Profileuploadmodal from "../Components/profilepicuploadmodal";
 import AccountTypeModal from "../Components/accountypemodal";
 import Snackbarcomp from "../Components/snackbar";
+import { useDispatch } from "react-redux";
+import { editUser } from "../features/UserSlice";
+
 const UserprofileEdit = () => {
   console.log("inside edit profile");
   let user = useSelector((state) => state.data.user);
+  const dispatch = useDispatch();
 
   const [openModal, setOpenModal] = useState(false);
   const [profilepic, setprofilepic] = useState(user.userauth.dp);
@@ -24,6 +28,8 @@ const UserprofileEdit = () => {
   const userfullnameInputRef = useRef();
   const { isLoading, error, sendRequest: updateUser } = useHttp();
   const [updatedprofile, setupadateprofile] = useState(false);
+  const [profile, setupdateduser] = useState({});
+
   const [{ content, wordCount }, setContent] = useState({
     content: "",
     wordCount: 0,
@@ -35,7 +41,7 @@ const UserprofileEdit = () => {
   let formisValid = false;
   const limit = 150;
 
-  const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   //   const [usernameblur, setusernametouched] = useState(false);
   //   const [passwordblur, setpasswordtouched] = useState(false);
   //   const [emailblur, setEnteredemailtouched] = useState(false);
@@ -128,19 +134,39 @@ const UserprofileEdit = () => {
     formisValid = true;
   }
 
+  useEffect(() => {
+    if (updatedprofile === true) {
+      dispatch(
+        editUser({
+          dp: profilepic,
+        })
+
+        // authToken: null,
+        // authTokenType: "",
+        // username: "",
+        // userId: "",
+        // })
+      );
+      console.log(updatedprofile);
+      console.log("dispacthed action successfully");
+    }
+  }, [updatedprofile]);
+
   const updatevalidate = (data) => {
     if (data.username != "") {
       setupadateprofile(true);
+      setupdateduser(data);
       console.log("Updated successfully");
     }
   };
   const handleeditprofilesubmit = (event) => {
     event.preventDefault();
+
     const json_string = JSON.stringify({
       username: user.userauth.username,
       email: emailInputRef.current.value,
       password: passwordInputRef.current.value,
-      public: accountType,
+      public: accountType === "PUBLIC" ? 1 : 0,
       dp: profilepic,
       bio: content,
       newusername: userfullnameInputRef.current.value,
@@ -320,7 +346,15 @@ const UserprofileEdit = () => {
                 <button
                   type="submit"
                   onClick={handleeditprofilesubmit}
-                  disabled={!formisValid}
+                  disabled={
+                    !(
+                      enteredPasswordisValid ||
+                      enteredemailisvalid ||
+                      enteredfullnameisValid ||
+                      accountType !== "" ||
+                      userbioInputRef !== null
+                    )
+                  }
                 >
                   Submit
                 </button>
@@ -329,13 +363,13 @@ const UserprofileEdit = () => {
           </div>
         </div>
       </div>
-      {error ||
-        (updatedprofile && (
-          <Snackbarcomp
-            openmodal={true}
-            message={updatedprofile ? "Updated Successfully" : error}
-          />
-        ))}
+      {updatedprofile && (
+        <Snackbarcomp
+          openmodal={true}
+          message={updatedprofile ? "Updated Successfully" : error}
+        />
+      )}
+      {error && <Snackbarcomp openmodal={true} message={error} />}
     </>
   );
 };

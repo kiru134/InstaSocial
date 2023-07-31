@@ -8,7 +8,7 @@ import useHttp from "../../Hooks/usehttphook";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import Navbar from "../../Components/Navbar";
 
-const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 const Dummy = () => {
   let user = useSelector((state) => state.data.user);
   const { isLoading, error, sendRequest: fetchUser } = useHttp();
@@ -56,6 +56,7 @@ const Dummy = () => {
       <div className="userprofile">
         {userprofile.username != null && (
           <Profileheader
+            userprop={userprofile}
             profileUsername={userprofile.username}
             gallery={usergallery}
             followerCount={

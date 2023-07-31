@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Avatar } from "@material-ui/core";
 import { NavLink } from "react-router-dom";
 import cssclasses from "./Homepage.module.css";
-import useHttp from "../Hooks/usehttphook";
+
 import PostCard from "../Components/postCard";
 // import Snackbar from "@material-ui/core/Snackbar";
 import { Snackbar } from "@mui/material";
@@ -13,7 +13,7 @@ import classes from "../Components/Timeline.module.css";
 import { useNavigate, Link } from "react-router-dom";
 import Suggestions from "../Components/Suggestion";
 
-const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 // function getModalStyle() {
 //   const top = 50;
 //   const left = 50;

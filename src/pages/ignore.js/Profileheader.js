@@ -11,9 +11,10 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useNavigate } from "react-router-dom";
 import { useLocation, Link } from "react-router-dom";
 
-const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const ProfileHeader = ({
+  userprop,
   profileUsername,
   gallery,
   followerCount,
@@ -197,13 +198,22 @@ const ProfileHeader = ({
                       </span>
                       {gallery.length == 1 ? ` post` : ` posts`}
                     </div>
-                    <Link
-                      to={`/profile/${profileUsername}/followers`}
-                      state={{ previousLocation: location }}
-                    >
-                      <span className="profile-stat-count">{fc}</span>
-                      {fc === 1 ? ` follower` : ` followers`}
-                    </Link>
+                    {fc > 0 && activatefollow == "Following" && (
+                      <Link
+                        style={{ textDecoration: "none", color: "black" }}
+                        to={`/profile/${profileUsername}/followers`}
+                        state={{ previousLocation: location }}
+                      >
+                        <span className="profile-stat-count">{fc}</span>
+                        {fc === 1 ? ` follower` : ` followers`}
+                      </Link>
+                    )}
+                    {fc <= 0 && (
+                      <div>
+                        <span className="profile-stat-count">{fc}</span>
+                        {fc === 1 ? ` follower` : ` followers`}
+                      </div>
+                    )}
                     <div>
                       <span className="profile-stat-count">
                         {followingCount}
@@ -215,11 +225,8 @@ const ProfileHeader = ({
               </div>
               <div className="profile-bio">
                 <p>
-                  <span className="profile-real-name">{profileUsername}</span>{" "}
-                  <div>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit
-                    📷✈️🏕️
-                  </div>
+                  <span className="profile-real-name">{userprop.fullname}</span>{" "}
+                  <div>{userprop.bio}</div>
                 </p>
               </div>
             </div>
@@ -229,9 +236,9 @@ const ProfileHeader = ({
         </div>
 
         <div className="gallerycontainer">
-          {!gallery.length && (
+          {gallery.length === undefined && (
             <Skeleton
-              count={2}
+              count={1}
               className="gallery"
               // display="grid"
               // grid-template-columns="repeat(3, minmax(250px, 33%))"

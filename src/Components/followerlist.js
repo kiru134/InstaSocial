@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import useHttp from "../Hooks/usehttphook";
 import { Avatar } from "@material-ui/core";
-const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const Followerlist = ({ follower, profileuser, setremovefollower }) => {
   let user = useSelector((state) => state.data.user);

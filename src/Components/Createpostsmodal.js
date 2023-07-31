@@ -9,7 +9,7 @@ import { storage } from "../FirebaseProfilepicture/Firebase";
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
 import useHttp from "../Hooks/usehttphook";
 
-const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 function getModalStyle() {
   const top = 50;
@@ -59,6 +59,7 @@ const CreatePost = ({ modalclosed }) => {
     setsnackbar(!displaySnackbar);
     setOpenModal(!openModal);
     modalclosed(true);
+    window.location.reload(true);
   };
 
   const uploadinputImageforcrop = (event) => {

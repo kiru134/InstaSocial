@@ -88,7 +88,9 @@ const Navbar = () => {
   return (
     <React.Fragment>
       <div className={classes.sidenav}>
-        <img></img>
+        <span className={classes.appnameinsidenavbar}>
+          {process.env.REACT_APP_APP_NAME}
+        </span>
         <div className={classes.sidenav_buttons}>
           <Link to={"/Homepage"} className={classes.linkComponent}>
             <button type="button" className={classes.sidenav_button}>

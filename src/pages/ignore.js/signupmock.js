@@ -10,7 +10,7 @@ import { storage } from "../../FirebaseProfilepicture/Firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Snackbarcomp from "../../Components/snackbar";
 
-const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const SignUpMock = () => {
   const usernameInputRef = useRef();
@@ -138,14 +138,6 @@ const SignUpMock = () => {
   const enteredPasswordisValid = passwordValidate(updatedpassword);
   const enteredfullnameisValid = validatefullname(updatedfullname);
 
-  if (
-    enteredNameisValid &&
-    enteredPasswordisValid &&
-    enteredemailisvalid &&
-    enteredfullnameisValid
-  ) {
-    formisValid = true;
-  }
   console.log("passwordvalid" + enteredPasswordisValid);
   console.log("formvalidation" + formisValid);
 
@@ -202,7 +194,7 @@ const SignUpMock = () => {
         // username: usernameInputRef.current.value,
         // email: emailInputRef.current.value,
         // password: passwordInputRef.current.value
-
+        fullname: userfullnameInputRef.current.value,
         username: usernameInputRef.current.value,
         email: emailInputRef.current.value,
         password: passwordInputRef.current.value,
@@ -264,6 +256,8 @@ const SignUpMock = () => {
         {isLoading && <Loading></Loading>}
         <div className="container">
           <div className="form-box">
+            <div className="appnameinsignin">InstaSocial</div>
+
             <div className="profile_pic">
               <label className="_label" htmlFor="file">
                 <span>
@@ -292,7 +286,7 @@ const SignUpMock = () => {
                     autoCapitalize="off"
                     autoCorrect="off"
                     maxLength="75"
-                    onKeyDown={handleuserfullnamekeydown}
+                    onChange={handleuserfullnamekeydown}
                     onBlur={() => setfullnametouched(true)}
                     aria-labelledby="placeholder-userfullname"
                   />
@@ -316,7 +310,7 @@ const SignUpMock = () => {
                     autoCapitalize="off"
                     autoCorrect="off"
                     maxLength="75"
-                    onKeyDown={handleusernamekeydown}
+                    onChange={handleusernamekeydown}
                     onBlur={() => setusernametouched(true)}
                     aria-labelledby="placeholder-username"
                   />
@@ -337,7 +331,7 @@ const SignUpMock = () => {
                     ref={emailInputRef}
                     id="email"
                     type="email"
-                    onKeyDown={handleemailKeyDown}
+                    onChange={handleemailKeyDown}
                     onBlur={() => setEnteredemailtouched(true)}
                     aria-labelledby="placeholder-Email"
                     // onChange={emailInputChangeHandler}
@@ -361,7 +355,7 @@ const SignUpMock = () => {
                     id="password"
                     type="password"
                     // value={password}
-                    onKeyDown={handlepasswordKeyDown}
+                    onChange={handlepasswordKeyDown}
                     onBlur={() => setpasswordtouched(true)}
                     aria-labelledby="placeholder-Password"
                     // onChange={passwordInputChangeHandler}
@@ -386,7 +380,25 @@ const SignUpMock = () => {
                 )}
               </div>
               <div className="formButton">
-                <button type="submit" disabled={!formisValid}>
+                {/* if (
+    enteredNameisValid &&
+    enteredPasswordisValid &&
+    enteredemailisvalid &&
+    enteredfullnameisValid
+  ) {
+    formisValid = true;
+  }*/}
+                <button
+                  type="submit"
+                  disabled={
+                    !(
+                      enteredNameisValid &&
+                      enteredPasswordisValid &&
+                      enteredemailisvalid &&
+                      enteredfullnameisValid
+                    )
+                  }
+                >
                   Sign in
                 </button>
               </div>
@@ -399,13 +411,13 @@ const SignUpMock = () => {
             </div>
           </div>
         </div>
-        {signedIn ||
-          (error && (
-            <Snackbarcomp
-              openmodal={true}
-              message={signedIn ? "Signed In successfully" : error}
-            />
-          ))}
+        {signedIn && !isLoading && (
+          <Snackbarcomp openmodal={true} message={"Signed In successfully"} />
+        )}
+
+        {error && !isLoading && (
+          <Snackbarcomp openmodal={true} message={error} />
+        )}
         {/* <Snackbar
           open={displaySnackbar}
           //   anchorOrigin={{

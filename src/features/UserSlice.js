@@ -20,7 +20,10 @@ export const userSlice = createSlice({
     logoutUser: (state, action) => {
       state.userauth = action.payload;
     },
+    editUser: (state, action) => {
+      state.userauth.dp = action.payload.dp;
+    },
   },
 });
 
-export const { loginUser, logoutUser } = userSlice.actions;
+export const { loginUser, logoutUser, editUser } = userSlice.actions;

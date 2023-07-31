@@ -3,7 +3,7 @@ import useHttp from "../Hooks/usehttphook";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 
 import "./Actions.css";
-const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const LikedActions = ({
   pid,

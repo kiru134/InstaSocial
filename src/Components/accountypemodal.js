@@ -36,6 +36,7 @@ const AccountTypeModal = (props) => {
   console.log(props.setaccountype);
   console.log(props.modalclose);
   console.log(props);
+
   const selectaccounttype = (e) => {
     console.log(e.target.value);
     setacc(e.target.value);

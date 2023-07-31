@@ -7,7 +7,7 @@ import { Avatar, Button } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
 import Loading from "../Components/Loading";
 
-const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 const Timeline = (props) => {
   const { isLoading, error, sendRequest: fetchPosts } = useHttp();
   const [posts, setPosts] = useState([]);
@@ -19,6 +19,10 @@ const Timeline = (props) => {
     console.log(data);
     setPosts(data);
   };
+
+  if (error !== undefined) {
+    console.log(error);
+  }
   console.log("current username " + props.currentuser);
   useEffect(() => {
     fetchPosts(

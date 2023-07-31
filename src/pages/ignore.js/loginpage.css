@@ -79,7 +79,7 @@
   border: 1px solid #dbdbdb;
   box-sizing: border-box;
   border-radius: 3px;
-  outline: none;
+  /* outline: none; */
 }
 .overlaptext {
   width: 100%;

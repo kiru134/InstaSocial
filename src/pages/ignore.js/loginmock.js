@@ -13,7 +13,7 @@ import Lottie from "react-lottie-player";
 import loginpagejson from "../../assests/animations/auth-page-animation.json";
 import { Link, useNavigate } from "react-router-dom";
 
-const BASE_URL = "https://ig-clone-api-production.up.railway.app/";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const LoginMock = () => {
   const [username, setusername] = useState("");
@@ -169,7 +169,7 @@ const LoginMock = () => {
             <div className="loginfullcontainer">
               <div className="logincontainer">
                 <form id="form" method="post" onSubmit={login}>
-                  <div className="applicationname">InstaSphere</div>
+                  <div className="applicationname">InstaSocial</div>
 
                   <input
                     ref={usernameInputRef}

@@ -162,6 +162,7 @@
   margin-left: 3px;
   flex-direction: row;
   justify-content: flex-start;
+  margin-top: 6px;
 }
 
 .likecommentactions {

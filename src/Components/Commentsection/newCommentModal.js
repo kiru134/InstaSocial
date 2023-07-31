@@ -40,8 +40,9 @@ const useStyles = makeStyles((theme) => ({
     minHeight: "450px",
     // border: "1px solid #000",
     boxShadow: theme.shadows[5],
-    border: "0px",
+    border: 0,
     borderRadius: "6px",
+    outline: "none",
     // padding: theme.spacing(2, 4, 3),
     "@media (max-width: 600px)": {
       width: "90%",
@@ -50,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const PAGE_SIZE = 12;
-
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 const NewCommentModal = ({
   post,
   postimage,
@@ -150,7 +151,9 @@ const NewCommentModal = ({
   console.log(hasMore);
 
   const fetchComments = async () => {
-    const apiUrl = `https://ig-clone-api-production.up.railway.app/comment/all/${post.id}?page=${currentPage}&limit=${PAGE_SIZE}`;
+    const apiUrl =
+      BASE_URL +
+      `comment/all/${post.id}?page=${currentPage}&limit=${PAGE_SIZE}`;
     await fetchcommentconditionally(
       {
         url: apiUrl,
@@ -179,7 +182,13 @@ const NewCommentModal = ({
           <div className="commentsModalconatiner">
             {/* <div className="commentsModalconatiner_section"> */}
             <div className="modalcontainerpartitioner_left">
-              <LazyLoadImage src={postimage} />
+              <LazyLoadImage
+                style={{
+                  borderTopLeftRadius: "6px",
+                  borderBottomLeftRadius: "6px",
+                }}
+                src={postimage}
+              />
             </div>
             <div className="modalcontainerpartitioner_right">
               <div className="posteduserdetails">
@@ -261,42 +270,9 @@ const NewCommentModal = ({
                           deletecomment={removecomment}
                           postuser={post.user.username}
                         ></Createcomment>
-                        // <div
-                        //   className="commentitem"
-                        //   key={`${item.timestamp}-${item.user.username}`}
-                        // >
-                        //   <Link
-                        //     to={`/profile/${item.user.username}`}
-                        //     style={{ marginRight: "18px" }}
-                        //   >
-                        //     <Avatar
-                        //       alt={item.user.username}
-                        //       style={{
-                        //         width: "30px",
-                        //         height: "30px",
-                        //       }}
-                        //       src={item.user.dp}
-                        //     ></Avatar>
-                        //   </Link>
-                        //   <Link
-                        //     to={`/profile/${item.user.username}`}
-                        //     className="commentedusername"
-                        //   >
-                        //     <span
-                        //       style={{
-                        //         fontWeight: 600,
-                        //         fontSize: "12px",
-                        //         marginRight: "3px",
-                        //       }}
-                        //     >
-                        //       {item.user.username}
-                        //     </span>
-                        //   </Link>
-                        //   <span>{item.text}</span>
-                        // </div>
                       );
                     })}
-                    {!(Object.keys(recentcomment).length === 0) && (
+                    {Object.keys(recentcomment).length !== 0 && (
                       //   <p key={`${recentcomment[0].timestamp}-${recentcomment[0].user.username}`}>
 
                       <Createcomment
