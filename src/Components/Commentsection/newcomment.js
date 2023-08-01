@@ -1,7 +1,7 @@
 // to this first fetch the length of comments from postcard component
 // on click of view all comment button modal should open up
 // from the add comment component get the latest comment added from the input field
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import NewCommentModal from "./newCommentModal";
 import AddCommentInput from "./addCommentInput";

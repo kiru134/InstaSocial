@@ -1,11 +1,9 @@
-import { Avatar } from "@material-ui/core";
 import React, { useState, useEffect, useRef } from "react";
 import useHttp from "../../Hooks/usehttphook";
 import "./signup.css";
 import "./loginpage.css";
 
 import Loading from "../../Components/Loading";
-import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../features/UserSlice";
 import Snackbarcomp from "../../Components/snackbar";
@@ -24,10 +22,7 @@ const LoginMock = () => {
   const usernameInputRef = useRef();
   const passwordInputRef = useRef();
   const [passwordType, setpasswordtype] = useState("password");
-  // const [displaySnackbar, setsnackbar] = useState(false);
-  // const [snackbardisplayed, setsnackbardisplaystatus] = useState(false);
 
-  let user = useSelector((state) => state.data.user);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();

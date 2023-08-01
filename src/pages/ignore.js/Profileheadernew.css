@@ -92,8 +92,7 @@ button {
 
 .gallery-item {
   position: relative;
-  /* flex: 1 0 22rem; */
-  /* margin: 1rem; */
+
   color: #fff;
   cursor: pointer;
   display: flex;
@@ -148,9 +147,6 @@ button {
   font-weight: 700;
 }
 
-/* .visually-hidden {
-  visibility: visible;
-} */
 @media screen and (max-width: 1000px) {
   .gallery {
     grid-template-columns: repeat(2, minmax(250px, 66%));

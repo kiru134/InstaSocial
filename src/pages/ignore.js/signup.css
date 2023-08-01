@@ -1,25 +1,6 @@
-/* object-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  $circleSize: 165px;
-  $radius: 100px;
-  $shadow: 0 0 10px 0 rgba(255,255,255,.35);
-  $fontColor: rgb(250,250,250); */
-/* .signupmodal {
-  display: flex;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-} */
-
 .container {
   width: 100%;
   height: 100vh;
-  /* background-image: url("../../MainPageImages/17261349.jpg"); */
-  /* linear-gradient(rgb(156, 225, 203, 0) rgba(221, 224, 223)), */
   background-position: center;
   background-size: cover;
   position: relative;
@@ -41,7 +22,6 @@
   border: 1px solid #dbdbdb;
   border-radius: 8px;
   padding: 30px 30px 30px 30px;
-  /* text-align: center; */
 }
 
 #form {
@@ -64,7 +44,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* border: 2px solid black; */
+
   position: relative;
 }
 .input-group > button {
@@ -91,8 +71,6 @@
   margin-bottom: 10px;
 }
 .input-field > input {
-  /* height: 5rem;
-  width: 40rem; */
   width: 250px;
   height: 50px;
   border: 2px solid grey;
@@ -147,32 +125,7 @@
     background-color 0.2s ease-out, color 0.15s ease-out;
 }
 
-/* .input-field > input {
-  width: 250px;
-  height: 40px;
-  max-width: 300px;
-  background: transparent;
-  border: 2px solid white;
-  border-radius: 2px;
-  outline: 0;
-
-} */
-
-/* .input-field > input:focus + .placeholder-text .text,
-:not(input[value=""]) + .placeholder-text .text {
-  background-color: none;
-  font-size: 1.1rem;
-  color: black;
-  transform: translate(0, -170%);
-} */
-
-/* .input-field > input:focus + .placeholder-text .text {
-  border-color: black;
-  color: black;
-} */
-
 .login_option {
-  /* border: 1px solid grey; */
   padding-top: 10px;
   padding-bottom: 10px;
   text-align: center;
@@ -215,7 +168,7 @@
   cursor: pointer;
   border-radius: 4px;
   border: 0;
-  /* border: 2px solid grey; */
+
   color: white;
   font-size: 1.1rem;
 }
@@ -223,9 +176,7 @@
 .formButton > button:disabled {
   background-color: rgb(157, 208, 243);
 }
-/* .input-field > input:focus {
-  border: 1px solid black;
-} */
+
 .profile_pic {
   color: "transparent";
   transition: all 0.3s ease;
@@ -282,20 +233,3 @@
   font-size: 10px;
   font-weight: lighter;
 }
-
-/* svg {
-  display: inline-flex;
-  padding: 1.2em;
-  height: 2em;
-} */
-
-/* 
-  body {
-    height: 100vh;
-    background-color: rgb(25, 24, 21);
-    @include object-center;
-    
-    a:hover {
-      text-decoration: none;
-    }
-  } */

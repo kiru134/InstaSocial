@@ -12,8 +12,6 @@
   margin-right: 1rem;
   user-select: none;
   cursor: pointer;
-  /* color: rgb(255, 255, 255);
-  fill: rgb(255, 255, 255); */
 }
 .likesvg:focus {
   outline: none;

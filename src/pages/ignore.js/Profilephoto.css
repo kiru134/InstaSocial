@@ -24,8 +24,6 @@
   height: 100%;
   background-color: black;
   visibility: hidden;
-
-  /* left-0 bg-gray-200 z-10 w-full justify-evenly items-center h-full bg-black-faded group-hover:flex hidden */
 }
 .profileactionscontainer:hover {
   display: flex;
@@ -38,6 +36,6 @@
 }
 .nopostdisplay {
   text-align: center;
-  font-size: 1.25rem; /* 20px */
+  font-size: 1.25rem;
   line-height: 1.75rem;
 }
