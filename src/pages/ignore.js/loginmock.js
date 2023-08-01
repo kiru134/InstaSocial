@@ -224,7 +224,7 @@ const LoginMock = () => {
             </div>
           </div>
         </div>
-        {loogedIn || (
+        {loogedIn && (
           <Snackbarcomp openmodal={true} message={"Logged In successfully"} />
         )}
         {error && <Snackbarcomp openmodal={true} message={error} />}
