@@ -8,29 +8,28 @@ export default function AddCommentInput({
   docId,
   setrecentcomment,
   commentInput,
-  addcommentcount,
+  previouscomments,
+  addnew,
 }) {
   const [comment, setComment] = useState("");
   const { isLoading, error, sendRequest: updatecomments } = useHttp();
   let userr = useSelector((state) => state.data.user);
 
+  const commentsetter = (data) => {
+    let timestamp = data.timestamp;
+    let user = userr.userauth;
+    let text = data.text;
+    let likes = [];
+    let id = data.id;
+    console.log(user);
+    // setComments([...previouscomments,{id,likes,text,timestamp,user}])
+    //   setComments([{ text, user, timestamp }, ...comments]);
+    setrecentcomment({ text, user, timestamp, likes, id });
+    addnew(true);
+  };
+
   const handleSubmitComment = (event) => {
     event.preventDefault();
-    const commentsetter = (data) => {
-      let timestamp = data.timestamp;
-      let user = userr.userauth;
-      let text = data.text;
-      let likes = [];
-      let id = data.id;
-      console.log(user);
-      //   setComments([{ text, user, timestamp }, ...comments]);
-      setrecentcomment({ text, user, timestamp, likes, id });
-      setComment("");
-      addcommentcount(true);
-      // setComments(
-      //   comments.unshift({ text: text, user: user, timestamp: timestamp })
-      // );
-    };
     const json_string = JSON.stringify({
       user_id: userr.userauth.userId,
       text: comment,
@@ -45,6 +44,7 @@ export default function AddCommentInput({
       },
       commentsetter
     );
+    setComment("");
   };
   return (
     <div className="addpostcontainer">

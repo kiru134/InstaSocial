@@ -17,7 +17,7 @@ const UserprofileEdit = () => {
 
   const [openModal, setOpenModal] = useState(false);
   const [profilepic, setprofilepic] = useState(user.userauth.dp);
-  const [accountType, setaccountType] = useState("PUBLIC");
+  const [accountType, setaccountType] = useState("");
   const [accountypemodal, setaccounttypeModal] = useState(false);
   const acounttypref = useRef(null);
   const [updatedfullname, setUpatedfullname] = useState("");
@@ -27,19 +27,19 @@ const UserprofileEdit = () => {
   const emailInputRef = useRef();
   const userfullnameInputRef = useRef();
   const { isLoading, error, sendRequest: updateUser } = useHttp();
+  const { Loading, profileerror, sendRequest: fetchUser } = useHttp();
   const [updatedprofile, setupadateprofile] = useState(false);
   const [profile, setupdateduser] = useState({});
+  const[{defaultbio,defaultcount},setdefaultbio]=useState({});
 
-  const [{ content, wordCount }, setContent] = useState({
-    content: "",
-    wordCount: 0,
-  });
+  const [{ content, wordCount }, setContent] = useState({});
   const userbioInputRef = useRef(null);
   let errormessage = "";
   let emailerrormessage = "";
   let userfullnameerrormsg = "";
-  let formisValid = false;
   const limit = 150;
+
+
 
   const BASE_URL = process.env.REACT_APP_BASE_URL;
   //   const [usernameblur, setusernametouched] = useState(false);
@@ -53,6 +53,31 @@ const UserprofileEdit = () => {
   //   setaccountType(acctype);
   //   console.log(acctype);
   // };
+  const populateuserprofile=(data)=>{
+    setUpatedfullname(data.fullname);
+    setUpdatedemail(data.email);
+    setContent(data.bio,limit)
+    setdefaultbio({defaultbio:data.bio,defaultcount:data.bio.length});
+    console.log(content)
+    setaccountType(data.public===1?"PUBLIC":"PRIVATE")
+
+  }
+  
+
+  useEffect(()=>{
+      console.log("inside fetch profileuser details");
+      const awaituserprofile = async () => {
+        await fetchUser(
+          {
+            url: BASE_URL + `users/user/${encodeURIComponent(user.userauth.username)}`,
+            headers: { "Content-Type": "application/json" },
+          },
+          populateuserprofile
+        );
+      };
+      awaituserprofile();
+  
+  },[])
 
   const emailValidate = (emailentered) => {
     // if (emailentered.length < 0) {
@@ -130,9 +155,7 @@ const UserprofileEdit = () => {
   const enteredPasswordisValid = passwordValidate(updatedpassword);
   const enteredfullnameisValid = validatefullname(updatedfullname);
 
-  if (enteredPasswordisValid && enteredemailisvalid && enteredfullnameisValid) {
-    formisValid = true;
-  }
+
 
   useEffect(() => {
     if (updatedprofile === true) {
@@ -169,7 +192,7 @@ const UserprofileEdit = () => {
       public: accountType === "PUBLIC" ? 1 : 0,
       dp: profilepic,
       bio: content,
-      newusername: userfullnameInputRef.current.value,
+      fullname: userfullnameInputRef.current.value,
     });
 
     updateUser(
@@ -217,7 +240,7 @@ const UserprofileEdit = () => {
         setContent({ content: text, wordCount: words.length });
       }
     },
-    [limit, setContent]
+    [limit,setContent]
   );
 
   return (
@@ -254,6 +277,7 @@ const UserprofileEdit = () => {
                     <Profileuploadmodal
                       modalclose={() => setOpenModal(!openModal)}
                       setuploadedpic={setprofilepic}
+                      username={user.userauth.username}
                     />
                   )}
                 </div>
@@ -270,13 +294,15 @@ const UserprofileEdit = () => {
                     maxLength="125"
                     onChange={(event) =>
                       setFormattedContent(event.target.value)
+                      
                     }
+                    value={content===undefined?defaultbio:content}
                     //   onKeyDown={handleuserfullnamekeydown}
                     rows="2"
                     cols="50"
                   />
                   <span className="wordcountfield">
-                    {wordCount}/{limit}
+                    {wordCount===undefined?defaultcount:wordCount}/{limit}
                   </span>
                 </div>
               </div>
@@ -290,8 +316,9 @@ const UserprofileEdit = () => {
                   autoCapitalize="off"
                   autoCorrect="off"
                   maxLength="75"
-                  onKeyDown={handleuserfullnamekeydown}
+                  onChange={handleuserfullnamekeydown}
                   placeholder="FullName"
+                  value={updatedfullname}
                 />
               </div>
               {!enteredfullnameisValid && (
@@ -305,7 +332,8 @@ const UserprofileEdit = () => {
                   type="password"
                   // value={password}
                   placeholder="Password"
-                  onKeyDown={handlepasswordKeyDown}
+                  onChange={handlepasswordKeyDown}
+                  
                 />
               </div>
               {!enteredPasswordisValid && (
@@ -318,8 +346,9 @@ const UserprofileEdit = () => {
                   ref={emailInputRef}
                   id="email"
                   type="email"
-                  onKeyDown={handleemailKeyDown}
+                  onChange={handleemailKeyDown}
                   placeholder="Email address"
+                  value={updatedemail}
                   // onChange={emailInputChangeHandler}
                 />
               </div>

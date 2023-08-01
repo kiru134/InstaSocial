@@ -13,26 +13,40 @@ export default function NewComment({
   islikedPhoto,
   commentInput,
 }) {
+  const prevcomments = postdetails.comments.length;
   // const [commentsSlice, setCommentsSlice] = useState(2);
   const [openCommentModal, setCommentModal] = useState(false);
   const [recentcomment, setrecentcomment] = useState({});
+  const [comlength, comcount] = useState(prevcomments);
 
   const handleonClick = () => {
     setCommentModal(true);
     setrecentcomment({});
   };
+  console.log(prevcomments);
 
-  if (!(Object.keys(recentcomment).length === 0)) {
-    postdetails.comments.length = postdetails.comments.length + 1;
-  }
+  // if (!(Object.keys(recentcomment).length === 0)) {
+  //   comcount((prevcount) => prevcount + 1);
+  // }
+
+  //  const comcount=(c)=>{
+  //   // postdetails.comments.length = c;
+  //   setcomlength(c);
+  //   console.log(c);
+  //  }
+  console.log(recentcomment);
   return (
     <>
       <div className="commentcontainer">
         {/* {(Object.keys(recentcomment).length != 0) } */}
-        {postdetails.comments.length > 1 && (
+        {postdetails.comments.length >= 1 && (
           <button onClick={handleonClick}>
             <p className="viewallcommentscontainer">
-              View all {postdetails.comments.length} comments
+              View all{" "}
+              {Object.keys(recentcomment).length !== 0
+                ? comlength + 1
+                : comlength}{" "}
+              comments
             </p>
           </button>
         )}
@@ -46,6 +60,7 @@ export default function NewComment({
             modalclosed={() => setCommentModal(!openCommentModal)}
             // postid={pid}
             islikedPhoto={islikedPhoto}
+            commentscount={comcount}
 
             // totalLikes={postdetails.likes.length}
           ></NewCommentModal>

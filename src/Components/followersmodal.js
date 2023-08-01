@@ -1,5 +1,5 @@
 import { Modal, makeStyles } from "@material-ui/core";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useHttp from "../Hooks/usehttphook";
 import "./followersmodal.css";
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     variant: "outlined",
     backgroundColor: theme.palette.background.paper,
     position: "absolute",
-    width: 400,
+    width: 350,
     minHeight: 200,
     maxHeight: 400,
     borderRadius: "12px",
@@ -39,7 +39,8 @@ const Userfollowers = () => {
   const [followers, setfollowers] = useState({});
   const { isLoading, error, sendRequest: fetchprofileUser } = useHttp();
   const [searchInput, setSearchInput] = useState("");
-
+  const [filtereddata,setFiltereddata] =useState({});
+  let searchInputref = useRef(null);
   const navigate = useNavigate();
   let { username } = useParams();
   const handleonclose = () => {
@@ -48,12 +49,14 @@ const Userfollowers = () => {
   };
   const getuserfollowers = (data) => {
     setfollowers(data.followers);
+    setFiltereddata(data.followers);
+
   };
   useEffect(() => {
     const awaituserprofile = async () => {
       await fetchprofileUser(
         {
-          url: BASE_URL + `/users/user/${encodeURIComponent(username)}`,
+          url: BASE_URL + `users/user/${encodeURIComponent(username)}`,
           headers: { "Content-Type": "application/json" },
         },
         getuserfollowers
@@ -63,19 +66,23 @@ const Userfollowers = () => {
   }, []);
   console.log("insidefollowers");
 
-  const handleChange = (e) => {
-    e.preventDefault();
-    setSearchInput(e.target.value);
-  };
 
-  if (searchInput.length > 0) {
-    followers.filter((follower) => {
-      return follower.username.match(searchInput);
-    });
+  const searchItems=(searchval)=>{
+      setSearchInput(searchval)
+      if (searchInput !== '') {
+        const filteredData =followers.filter((item) => {
+            return Object.values(item).join('').toLowerCase().includes(searchInput.toLowerCase())
+        })
+        setFiltereddata(filteredData)
+    }
+    else(setFiltereddata(followers))
   }
+
+
+
   const removefollower = (removeddata) => {
     if (removeddata != null) {
-      setfollowers(followers.filter((item) => item !== removeddata));
+      setFiltereddata(filtereddata.filter((item) => item !== removeddata));
     }
   };
   return (
@@ -91,12 +98,13 @@ const Userfollowers = () => {
                 <input
                   type="search"
                   placeholder="Search"
-                  onChange={handleChange}
+                  onChange={(e) => searchItems(e.target.value)}
+                  ref={searchInputref}
                   value={searchInput}
                 ></input>
               </div>
-              {followers.length >= 1 &&
-                followers.map((item) => (
+              {filtereddata.length >= 1 &&
+                filtereddata.map((item) => (
                   <Followerlist
                     key={item.id}
                     follower={item}

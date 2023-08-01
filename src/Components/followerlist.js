@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import useHttp from "../Hooks/usehttphook";
 import { Avatar } from "@material-ui/core";
+import { useLocation, Link } from "react-router-dom";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const Followerlist = ({ follower, profileuser, setremovefollower }) => {
@@ -20,8 +21,9 @@ const Followerlist = ({ follower, profileuser, setremovefollower }) => {
         url:
           BASE_URL +
           `users/remove-follower?username=${encodeURIComponent(
-            follower.username
-          )}&follower=${encodeURIComponent(user.userauth.username)}`,
+            user.userauth.username
+            
+          )}&follower=${encodeURIComponent(follower.username)}`,
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       },
@@ -33,11 +35,14 @@ const Followerlist = ({ follower, profileuser, setremovefollower }) => {
     <>
       <div className="followerslistcontainer">
         <div className="followeravatar">
-          <Avatar style={{ width: "40px", height: "40px" }}>
-            src={follower.dp}
+          <Avatar style={{ width: "40px", height: "40px" }}
+          src={follower.dp}>
+            
           </Avatar>
         </div>
+        <Link to={`/profile/${follower.username}`}style={{ textDecoration: "none", color: "black" }}>
         <div className="followersdetails">{follower.username}</div>
+        </Link>
         {profileuser === user.userauth.username && (
           <div className="Removebutton">
             <button onClick={handleremovefollower}>Remove</button>

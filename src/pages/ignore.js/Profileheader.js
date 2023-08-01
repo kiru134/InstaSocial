@@ -198,7 +198,7 @@ const ProfileHeader = ({
                       </span>
                       {gallery.length == 1 ? ` post` : ` posts`}
                     </div>
-                    {fc > 0 && activatefollow == "Following" && (
+                    {fc > 0 && (activatefollow == "Following" ||profileUsername == user.userauth.username) && (
                       <Link
                         style={{ textDecoration: "none", color: "black" }}
                         to={`/profile/${profileUsername}/followers`}
@@ -208,7 +208,22 @@ const ProfileHeader = ({
                         {fc === 1 ? ` follower` : ` followers`}
                       </Link>
                     )}
-                    {fc <= 0 && (
+                    { fc<=0 && (
+                      <div>
+                        <span className="profile-stat-count">{fc}</span>
+                        {fc === 1 ? ` follower` : ` followers`}
+                      </div>
+                    )}
+                    {/* {fc>0 && profileUsername == user.userauth.username &&
+                    ( 
+                      <div>
+                      <span className="profile-stat-count">{fc}</span>
+                      {fc === 1 ? ` follower` : ` followers`}
+                    </div>
+                    )
+
+                    } */}
+                       {fc >0 && (activatefollow == "Follow"||activatefollow == "Requested") &&(
                       <div>
                         <span className="profile-stat-count">{fc}</span>
                         {fc === 1 ? ` follower` : ` followers`}

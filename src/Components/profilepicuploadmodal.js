@@ -1,5 +1,5 @@
 import { Modal, makeStyles } from "@material-ui/core";
-import { useState, useRef } from "react";
+import { useState,useEffect, useRef } from "react";
 import { storage } from "../FirebaseProfilepicture/Firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import "../pages/userprofiledit.css";
@@ -30,17 +30,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Profileuploadmodal = ({ modalclose, setuploadedpic }) => {
+const Profileuploadmodal = ({ modalclose, setuploadedpic,username }) => {
   const modalclasses = useStyles();
   const [modalStyle, setModalStyle] = useState(getModalStyle);
   const [openModal, setOpenModal] = useState(true);
-
+ const [profilepic,setprofilepic] = useState(false);
   const filepickerRef = useRef(null);
 
   const handleonclose = () => {
     setOpenModal(!openModal);
     modalclose(true);
   };
+
+  useEffect(()=>{
+   if(profilepic===true){
+    setOpenModal(!openModal);
+    modalclose(true);
+   }
+  },[profilepic])
 
   const addUserAvatar = (e) => {
     if (e.target.files[0]) {
@@ -49,13 +56,14 @@ const Profileuploadmodal = ({ modalclose, setuploadedpic }) => {
   };
   const addImagetofirebase = (image) => {
     console.log(image);
-    const imageRef = ref(storage, "image");
+    const imageRef = ref(storage,`/Profileimage/${username}.jpeg`);
     uploadBytes(imageRef, image)
       .then(() => {
         getDownloadURL(imageRef)
           .then((url) => {
             // setUploadedAvatar(url);
             setuploadedpic(url);
+            setprofilepic(true)
           })
           .catch((error) => {
             console.log(error.message, "error getting the image url");
@@ -72,6 +80,7 @@ const Profileuploadmodal = ({ modalclose, setuploadedpic }) => {
   };
   const removeprofilephoto = () => {
     setuploadedpic(null);
+    setprofilepic(false);
   };
   return (
     <>

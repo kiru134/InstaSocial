@@ -34,8 +34,7 @@ const Createcomment = ({ item, deletecomment, postuser }) => {
 
   const checkcommenteduser = () => {
     if (
-      item.user.username === user.userauth.username ||
-      item.post_id === postuser
+      item.user.username === user.userauth.username || postuser
     ) {
       // setdeleteaccess(true);
       return true;
@@ -115,7 +114,7 @@ const Createcomment = ({ item, deletecomment, postuser }) => {
                   {item.user.username}
                 </Link>
 
-                {item.text}
+                <span>{item.text}</span>
               </span>
             </div>
 
