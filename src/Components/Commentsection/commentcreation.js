@@ -24,8 +24,6 @@ const Createcomment = ({ item, deletecomment, postuser }) => {
 
   let distance = formatDistance(Date.now(), new Date(item.timestamp));
   console.log(new Date(item.timestamp));
-  console.log(item.timestamp);
-  console.log(distance);
   const [toggleLiked, setToggleLiked] = useState(islikedPhoto);
   const [likes, setLikes] = useState(item.likes.length);
   const { isLoading, error, sendRequest: updateLikes } = useHttp();
@@ -34,7 +32,8 @@ const Createcomment = ({ item, deletecomment, postuser }) => {
 
   const checkcommenteduser = () => {
     if (
-      item.user.username === user.userauth.username || postuser
+      item.user.username === user.userauth.username ||
+      item.user.username === postuser
     ) {
       // setdeleteaccess(true);
       return true;
@@ -129,7 +128,7 @@ const Createcomment = ({ item, deletecomment, postuser }) => {
                 </p>
               )}
               {/* display option to delete the comment only on hover only for posted user and comment user */}
-              {checkcommenteduser() && (
+              {checkcommenteduser() === true && (
                 <button
                   style={{ background: "none", border: 0 }}
                   onClick={() => setCommentdeleteModal(true)}
