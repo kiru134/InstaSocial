@@ -11,11 +11,15 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const Createcomment = ({ item, deletecomment, postuser }) => {
   let user = useSelector((state) => state.data.user);
-  const currentuserinphotolike = item.likes.find(
-    (o) => o.username === `${user.userauth.username}`
-  );
+  let currentuserinphotolike = "";
+  if (item.likes.length !== 0) {
+    currentuserinphotolike = item.likes.find(
+      (o) => o.username === `${user.userauth.username}`
+    );
+  }
+
   const islikedPhoto = () => {
-    if (currentuserinphotolike != undefined) {
+    if (currentuserinphotolike != "") {
       return true;
     } else {
       return false;
@@ -23,7 +27,7 @@ const Createcomment = ({ item, deletecomment, postuser }) => {
   };
 
   let distance = formatDistance(Date.now(), new Date(item.timestamp));
-  console.log(new Date(item.timestamp));
+
   const [toggleLiked, setToggleLiked] = useState(islikedPhoto);
   const [likes, setLikes] = useState(item.likes.length);
   const { isLoading, error, sendRequest: updateLikes } = useHttp();

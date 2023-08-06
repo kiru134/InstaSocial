@@ -16,24 +16,16 @@ export default function NewComment({
   const prevcomments = postdetails.comments.length;
   // const [commentsSlice, setCommentsSlice] = useState(2);
   const [openCommentModal, setCommentModal] = useState(false);
-  const [recentcomment, setrecentcomment] = useState({});
+  const [recentcomment, setrecentcomment] = useState([]);
   const [comlength, comcount] = useState(prevcomments);
 
   const handleonClick = () => {
     setCommentModal(true);
-    setrecentcomment({});
+    setrecentcomment([]);
   };
   console.log(prevcomments);
 
-  // if (!(Object.keys(recentcomment).length === 0)) {
-  //   comcount((prevcount) => prevcount + 1);
-  // }
-
-  //  const comcount=(c)=>{
-  //   // postdetails.comments.length = c;
-  //   setcomlength(c);
-  //   console.log(c);
-  //  }
+  console.log(comlength);
   console.log(recentcomment);
   return (
     <>
@@ -43,10 +35,9 @@ export default function NewComment({
           <button onClick={handleonClick}>
             <p className="viewallcommentscontainer">
               View all{" "}
-              {Object.keys(recentcomment).length !== 0
-                ? comlength + 1
-                : comlength}{" "}
-              comments
+              {/* {Object.keys(recentcomment).length !== 0
+                ? comlength + 1 */}
+              {comlength} comments
             </p>
           </button>
         )}
@@ -57,61 +48,55 @@ export default function NewComment({
             // postimage={image}
             // posteduser={postdetails.user.username}
             // dp={postuserdp}
+            commentscount={comcount}
             modalclosed={() => setCommentModal(!openCommentModal)}
             // postid={pid}
             islikedPhoto={islikedPhoto}
-            commentscount={comcount}
 
             // totalLikes={postdetails.likes.length}
           ></NewCommentModal>
         )}
-        {!(Object.keys(recentcomment).length === 0) && (
+        {!(Object.keys(recentcomment).length === 0) &&
           //   <p key={`${recentcomment[0].timestamp}-${recentcomment[0].user.username}`}>
-          <div className="recentcommentitemontimeline">
-            <Link
-              to={`/profile/${recentcomment.user.username}`}
-              style={{ marginRight: "8px" }}
-            >
-              <Avatar
-                alt={recentcomment.user.username}
-                style={{
-                  width: "20px",
-                  height: "20px",
-                  marginBottom: "2px",
-                }}
-                src={recentcomment.user.dp}
-              ></Avatar>
-            </Link>
-            <Link
-              to={`/profile/${recentcomment.user.username}`}
-              className="commentedusername"
-            >
-              <span
-                style={{
-                  fontWeight: 600,
-                  fontSize: "12px",
-                  marginRight: "3px",
-                }}
-              >
-                {recentcomment.user.username}
-              </span>
-            </Link>
-            <span>{recentcomment.text}</span>
-          </div>
-        )}
-        {/* //   <p>
-        //     <Link
-        //       to={`/profile/${recentcomment.user.username}`}
-        //       className="commentedusername"
-        //     >
-        //       <span>{recentcomment.user.username}</span>
-        //     </Link>
-        //     <span>{recentcomment.text}</span>
-        //   </p>
-        // )} */}
+          recentcomment.map((item) => {
+            return (
+              <div key={item.id} className="recentcommentitemontimeline">
+                <Link
+                  to={`/profile/${item.user.username}`}
+                  style={{ marginRight: "8px" }}
+                >
+                  <Avatar
+                    alt={item.user.username}
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      marginBottom: "2px",
+                    }}
+                    src={item.user.dp}
+                  ></Avatar>
+                </Link>
+                <Link
+                  to={`/profile/${item.user.username}`}
+                  className="commentedusername"
+                >
+                  <span
+                    style={{
+                      fontWeight: 600,
+                      fontSize: "12px",
+                      marginRight: "3px",
+                    }}
+                  >
+                    {item.user.username}
+                  </span>
+                </Link>
+                <span>{item.text}</span>
+              </div>
+            );
+          })}
+
         <AddCommentInput
           docId={postdetails.id}
-          // setComments={setComments}
+          comlength={comcount}
           setrecentcomment={setrecentcomment}
           commentInput={commentInput}
         />

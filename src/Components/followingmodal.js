@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useHttp from "../Hooks/usehttphook";
 import "./followersmodal.css";
-import Followerlist from "./followerlist";
+import Followinglist from "./followinglist";
 
 function getModalStyle() {
   const top = 50;
@@ -32,25 +32,29 @@ const useStyles = makeStyles((theme) => ({
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-const Userfollowers = () => {
+const Userfollowings = () => {
   const modalclasses = useStyles();
   const [modalStyle, setModalStyle] = useState(getModalStyle);
   const [openModal, setModal] = useState(true);
-  const [followers, setfollowers] = useState({});
+  const [followings, setfollowing] = useState({});
   const { isLoading, error, sendRequest: fetchprofileUser } = useHttp();
   const [searchInput, setSearchInput] = useState("");
   const [filtereddata, setFiltereddata] = useState({});
   let searchInputref = useRef(null);
   const navigate = useNavigate();
   let { username } = useParams();
+
   const handleonclose = () => {
     setModal(false);
     navigate(`/profile/${username}/`);
   };
+
   const getuserfollowers = (data) => {
-    setfollowers(data.followers);
-    setFiltereddata(data.followers);
+    setfollowing(data.followings);
+    console.log(data.followings);
+    setFiltereddata(data.followings);
   };
+
   useEffect(() => {
     const awaituserprofile = async () => {
       await fetchprofileUser(
@@ -63,33 +67,29 @@ const Userfollowers = () => {
     };
     awaituserprofile();
   }, []);
-  console.log("insidefollowers");
+
+  console.log("insidefollowings" + { followings });
 
   const searchItems = (searchval) => {
     setSearchInput(searchval);
     if (searchInput !== "") {
-      const filteredData = followers.filter((item) => {
+      const filteredData = followings.filter((item) => {
         return Object.values(item)
           .join("")
           .toLowerCase()
           .includes(searchInput.toLowerCase());
       });
       setFiltereddata(filteredData);
-    } else setFiltereddata(followers);
+    } else setFiltereddata(followings);
   };
 
-  const removefollower = (removeddata) => {
-    if (removeddata != null) {
-      setFiltereddata(filtereddata.filter((item) => item !== removeddata));
-    }
-  };
   return (
     <>
       <Modal open={openModal} onClose={handleonclose}>
         <div style={modalStyle} className={modalclasses.paper}>
           <div className="followerscontainer">
             <div className="followersmodalheader">
-              <h1>Followers</h1>
+              <h1>Following</h1>
             </div>
             <div className="followersmodalcontent">
               <div className="searchcomponent">
@@ -103,11 +103,10 @@ const Userfollowers = () => {
               </div>
               {filtereddata.length >= 1 &&
                 filtereddata.map((item) => (
-                  <Followerlist
+                  <Followinglist
                     key={item.id}
-                    follower={item}
+                    following={item}
                     profileuser={username}
-                    setremovefollower={removefollower}
                   />
                 ))}
             </div>
@@ -118,4 +117,4 @@ const Userfollowers = () => {
   );
 };
 
-export default Userfollowers;
+export default Userfollowings;

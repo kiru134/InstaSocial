@@ -6,26 +6,27 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export default function AddCommentInput({
   docId,
+  comlength,
   setrecentcomment,
   commentInput,
-  previouscomments,
-  addnew,
+  addnewcomments,
 }) {
   const [comment, setComment] = useState("");
   const { isLoading, error, sendRequest: updatecomments } = useHttp();
   let userr = useSelector((state) => state.data.user);
 
+  console.log(setrecentcomment);
   const commentsetter = (data) => {
+    console.log(data);
     let timestamp = data.timestamp;
     let user = userr.userauth;
     let text = data.text;
     let likes = [];
     let id = data.id;
-    console.log(user);
-    // setComments([...previouscomments,{id,likes,text,timestamp,user}])
-    //   setComments([{ text, user, timestamp }, ...comments]);
-    setrecentcomment({ text, user, timestamp, likes, id });
-    addnew(true);
+    comlength((prev) => prev + 1);
+    setrecentcomment((prev) => [...prev, { text, user, timestamp, likes, id }]);
+    addnewcomments(true);
+    // console.log(addnewcomments);
   };
 
   const handleSubmitComment = (event) => {

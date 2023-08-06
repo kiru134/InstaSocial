@@ -10,6 +10,7 @@ import SignUpMock from "./pages/ignore.js/signupmock";
 import PasswordReset from "./pages/passwordreset";
 import UserprofileEdit from "./pages/userprofileedit";
 import Userfollowers from "./Components/followersmodal";
+import Userfollowings from "./Components/followingmodal";
 import { useLocation } from "react-router-dom";
 import Forgetpassword from "./pages/forgetpasswordpage";
 import NotFound from "./pages/Errorpages/404notfoundpage";
@@ -46,6 +47,10 @@ function App() {
       {previousLocation && (
         <Routes>
           <Route element={<PrivateRoute />}>
+            <Route
+              element={<Userfollowings />}
+              path="/profile/:username/following"
+            ></Route>
             <Route
               element={<Userfollowers />}
               path="/profile/:username/followers"

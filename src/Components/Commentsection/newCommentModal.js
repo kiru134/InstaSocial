@@ -79,16 +79,16 @@ const NewCommentModal = ({
   const [comments, setComments] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [recentcomment, setrecentcomment] = useState({});
+  const [recentcomment, setrecentcomment] = useState([]);
   const [deletepostmodal, setpostdeleteModal] = useState(false);
   const [commentslength, setcommentslength] = useState(post.comments.length);
+
   const navigate = useNavigate();
   let distance = formatDistance(Date.now(), new Date(post.timestamp));
   const commentInput = useRef(null);
   const handlecommentFocus = () => commentInput.current.focus();
   let user = useSelector((state) => state.data.user);
   console.log(recentcomment);
-  console.log(Object.keys(comments).length);
 
   useEffect(() => {
     setComments([]);
@@ -96,11 +96,8 @@ const NewCommentModal = ({
     fetchComments();
   }, [openModal]);
 
-  console.log("inside modal");
-
   const postdeletedid = (status, pid) => {
     if (status === true) {
-      console.log(pid);
       deletedpid(pid);
     } else {
       deletedpid(null);
@@ -111,33 +108,13 @@ const NewCommentModal = ({
     setOpenModal(!openModal);
     modalclosed(true);
   };
-  console.log(typeof recentcomment);
-  console.log(recentcomment);
 
   const removecomment = (id) => {
     setComments((current) => current.filter((item) => item.id !== id));
     commentscount((prevcount) => prevcount - 1);
     setcommentslength((prevcount) => prevcount - 1);
-
-    // likescount,updatelikescount and commentcountafteradding comment
   };
 
-  // const getpostdeletedstatus = (status) => {
-  //   if (status == true) {
-  //     validatepostdelete((prev) => !prev);
-  //     setOpenModal(!openModal);
-  //     modalclosed(true);
-  //   }
-  // };
-
-  // if (checkpostdeleted === true) {
-  //   window.location.reload(true);
-  // }
-
-  // const addcomment = (status) => {
-  //   if (status === true){ commentscount((prevcount) => prevcount + 1);
-  //   }
-  // };
   const setlikescount = (status) => {
     if (status === true) {
       likescount((prevcount) => prevcount + 1);
@@ -147,18 +124,15 @@ const NewCommentModal = ({
     if (data.length > 0) {
       setComments([...comments, ...data]);
       setHasMore(true);
-      console.log("inside new comment if block");
-      console.log(comments);
+
       // setComments((prevComments) => [...prevComments, ...data]);
       setCurrentPage(currentPage + 1);
     } else {
       setHasMore(false);
     }
-    console.log(data);
   };
 
   console.log(hasMore);
-
   const fetchComments = () => {
     const apiUrl =
       BASE_URL +
@@ -182,17 +156,21 @@ const NewCommentModal = ({
     setpostdeleteModal(true);
   };
 
-  console.log(deletepostmodal);
+  console.log("newcommlen" + commentslength);
 
-  const appendnewcomment = (status) => {
-    if (status === true) {
-      fetchComments();
-      setcommentslength((prev) => prev + 1);
-      commentscount((prev) => prev + 1);
+  if (Object.keys(recentcomment).length !== 0) {
+    recentcomment.map((item) => console.log(item));
+    // setcommentslength((prev) => prev + 1);
+  }
+
+  console.log(recentcomment);
+  const addnewcomment = (status) => {
+    if (status == true) {
+      console.log("inside newco,ment");
+      commentscount((prevcount) => prevcount + 1);
     }
   };
 
-  console.log("newcommlen" + commentslength);
   return ReactDOM.createPortal(
     <>
       <Modal open={openModal} onClose={handleonclose}>
@@ -246,8 +224,6 @@ const NewCommentModal = ({
                 />
               </div>
               <div id="scrollableDiv" className="commentsdisplaysection">
-                {/* {post.comments.length === 0 && <p>No Comments yet</p>} */}
-                {/* {post.comments.length > 0 && ( */}
                 <div className="postcaption">
                   <Link
                     to={`/profile/${post.user.username}`}
@@ -270,6 +246,7 @@ const NewCommentModal = ({
                 {commentslength === 0 && (
                   <h2 className="nocommentscontent">No Comments yet...</h2>
                 )}
+
                 {post.comments.length > 0 && (
                   <InfiniteScroll
                     dataLength={commentslength}
@@ -280,16 +257,16 @@ const NewCommentModal = ({
                     scrollableTarget="scrollableDiv"
                     style={{ width: "100%" }}
                   >
-                    {/* {(Object.keys(comments).length<12) && !(Object.keys(recentcomment).length === 0) &&(
-                      
-                       
-                        <Createcomment
-                       key={recentcomment.id}
-                       item={recentcomment}
-                       deletecomment={removecomment}
-                     ></Createcomment>
-                    )}
-                     */}
+                    {!(Object.keys(recentcomment).length === 0) &&
+                      recentcomment.map((item) => {
+                        return (
+                          <Createcomment
+                            key={item.id}
+                            item={item}
+                            deletecomment={removecomment}
+                          ></Createcomment>
+                        );
+                      })}
 
                     {comments.map((item) => {
                       return (
@@ -301,16 +278,6 @@ const NewCommentModal = ({
                         ></Createcomment>
                       );
                     })}
-
-                    {/* {(Object.keys(comments).length>=12) && !(Object.keys(recentcomment.length === 0)) && (
-                      //   <p key={`${recentcomment[0].timestamp}-${recentcomment[0].user.username}`}>
-                    
-                      <Createcomment
-                        key={recentcomment.id}
-                        item={recentcomment}
-                        deletecomment={removecomment}
-                      ></Createcomment>
-                    )} */}
                   </InfiniteScroll>
                 )}
               </div>
@@ -330,8 +297,6 @@ const NewCommentModal = ({
                     totalLikes={post.likes.length}
                     handleFocus={handlecommentFocus}
                     likestatus={setlikescount}
-
-                    // handlemodalpopup={handlecommentmodal}
                   ></LikedActions>
                 </div>
                 <p className="posteddate">
@@ -341,13 +306,10 @@ const NewCommentModal = ({
                 {/* call the addcommentInput */}
                 <AddCommentInput
                   docId={post.id}
-                  // comments={comments}
-                  //    setComments={setComments}
+                  comlength={setcommentslength}
                   setrecentcomment={setrecentcomment}
                   commentInput={commentInput}
-                  // addcommentcount={addcomment}
-                  // setComment={setComments}
-                  addnew={appendnewcomment}
+                  addnewcomments={addnewcomment}
                 ></AddCommentInput>
               </div>
             </div>
