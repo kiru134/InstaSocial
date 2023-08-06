@@ -74,6 +74,7 @@ const Homepage = () => {
   console.log(user);
   console.log(user.userauth.username);
   console.log(user.userauth.dp);
+  document.title = `Homepage`;
 
   // const navigate = useNavigate();
   // const naviagtehandler = () => {

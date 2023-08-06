@@ -116,13 +116,15 @@ const Navbar = () => {
             <SlideshowIcon></SlideshowIcon>
             <span>Reels</span>
           </button> */}
-
-          <div className={classes.linkComponent}>
+          <Link
+            to={`/profile/${user.userauth.username}/direct`}
+            className={classes.linkComponent}
+          >
             <button className={classes.sidenav_button}>
               <ChatIcon></ChatIcon>
               <span>Messages</span>
             </button>
-          </div>
+          </Link>
 
           <div className={classes.linkComponent}>
             <button className={classes.sidenav_button}>

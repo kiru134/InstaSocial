@@ -42,6 +42,8 @@ const Dummy = () => {
     awaituserprofile();
   }, [currentuser]);
 
+  document.title = `${currentuser.username}`;
+
   // const updatefollowercount = (data) => {};
   const deletepostwithid = (id) => {
     if (id != null) {

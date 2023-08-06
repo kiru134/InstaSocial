@@ -11,6 +11,7 @@ import LoginMock from "../pages/ignore.js/loginmock";
 function MainNavigation() {
   let user = useSelector((state) => state.data.user);
   console.log(store.getState());
+  document.title = "InstaSocial";
 
   return (
     <React.Fragment>

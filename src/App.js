@@ -14,6 +14,7 @@ import Userfollowings from "./Components/followingmodal";
 import { useLocation } from "react-router-dom";
 import Forgetpassword from "./pages/forgetpasswordpage";
 import NotFound from "./pages/Errorpages/404notfoundpage";
+import Messaging from "./Components/Messaging/messages";
 
 function App() {
   const location = useLocation();
@@ -25,7 +26,7 @@ function App() {
         <Route element={<PrivateRoute />}>
           <Route element={<Dummy />} path="/profile/:username/"></Route>
           <Route element={<UserprofileEdit />} path="/profile/:username/edit" />
-
+          <Route element={<Messaging />} path="/profile/:username/direct" />
           <Route element={<Homepage />} path="/Homepage" exact />
 
           {/* <Route element={<Homepage />} path="/Homepage" exact /> */}

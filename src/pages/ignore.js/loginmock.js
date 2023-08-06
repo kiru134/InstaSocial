@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import useHttp from "../../Hooks/usehttphook";
 import "./signup.css";
 import "./loginpage.css";
-
+import { MetroSpinner } from "react-spinners-kit";
 import Loading from "../../Components/Loading";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../features/UserSlice";
@@ -150,7 +150,6 @@ const LoginMock = () => {
   return (
     <React.Fragment>
       <>
-        {isLoading && <Loading></Loading>}
         <div className="logincomponentconatiner">
           <div className="logincomponentsubconatiner">
             <div className="animationconatiner">
@@ -202,7 +201,12 @@ const LoginMock = () => {
                     type="submit"
                     disabled={!formisValid}
                   >
-                    Log In
+                    {isLoading && (
+                      <div className="loginspinner">
+                        <MetroSpinner size={18} color="#FFFFFF" />
+                      </div>
+                    )}
+                    {!isLoading && "Log In"}
                   </button>
                 </form>
                 <div className="divider">

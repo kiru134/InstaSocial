@@ -126,6 +126,7 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none;
   width: 100%;
+  overflow-x: hidden;
 }
 .commentsdisplaysection::-webkit-scrollbar {
   display: none;

@@ -6,6 +6,8 @@ import React, { useState, useEffect } from "react";
 import { Avatar, Button } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
 import Loading from "../Components/Loading";
+import classess from "./postCard.module.css";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const Timeline = (props) => {
@@ -43,8 +45,14 @@ const Timeline = (props) => {
   console.log(posts);
   return (
     <>
-      {isLoading && <Loading></Loading>}
       <div className={classes.timeline}>
+        {isLoading && (
+          <Skeleton
+            count={2}
+            height={500}
+            className={classes.loadingskeleton}
+          />
+        )}
         {/* create skeleton here */}
         {posts.length >= 1 &&
           posts.map((post) => (

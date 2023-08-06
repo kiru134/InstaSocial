@@ -171,6 +171,8 @@ const NewCommentModal = ({
     }
   };
 
+  console.log(post.user.username);
+
   return ReactDOM.createPortal(
     <>
       <Modal open={openModal} onClose={handleonclose}>

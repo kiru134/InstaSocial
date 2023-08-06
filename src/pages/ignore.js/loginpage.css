@@ -116,6 +116,12 @@
 .loginsubmitbutton:active {
   transition: transform scale(0.95);
 }
+
+.loginspinner {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
 .divider {
   width: 100%;
   display: flex;

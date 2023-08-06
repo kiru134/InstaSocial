@@ -36,9 +36,10 @@ const Createcomment = ({ item, deletecomment, postuser }) => {
 
   const checkcommenteduser = () => {
     if (
-      item.user.username === user.userauth.username ||
-      item.user.username === postuser
+      postuser === user.userauth.username ||
+      item.user.username === user.userauth.username
     ) {
+      console.log(postuser);
       // setdeleteaccess(true);
       return true;
     } else {
